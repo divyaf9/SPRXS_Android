@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "521753727848",
+    "firebase_url": "https://sprxsandroid.firebaseio.com",
+    "project_id": "sprxsandroid",
+    "storage_bucket": "sprxsandroid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:521753727848:android:11b2d550fa8584e5",
+        "android_client_info": {
+          "package_name": "com.divya.sprxs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "521753727848-rta5a47srscfb0giqjjdbthlks2hobfn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.divya.sprxs",
+            "certificate_hash": "982bf76623e5311635cf62e8fcd2a85a8cc7bd7c"
+          }
+        },
+        {
+          "client_id": "521753727848-pgr3jj2crjr1ee22u9bd961ugkrna8go.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2Eo1t3lsCI2GHJaXrZm6Vf29qqwypiNU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "521753727848-pgr3jj2crjr1ee22u9bd961ugkrna8go.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

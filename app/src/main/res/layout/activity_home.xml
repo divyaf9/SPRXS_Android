@@ -1,0 +1,62 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="right"
+    tools:context=".activity.HomeActivity">
+
+    <!--<androidx.core.widget.NestedScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"></androidx.core.widget.NestedScrollView>-->
+
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:tint="@color/white"-->
+    <!--app:backgroundTint="@color/colorPrimary"-->
+    <!--app:fabAlignmentMode="center"-->
+    <!--app:hideOnScroll="true"-->
+    <!--app:layout_anchor="@id/bottomAppBar"-->
+    <!--app:srcCompat="@drawable/ic_add_black_24dp" />-->
+
+
+    <!--<com.google.android.material.bottomappbar.BottomAppBar-->
+    <!--android:id="@+id/bottomAppBar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="57dp"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--app:fabCradleRoundedCornerRadius="0dp"-->
+    <!--app:backgroundTint="@color/colorPrimary" />-->
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigation_bar_height"
+        android:layout_gravity="bottom"
+        android:background="#F5F5F5"
+        app:menu="@menu/bottom_navigation" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="786dp"
+        android:layout_above="@id/bottomNavBar">
+
+    </FrameLayout>
+
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--android:id="@+id/floatingActionButton"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:backgroundTint="@color/colorPrimary"-->
+
+    <!--android:clickable="true"-->
+    <!--app:layout_anchor="@id/bottomNavBar"-->
+    <!--android:focusable="auto"-->
+    <!--android:tint="@color/white"-->
+    <!--app:layout_anchorGravity="top|center"-->
+    <!--app:srcCompat="@drawable/ic_add_black_24dp" />-->
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

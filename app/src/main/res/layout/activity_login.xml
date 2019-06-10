@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/passwordTextView"
+        android:layout_width="278dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="365dp"
+        android:layout_marginBottom="311dp"
+        android:background="@drawable/text_view_shape"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--<TextView-->
+    <!--android:layout_width="357dp"-->
+    <!--android:layout_height="71dp"-->
+    <!--android:layout_marginTop="202dp"-->
+    <!--android:layout_marginBottom="458dp"-->
+    <!--android:gravity="center"-->
+    <!--android:text="Login to SPRXS"-->
+    <!--android:textColor="@color/colorPrimary"-->
+    <!--android:textSize="36sp"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintHorizontal_bias="0.5"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+    <EditText
+        android:id="@+id/emailTextView"
+        android:layout_width="278dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="299dp"
+        android:layout_marginBottom="377dp"
+        android:background="@drawable/text_view_shape"
+        android:ems="10"
+        android:hint="Email Address"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--<EditText-->
+    <!--android:id="@+id/passwordTextView"-->
+    <!--android:layout_width="280dp"-->
+    <!--android:layout_height="53dp"-->
+    <!--android:background="@drawable/text_view_shape"-->
+    <!--android:ems="10"-->
+    <!--android:hint="Password"-->
+    <!--android:inputType="textPassword"-->
+    <!--android:paddingLeft="4dp"-->
+    <!--tools:layout_editor_absoluteX="59dp"-->
+    <!--tools:layout_editor_absoluteY="549dp" />-->
+
+    <TextView
+        android:id="@+id/forgotPasswordTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginLeft="148dp"
+        android:layout_marginTop="563dp"
+        android:layout_marginEnd="149dp"
+        android:layout_marginRight="149dp"
+        android:layout_marginBottom="145dp"
+        android:autoLink="all"
+        android:clickable="false"
+        android:focusable="auto"
+        android:linksClickable="false"
+        android:text="Forgot Password?"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="278dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="445dp"
+        android:layout_marginBottom="231dp"
+        android:background="@drawable/oval_shape"
+        android:text="LOG IN"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="276dp"
+        android:layout_height="145dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginBottom="458dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/orange_sprxs_logo" />
+
+    <TextView
+        android:id="@+id/signupTextView"
+        android:layout_width="225dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="103dp"
+        android:layout_marginLeft="103dp"
+        android:layout_marginTop="520dp"
+        android:layout_marginEnd="83dp"
+        android:layout_marginRight="83dp"
+        android:layout_marginBottom="186dp"
+        android:text="Don't have an account? Sign Up"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

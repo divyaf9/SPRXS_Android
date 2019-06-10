@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/Home_icon"
+        android:icon="@drawable/ic_icons8_home"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/My_Ideas_icon"
+        android:icon="@drawable/ic_icons8_innovation"
+        android:title="My Ideas" />
+
+    <item
+        android:id="@+id/Create_Ideas_icon"
+        android:icon="@drawable/ic_icons8_create"
+        android:title="Create Ideas" />
+
+
+    <item
+        android:id="@+id/Chat_icon"
+        android:icon="@drawable/ic_icons8_speech"
+        android:title="Chat" />
+
+    <item
+        android:id="@+id/Menu_icon"
+        android:icon="@drawable/ic_icons8_menu"
+        android:title="Menu" />
+
+</menu>
