@@ -39,14 +39,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Intent intent = new Intent(MainActivity.this,LoginActivity.class);
         startActivity(intent);
-        finish();
+        super.onBackPressed();
 
     }
 
     public void goToRegisterActivity(){
         Intent intent = new Intent(MainActivity.this,RegisterActivity.class);
         startActivity(intent);
-        finish();
+        super.onBackPressed();
     }
+
 
 }

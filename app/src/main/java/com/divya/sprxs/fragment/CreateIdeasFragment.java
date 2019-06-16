@@ -104,18 +104,6 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.GONE);
 
-
-//        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-//        actionBar.setDisplayShowCustomEnabled(true);
-//        actionBar.setDisplayShowTitleEnabled(false);
-//        actionBar.setDisplayShowHomeEnabled(false);
-//        View header = getLayoutInflater().inflate(R.layout.toolbar, null);
-//        TextView textView = header.findViewById(R.id.titleTextView);
-//        textView.setText("Create Idea");
-//        ImageView imageView = header.findViewById(R.id.menu);
-//        imageView.setOnClickListener(this);
-//        actionBar.setCustomView(header);
-
         getActivity().setTitle("Create Ideas");
 
         List<String> categories = new ArrayList<>();
@@ -239,7 +227,6 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
             return;
         }
         SharedPreferences prefs = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        String lkp_email = prefs.getString("email", null);
         final String token = prefs.getString("token", null);
         final String refresh_token = prefs.getString("refresh_token", null);
         final String AllUserFiles = "AllUsersFileData";

@@ -15,6 +15,8 @@
     <string name="menu_create_ideas">Create Idea</string>
     <string name="menu_chat">Chat</string>
     <string name="menu_inbox">Inbox</string>
+    <string name="menu_marketplace">Marketplace</string>
+    <string name="menu_search">Search Ideas</string>
     <string name="menu_logout">Logout</string>
 
 </resources>

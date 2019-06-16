@@ -109,7 +109,7 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
                             blockchainStatus.setText(myIdeasResponsedata.get(i).getTokenId());
                             ideaName_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaName());
                             ideaId_IdeaDetails.setText("#" + myIdeasResponsedata.get(i).getIdeaUniqueID());
-                            editor.putString("ideaId", "#" + myIdeasResponsedata.get(i).getIdeaUniqueID());
+                            editor.putString("ideaId", myIdeasResponsedata.get(i).getIdeaUniqueID());
                             editor.apply();
                             ideaDescriptionText_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaDescription());
                             dateText_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaDateCreated());

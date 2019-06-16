@@ -1,12 +1,15 @@
 package com.divya.sprxs.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Button signupButton;
     private Boolean isFirebaseAuthValid;
     public final String firebasePassword = "ljsdlgkj&fefsd$%SDFsdf123£";
+    private ProgressBar progressBar;
 
 
     @Override
@@ -57,6 +61,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         passwordTextView = findViewById(R.id.passwordTextView);
         signupButton = findViewById(R.id.signupButton);
         signupButton.setOnClickListener(this);
+
+        progressBar=findViewById(R.id.loadingPanel);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
+        progressBar.setVisibility(View.GONE);
     }
 
 
@@ -102,7 +110,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             passwordTextView.requestFocus();
             return;
         } else if (password.length() < 6) {
-//            Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
             passwordTextView.setError("Password too short, enter minimum 6 characters!");
             passwordTextView.requestFocus();
             return;
@@ -122,7 +129,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Log.d("error", "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 updateUI(user);
                                 if (user != null) {
@@ -189,6 +195,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -196,6 +203,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.signupButton:
                 userSignup();
+                progressBar.setVisibility(View.VISIBLE);
+                break;
         }
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

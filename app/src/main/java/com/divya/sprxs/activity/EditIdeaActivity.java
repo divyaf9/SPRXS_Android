@@ -56,7 +56,6 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         attachEditButton.setOnClickListener(this);
         confirmEditButton = findViewById(R.id.confirmEditButton);
         confirmEditButton.setOnClickListener(this);
-//        String ideaId = getIntent().getStringExtra("myList");
         SharedPreferences idPrefs = getSharedPreferences(MY_IDEA_ID, MODE_PRIVATE);
         final String ideaId = idPrefs.getString("ideaId", null);
         ideaIdEditTextView.setText(ideaId);

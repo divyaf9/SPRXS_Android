@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -18,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.divya.sprxs.R;
+import com.divya.sprxs.R.layout.*;
 import com.divya.sprxs.fragment.ChatFragment;
 import com.divya.sprxs.fragment.CreateIdeasFragment;
 import com.divya.sprxs.fragment.HomeFragment;
@@ -25,6 +27,8 @@ import com.divya.sprxs.fragment.InboxFragment;
 import com.divya.sprxs.fragment.MyIdeasFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
+import static com.divya.sprxs.activity.LoginActivity.MY_PREFS_NAME;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -35,6 +39,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private CreateIdeasFragment createIdeasFragment;
     private ChatFragment chatFragment;
     private InboxFragment inboxFragment;
+    private TextView drawerNameTextView,drawerMailTextView;
 
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
@@ -45,8 +50,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         this.setTitle("Home");
         setContentView(R.layout.activity_home);
+
         bottomNavigationView = findViewById(R.id.bottomNavBar);
         frameLayout = findViewById(R.id.frameLayout);
+
         homeFragment = new HomeFragment();
         myIdeasFragment = new MyIdeasFragment();
         createIdeasFragment = new CreateIdeasFragment();
@@ -57,10 +64,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view_home);
+        View headerView = navigationView.getHeaderView(0);
+        drawerNameTextView = headerView.findViewById(R.id.drawerNameTextView);
+        drawerMailTextView = headerView.findViewById(R.id.drawerMailTextView);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        SharedPreferences prefs = this.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        String email = prefs.getString("email", "");
+        String firstname = prefs.getString("firstname", "");
+        String surname = prefs.getString("surname", "");
+        drawerNameTextView.setText(firstname+" "+surname);
+        drawerMailTextView.setText(email);
         navigationView.setNavigationItemSelectedListener(this);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -81,7 +97,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.Create_Ideas_icon:
                         setFragment(createIdeasFragment);
                         return true;
-
                     case R.id.Chat_icon:
                         setFragment(chatFragment);
                         return true;
