@@ -6,29 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".activity.EditIdeaActivity">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="280dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="114dp"
-        android:layout_marginEnd="101dp"
-        android:layout_marginRight="101dp"
-        android:layout_marginBottom="685dp"
-        android:gravity="center_vertical"
-        android:text="Edit Idea"
-        android:textColor="@color/colorPrimary"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<TextView-->
+        <!--android:id="@+id/textView8"-->
+        <!--android:layout_width="280dp"-->
+        <!--android:layout_height="47dp"-->
+        <!--android:layout_marginStart="30dp"-->
+        <!--android:layout_marginLeft="30dp"-->
+        <!--android:layout_marginTop="114dp"-->
+        <!--android:layout_marginEnd="101dp"-->
+        <!--android:layout_marginRight="101dp"-->
+        <!--android:layout_marginBottom="685dp"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:text="Edit Idea"-->
+        <!--android:textColor="@color/colorPrimary"-->
+        <!--android:textSize="36sp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/ideaIdEditTextView"
-        android:layout_width="277dp"
-        android:layout_height="25dp"
+        android:layout_width="280dp"
+        android:layout_height="21dp"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="161dp"
@@ -47,7 +47,7 @@
         android:layout_height="61dp"
         android:layout_marginTop="203dp"
         android:layout_marginBottom="582dp"
-        android:background="@drawable/text_view_shape_spinner"
+        android:background="@drawable/state_spinnertextview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

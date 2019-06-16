@@ -39,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText confirmPasswordTextView;
     private Button signupButton;
     private Boolean isFirebaseAuthValid;
+    public final String firebasePassword = "ljsdlgkj&fefsd$%SDFsdf123£";
 
 
     @Override
@@ -116,7 +117,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         } else {
 //            checkEmail();
             //create user
-            mAuth.createUserWithEmailAndPassword(email_add, password)
+            mAuth.createUserWithEmailAndPassword(email_add, firebasePassword)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -140,13 +141,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                                             if (response.code() == 201) {
                                                 if (createProfileResponseResponse.getCreateProfile_response().contentEquals("PASS")) {
-                                                    Toast.makeText(RegisterActivity.this, "You have been successfully signed up", Toast.LENGTH_LONG).show();
                                                     openHome();
                                                 }
                                             } else {
                                                 try {
                                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                                    Toast.makeText(RegisterActivity.this, jObjError.getString("createProfile_message"), Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(RegisterActivity.this, jObjError.getString("error"), Toast.LENGTH_LONG).show();
                                                 } catch (Exception e) {
                                                     Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                                                 }
@@ -160,7 +160,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 }
 
                             } else {
-                                // If sign in fails, display a message to the user.
                                 String message = "The email address is already in use by another account.";
                                 if (task.getException().getMessage().equals(message))
                                     Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();

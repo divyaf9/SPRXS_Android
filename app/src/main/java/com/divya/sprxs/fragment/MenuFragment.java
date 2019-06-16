@@ -9,10 +9,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -35,7 +38,17 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_menu, container, false);
-        getActivity().setTitle("Menu");
+
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        LayoutInflater layoutInflater = LayoutInflater.from( getActivity() );
+        View header = layoutInflater.inflate( R.layout.toolbar, null );
+        TextView textView = header.findViewById(R.id.titleTextView);
+        textView.setText("Inbox");
+        ImageView imageView = header.findViewById(R.id.menu);
+        actionBar.setCustomView(header);
+
         logoutButton = v.findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(this);
 //

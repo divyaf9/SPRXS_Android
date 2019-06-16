@@ -15,9 +15,9 @@ public class MyIdeasSummaryResponse {
     private Long date_created_timestamp;
     private String getDashboard_response;
     private String getDashboard_message;
+    private String error;
 
-
-    public MyIdeasSummaryResponse(String idea_name, String ideaDescription, String tokenId, String idea_id, String no_of_collaborators, boolean allowSearch, int lkpIdeaCat1, String date_created, boolean idea_status, String tokens_owned, Long date_created_timestamp, String getDashboard_response, String getDashboard_message) {
+    public MyIdeasSummaryResponse(String idea_name, String ideaDescription, String tokenId, String idea_id, String no_of_collaborators, boolean allowSearch, int lkpIdeaCat1, String date_created, boolean idea_status, String tokens_owned, Long date_created_timestamp, String getDashboard_response, String getDashboard_message, String error) {
         this.idea_name = idea_name;
         this.ideaDescription = ideaDescription;
         this.tokenId = tokenId;
@@ -31,8 +31,8 @@ public class MyIdeasSummaryResponse {
         this.date_created_timestamp = date_created_timestamp;
         this.getDashboard_response = getDashboard_response;
         this.getDashboard_message = getDashboard_message;
+        this.error = error;
     }
-
 
     public String getIdea_name() {
         return idea_name;
@@ -78,9 +78,15 @@ public class MyIdeasSummaryResponse {
         return date_created_timestamp;
     }
 
-    public String getGetDashboard_response() {  return getDashboard_response; }
+    public String getGetDashboard_response() {
+        return getDashboard_response;
+    }
 
+    public String getGetDashboard_message() {
+        return getDashboard_message;
+    }
 
-    public String getGetDashboard_message() { return getDashboard_message; }
-
+    public String getError() {
+        return error;
+    }
 }

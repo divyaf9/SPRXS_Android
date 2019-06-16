@@ -1,43 +1,42 @@
 {
   "project_info": {
-    "project_number": "521753727848",
-    "firebase_url": "https://sprxsandroid.firebaseio.com",
-    "project_id": "sprxsandroid",
-    "storage_bucket": "sprxsandroid.appspot.com"
+    "project_number": "533616585441",
+    "firebase_url": "https://asadschatapp.firebaseio.com",
+    "project_id": "asadschatapp",
+    "storage_bucket": "asadschatapp.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:521753727848:android:11b2d550fa8584e5",
+        "mobilesdk_app_id": "1:533616585441:android:ecd57d2d8294298d",
         "android_client_info": {
           "package_name": "com.divya.sprxs"
         }
       },
       "oauth_client": [
         {
-          "client_id": "521753727848-rta5a47srscfb0giqjjdbthlks2hobfn.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.divya.sprxs",
-            "certificate_hash": "982bf76623e5311635cf62e8fcd2a85a8cc7bd7c"
-          }
-        },
-        {
-          "client_id": "521753727848-pgr3jj2crjr1ee22u9bd961ugkrna8go.apps.googleusercontent.com",
+          "client_id": "533616585441-8h1q7pliohhkcn9v1pggchtqqbtbn94p.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC2Eo1t3lsCI2GHJaXrZm6Vf29qqwypiNU"
+          "current_key": "AIzaSyDr2CTSPQaL35fBv8rfoJzNHHe3xIl1QOc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "521753727848-pgr3jj2crjr1ee22u9bd961ugkrna8go.apps.googleusercontent.com",
+              "client_id": "533616585441-8h1q7pliohhkcn9v1pggchtqqbtbn94p.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "533616585441-u4icctibinb677a09mjrdvqd6imjkgk8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.sprxs"
+              }
             }
           ]
         }

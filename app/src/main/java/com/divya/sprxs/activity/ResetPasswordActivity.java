@@ -24,8 +24,8 @@ import org.json.JSONObject;
 
 public class ResetPasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button resetPasswordButton;
-    EditText emailTextView;
+    private Button resetPasswordButton;
+    private EditText emailTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

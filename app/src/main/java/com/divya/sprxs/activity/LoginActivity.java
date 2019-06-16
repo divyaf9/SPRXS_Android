@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat;
 
 import com.divya.sprxs.R;
 import com.divya.sprxs.api.RetrofitClient;
+import com.divya.sprxs.fragment.HomeFragment;
 import com.divya.sprxs.model.LoginRequest;
 import com.divya.sprxs.model.LoginResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,12 +42,13 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
-    Button loginButton;
-    EditText emailTextView, passwordTextView;
-    TextView forgotPasswordTextView;
-    TextView signupTextView;
+    private Button loginButton;
+    private EditText emailTextView, passwordTextView;
+    private TextView forgotPasswordTextView;
+    private TextView signupTextView;
     private Boolean isFirebaseAuthValid = Boolean.TRUE;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
+    public final String firebasePassword = "ljsdlgkj&fefsd$%SDFsdf123£";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +102,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (loginEmail.isEmpty()) {
             emailTextView.setError("Email is required");
-            passwordTextView.requestFocus();
+            emailTextView.requestFocus();
             return;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(loginEmail).matches()) {
             emailTextView.setError("Enter a valid email");
@@ -112,7 +114,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         } else {
 
-            mAuth.signInWithEmailAndPassword(loginEmail, loginPassword)
+            mAuth.signInWithEmailAndPassword(loginEmail, firebasePassword)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -134,7 +136,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                                             if (response.code() == 200) {
                                                 if (loginResponse.getLogin_response().contentEquals("PASS")) {
-                                                    Toast.makeText(LoginActivity.this, loginResponse.getLogin_message(), Toast.LENGTH_LONG).show();
                                                     if (loginResponse.getProfile_type().contentEquals("1")) {
                                                         editor.putString("token", loginResponse.getToken());
                                                         editor.apply();
@@ -156,7 +157,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                              {
                                                 try {
                                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                                    Toast.makeText(LoginActivity.this, jObjError.getString("login_message"), Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(LoginActivity.this, jObjError.getString("error"), Toast.LENGTH_LONG).show();
                                                 } catch (Exception e) {
                                                     Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                                                 }
@@ -171,7 +172,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
                             } else {
-                                // If sign in fails, display a message to the user.
                                 Log.w("Message:", "signInWithEmail:failure", task.getException());
                                 Toast.makeText(LoginActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();

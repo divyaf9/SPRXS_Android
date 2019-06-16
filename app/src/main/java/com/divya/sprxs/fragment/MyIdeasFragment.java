@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -56,8 +58,16 @@ public class MyIdeasFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_my_ideas, container, false);
 
-        getActivity().setTitle("My Ideas");
 
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        LayoutInflater layoutInflater = LayoutInflater.from( getActivity() );
+        View header = layoutInflater.inflate( R.layout.toolbar, null );
+        TextView textView = header.findViewById(R.id.titleTextView);
+        textView.setText("My Ideas");
+        ImageView imageView = header.findViewById(R.id.menu);
+        actionBar.setCustomView(header);
         recyclerView = v.findViewById(R.id.recycler_view);
         ideasSummary();
         return v;
@@ -108,10 +118,19 @@ public class MyIdeasFragment extends Fragment {
                     callrefresh.enqueue(new Callback<RefreshTokenResponse>() {
                         @Override
                         public void onResponse(Call<RefreshTokenResponse> call, Response<RefreshTokenResponse> response) {
-                            RefreshTokenResponse refreshTokenResponse = response.body();
-                            editor.putString("token", refreshTokenResponse.getAccess_token());
-                            editor.apply();
-                            ideasSummary();
+                            if (response.code() == 200) {
+                                RefreshTokenResponse refreshTokenResponse = response.body();
+                                editor.putString("token", refreshTokenResponse.getAccess_token());
+                                editor.apply();
+                                ideasSummary();
+                            } else {
+                                try {
+                                    JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                    Toast.makeText(getActivity(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                                } catch (Exception e) {
+                                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }
                         }
 
                         @Override
@@ -122,7 +141,7 @@ public class MyIdeasFragment extends Fragment {
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        Toast.makeText(getActivity(), jObjError.getString("getDashboard_message"), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
                     } catch (Exception e) {
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                     }

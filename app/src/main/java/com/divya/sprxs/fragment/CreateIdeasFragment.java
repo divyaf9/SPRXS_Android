@@ -1,10 +1,14 @@
 package com.divya.sprxs.fragment;
 
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,12 +21,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.divya.sprxs.R;
@@ -55,6 +61,9 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class CreateIdeasFragment extends Fragment implements View.OnClickListener {
 
+
+
+    private ProgressBar progressBar;
     private Button submitButton;
     private Button dismissButton;
     private ImageView attachButton;
@@ -62,14 +71,16 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
     private EditText ideaNameTextView;
     private EditText ideaDescriptionTextView;
     private TextView fileNameTextView;
+    private Spinner spinner;
     private int mySpinnerValue;
-    Uri uri = null;
+    private Uri uri = null;
     private static final int PICK_FROM_GALLERY = 101;
-    int columnIndex;
-    FirebaseStorage firebaseStorage;
-    FirebaseDatabase firebaseDatabase;
+    private int columnIndex;
+    private FirebaseStorage firebaseStorage;
+    private FirebaseDatabase firebaseDatabase;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
 
+    @SuppressLint("RestrictedApi")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,7 +88,6 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
 
         View v = inflater.inflate(R.layout.fragment_create_ideas, container, false);
 
-        getActivity().setTitle("Create Idea");
         ideaNameTextView = v.findViewById(R.id.ideaNameTextView);
         ideaDescriptionTextView = v.findViewById(R.id.ideaDescriptionTextView);
         fileNameTextView = v.findViewById(R.id.filenameTextView);
@@ -90,8 +100,24 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
         firebaseStorage = FirebaseStorage.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
+        progressBar=v.findViewById(R.id.loadingPanel);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
+        progressBar.setVisibility(View.GONE);
+
+
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+        View header = getLayoutInflater().inflate(R.layout.toolbar, null);
+        TextView textView = header.findViewById(R.id.titleTextView);
+        textView.setText("Create Idea");
+        ImageView imageView = header.findViewById(R.id.menu);
+        imageView.setOnClickListener(this);
+        actionBar.setCustomView(header);
+
         List<String> categories = new ArrayList<>();
-        categories.add(0, "I have a ");
+        categories.add(0, "I have a");
         categories.add(1, "Technology idea");
         categories.add(2, "Lifestyle & Wellbeing idea");
         categories.add(3, "Food & Drink idea");
@@ -101,7 +127,7 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
         categories.add(7, "Film,Theatre & Music idea");
         categories.add(8, "Media & Journalism idea");
 
-        final Spinner spinner = v.findViewById(R.id.textSpinner);
+        spinner = v.findViewById(R.id.textSpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, categories);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
@@ -114,11 +140,10 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 mySpinnerValue = 0;
+
             }
         });
-
         return v;
-
     }
 
     @Override
@@ -159,6 +184,7 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
 
         switch (v1.getId()) {
             case R.id.submitButton:
+                progressBar.setVisibility(View.VISIBLE);
                 createIdea();
                 break;
             case R.id.dismissButton:
@@ -167,8 +193,17 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
             case R.id.attachButton:
                 openActivity();
                 break;
+//            case R.id.menu:
+//                openMenu();
+//                break;
         }
     }
+//
+//    private void openMenu() {
+//        Intent intent = new Intent(getActivity(), HomeActivity.class);
+//        startActivity(intent);
+//
+//    }
 
     private void openActivity() {
         Intent intent = new Intent();
@@ -187,9 +222,20 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
 
 
     public void createIdea() {
+
         String ideaName = ideaNameTextView.getText().toString().trim();
         String ideaDescription = ideaDescriptionTextView.getText().toString().trim();
         String fileName = fileNameTextView.getText().toString().trim();
+
+        if (ideaName.isEmpty()) {
+            ideaNameTextView.setError("This Field is required");
+            ideaNameTextView.requestFocus();
+            return;
+        } else if (ideaDescription.isEmpty()) {
+            ideaDescriptionTextView.setError("This Field is required");
+            ideaDescriptionTextView.requestFocus();
+            return;
+        }
         SharedPreferences prefs = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         String lkp_email = prefs.getString("email", null);
         final String token = prefs.getString("token", null);
@@ -238,10 +284,27 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
 
                 CreateIdeasResponse createIdeasResponse = response.body();
 
-                if (response.code() == 201 || response.code() == 200) {
+                if (response.code() == 201) {
                     if (createIdeasResponse.getCreateIdea_response().contentEquals("PASS")) {
-                        Toast.makeText(getContext(), "Idea minted on blockchain with ID " + createIdeasResponse.getIdea_ID(), Toast.LENGTH_LONG).show();
-                        Log.e("token+",token);
+                        Log.e("token+", token);
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
+                        View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.success_dialog, null);
+                        TextView textView;
+                        textView = successDialogView.findViewById(R.id.dialogTextView);
+                        textView.setText("Idea successfully minted on blockchain with ID " + createIdeasResponse.getIdea_ID());
+                        String positiveText = getString(android.R.string.ok);
+                        builder.setPositiveButton(positiveText,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Log.d("myTag", "positive button clicked");
+
+                                    }
+                                });
+                        builder.setView(successDialogView);
+                        builder.show();
+                        progressBar.setVisibility(View.GONE);
                     }
 
                 } else if (response.code() == 401) {
@@ -252,11 +315,51 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
                     callrefresh.enqueue(new Callback<RefreshTokenResponse>() {
                         @Override
                         public void onResponse(Call<RefreshTokenResponse> call, Response<RefreshTokenResponse> response) {
-                            RefreshTokenResponse refreshTokenResponse = response.body();
-                            editor.putString("token", refreshTokenResponse.getAccess_token());
-                            editor.apply();
-                            createIdea();
+                            if (response.code() == 200) {
+                                RefreshTokenResponse refreshTokenResponse = response.body();
+                                editor.putString("token", refreshTokenResponse.getAccess_token());
+                                editor.apply();
+                                createIdea();
+                            } else {
+                                try {
+                                    JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
+                                    View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                                    TextView textView;
+                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                    textView.setText("Technical Error\nPlease try again later");
+                                    String positiveText = getString(android.R.string.ok);
+                                    builder.setPositiveButton(positiveText,
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    builder.setView(errorDialogView);
+                                    builder.show();
+
+                                } catch (Exception e) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
+                                    View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                                    TextView textView;
+                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                    textView.setText("Technical Error\nPlease try again later");
+                                    String positiveText = getString(android.R.string.ok);
+                                    builder.setPositiveButton(positiveText,
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    builder.setView(errorDialogView);
+                                    builder.show();
+
+                                }
+                            }
                         }
+
                         @Override
                         public void onFailure(Call<RefreshTokenResponse> call, Throwable t) {
                         }
@@ -264,9 +367,39 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        Toast.makeText(getActivity(), jObjError.getString("createIdea_message"), Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
+                        View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                        TextView textView;
+                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView.setText("Please complete all the fields");
+                        String positiveText = getString(android.R.string.ok);
+                        builder.setPositiveButton(positiveText,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        builder.setView(errorDialogView);
+                        builder.show();
+
                     } catch (Exception e) {
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
+                        View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                        TextView textView;
+                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView.setText("Technical Error\nPlease try again later");
+                        String positiveText = getString(android.R.string.ok);
+                        builder.setPositiveButton(positiveText,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        builder.setView(errorDialogView);
+                        builder.show();
+
                     }
                 }
             }

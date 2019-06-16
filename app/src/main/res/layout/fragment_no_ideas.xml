@@ -5,45 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="786dp"
     android:layout_marginBottom="@dimen/fragment_marginbottom"
+    android:background="@color/colorAccent"
     tools:context=".fragment.NoIdeasFragment">
 
-    <!--<TextView-->
-        <!--android:id="@+id/textView"-->
-        <!--android:layout_width="240dp"-->
-        <!--android:layout_height="47dp"-->
-        <!--android:layout_marginStart="10dp"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginTop="96dp"-->
-        <!--android:layout_marginEnd="140dp"-->
-        <!--android:layout_marginRight="140dp"-->
-        <!--android:layout_marginBottom="703dp"-->
-        <!--android:text="My Ideas"-->
-        <!--android:textColor="@color/colorPrimary"-->
-        <!--android:textSize="36sp"-->
+    <!--<FrameLayout-->
+        <!--android:id="@+id/noIdea"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@color/colorAccent"-->
+        <!--android:scrollbars="vertical"-->
         <!--app:layout_constraintBottom_toBottomOf="parent"-->
         <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="0.0"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--app:layout_constraintVertical_bias="1.0" />-->
-
-    <FrameLayout
-        android:id="@+id/noIdea"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorAccent"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"></FrameLayout>
+        <!--app:layout_constraintHorizontal_bias="1.0"-->
+        <!--app:layout_constraintStart_toStartOf="parent"></FrameLayout>-->
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="347dp"
         android:layout_height="53dp"
         android:gravity="bottom|center"
-        android:text="Looks A Little Empty Here"
+        android:text=" Looks A Little Empty Here "
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -63,10 +44,11 @@
         android:layout_marginRight="26dp"
         android:layout_marginBottom="307dp"
         android:gravity="center"
-        android:text="Press the createIdea tab below to \ncreate an idea"
+        android:text="Press the createIdea tab below\nto create an idea"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

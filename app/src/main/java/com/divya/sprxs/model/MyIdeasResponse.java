@@ -18,8 +18,9 @@ public class MyIdeasResponse {
     private boolean allowPublic;
     private boolean collabSynopsis;
     private boolean collabSkillsRequired;
+    private String error;
 
-    public MyIdeasResponse(String ideaName, String ideaDescription, String ideaFilepath, String ideaUniqueID, String ideaDateCreated, int lkpIdeaCat1, int lkpIdeaCat2, int lkpIdeaCat3, int lkpIdeaStatus, String tokenId, boolean allowCollaborate, boolean allowSearch, boolean allowSale, boolean allowPublic, boolean collabSynopsis, boolean collabSkillsRequired) {
+    public MyIdeasResponse(String ideaName, String ideaDescription, String ideaFilepath, String ideaUniqueID, String ideaDateCreated, int lkpIdeaCat1, int lkpIdeaCat2, int lkpIdeaCat3, int lkpIdeaStatus, String tokenId, boolean allowCollaborate, boolean allowSearch, boolean allowSale, boolean allowPublic, boolean collabSynopsis, boolean collabSkillsRequired, String error) {
         this.ideaName = ideaName;
         this.ideaDescription = ideaDescription;
         this.ideaFilepath = ideaFilepath;
@@ -36,8 +37,8 @@ public class MyIdeasResponse {
         this.allowPublic = allowPublic;
         this.collabSynopsis = collabSynopsis;
         this.collabSkillsRequired = collabSkillsRequired;
+        this.error = error;
     }
-
 
     public String getIdeaName() {
         return ideaName;
@@ -101,5 +102,9 @@ public class MyIdeasResponse {
 
     public boolean isCollabSkillsRequired() {
         return collabSkillsRequired;
+    }
+
+    public String getError() {
+        return error;
     }
 }

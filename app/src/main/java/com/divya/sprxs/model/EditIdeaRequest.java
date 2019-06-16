@@ -11,8 +11,10 @@ public class EditIdeaRequest {
     private String ideaFilepath;
     private String filename;
     private String lkp_email;
+    private String coverPhoto;
+    private String coverPhotoUrl;
 
-    public EditIdeaRequest(String idea_id, int lkp_idea_cat1, int lkp_idea_cat2, int lkp_idea_cat3, String idea_name, String idea_description, String ideaFilepath, String filename, String lkp_email) {
+    public EditIdeaRequest(String idea_id, int lkp_idea_cat1, int lkp_idea_cat2, int lkp_idea_cat3, String idea_name, String idea_description, String ideaFilepath, String filename, String lkp_email, String coverPhoto, String coverPhotoUrl) {
         this.idea_id = idea_id;
         this.lkp_idea_cat1 = lkp_idea_cat1;
         this.lkp_idea_cat2 = lkp_idea_cat2;
@@ -22,5 +24,7 @@ public class EditIdeaRequest {
         this.ideaFilepath = ideaFilepath;
         this.filename = filename;
         this.lkp_email = lkp_email;
+        this.coverPhoto = coverPhoto;
+        this.coverPhotoUrl = coverPhotoUrl;
     }
 }

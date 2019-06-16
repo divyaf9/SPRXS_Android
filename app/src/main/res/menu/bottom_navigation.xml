@@ -14,7 +14,7 @@
     <item
         android:id="@+id/Create_Ideas_icon"
         android:icon="@drawable/ic_icons8_create"
-        android:title="Create Ideas" />
+        android:title="Create Idea" />
 
 
     <item
@@ -23,8 +23,8 @@
         android:title="Chat" />
 
     <item
-        android:id="@+id/Menu_icon"
-        android:icon="@drawable/ic_icons8_menu"
-        android:title="Menu" />
+        android:id="@+id/Inbox_icon"
+        android:icon="@drawable/ic_icons8_envelope"
+        android:title="Inbox" />
 
 </menu>

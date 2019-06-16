@@ -47,6 +47,7 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_idea);
 
+        this.setTitle("Edit Idea");
         ideaNameEditTextView = findViewById(R.id.ideaNameEditTextView);
         ideaDescriptionEditTextView = findViewById(R.id.ideaDescriptionEditTextView);
         filenameEditTextView = findViewById(R.id.filenameEditTextView);
@@ -115,12 +116,12 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         Call<EditIdeaResponse> call;
         call = RetrofitClient.getInstance().getApi().editIdea(
                 "Bearer " + token,
-                new EditIdeaRequest(ideaId, mySpinnerValue, 2, 3, ideaName, ideaDescription, "", "", ""));
+                new EditIdeaRequest(ideaId, mySpinnerValue, 2, 3, ideaName, ideaDescription, "", "", "","",""));
         call.enqueue(new Callback<EditIdeaResponse>() {
             @Override
             public void onResponse(Call<EditIdeaResponse> call, Response<EditIdeaResponse> response) {
                 EditIdeaResponse editIdeaResponse = response.body();
-                if (response.code() == 201) {
+                if (response.code() == 200) {
                     Toast.makeText(EditIdeaActivity.this, editIdeaResponse.getEditIdea_response(), Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 401) {
                     Call<RefreshTokenResponse> callrefresh;
@@ -130,10 +131,19 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                     callrefresh.enqueue(new Callback<RefreshTokenResponse>() {
                         @Override
                         public void onResponse(Call<RefreshTokenResponse> call, Response<RefreshTokenResponse> response) {
-                            RefreshTokenResponse refreshTokenResponse = response.body();
-                            editor.putString("token", refreshTokenResponse.getAccess_token());
-                            editor.apply();
-                            editIdea();
+                            if (response.code() == 200) {
+                                RefreshTokenResponse refreshTokenResponse = response.body();
+                                editor.putString("token", refreshTokenResponse.getAccess_token());
+                                editor.apply();
+                                editIdea();
+                            } else {
+                                try {
+                                    JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                    Toast.makeText(EditIdeaActivity.this, jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                                } catch (Exception e) {
+                                    Toast.makeText(EditIdeaActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }
                         }
 
                         @Override

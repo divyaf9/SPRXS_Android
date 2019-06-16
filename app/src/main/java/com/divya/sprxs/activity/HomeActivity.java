@@ -65,7 +65,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         setFragment(chatFragment);
                         return true;
 
-                    case R.id.Menu_icon:
+                    case R.id.Inbox_icon:
                         setFragment(menuFragment);
                         return true;
 

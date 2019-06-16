@@ -51,6 +51,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final DataAdapter.ViewHolder holder, final int position) {
         final String IdeaId = myIdeasSummaryResponse.get(position).getIdea_id();
+        final Long Time= myIdeasSummaryResponse.get(position).getDate_created_timestamp();
         holder.ideaNameText.setText(myIdeasSummaryResponse.get(position).getIdea_name().substring(0,  Math.min(myIdeasSummaryResponse.get(position).getIdea_name().length(), 15)));
         holder.ideaIdText.setText("#"+myIdeasSummaryResponse.get(position).getIdea_id());
         holder.collaboratorText.setText(myIdeasSummaryResponse.get(position).getNo_of_collaborators());
