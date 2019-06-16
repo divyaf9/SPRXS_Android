@@ -15,6 +15,8 @@ import com.divya.sprxs.model.MyIdeasSummaryResponse;
 import com.divya.sprxs.model.RefreshTokenResponse;
 import com.divya.sprxs.model.ResetPasswordRequest;
 import com.divya.sprxs.model.ResetPasswordResponse;
+import com.divya.sprxs.model.ViewEventsRequest;
+import com.divya.sprxs.model.ViewEventsResponse;
 
 import java.util.List;
 
@@ -68,6 +70,12 @@ public interface Api {
     Call<List<MyIdeasResponse>> myIdeas(
             @Header("Authorization") String token,
             @Body MyIdeasRequest myIdeasRequest
+    );
+
+    @POST("/viewEvent")
+    Call<List<ViewEventsResponse>> viewEvent(
+            @Header("Authorization") String token,
+            @Body ViewEventsRequest viewEventsRequest
     );
 
 }

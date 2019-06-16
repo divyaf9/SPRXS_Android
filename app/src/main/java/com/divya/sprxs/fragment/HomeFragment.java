@@ -1,20 +1,23 @@
 package com.divya.sprxs.fragment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.divya.sprxs.R;
+import com.divya.sprxs.activity.LoginActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,12 +27,13 @@ import com.divya.sprxs.R;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    Button logoutButton;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -70,17 +74,22 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
-        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
+        // Inflate the layout for this fragment
+        logoutButton = v.findViewById(R.id.logoutButton);
+        logoutButton.setOnClickListener(this);
+
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
-        LayoutInflater layoutInflater = LayoutInflater.from( getActivity() );
-        View header = layoutInflater.inflate( R.layout.toolbar, null );
+        LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+        View header = layoutInflater.inflate(R.layout.toolbar, null);
         TextView textView = header.findViewById(R.id.titleTextView);
         textView.setText("Home");
         ImageView imageView = header.findViewById(R.id.menu);
-        actionBar.setCustomView(header);        return inflater.inflate(R.layout.fragment_home, container, false);
+        actionBar.setCustomView(header);
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -120,5 +129,27 @@ public class HomeFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.logoutButton:
+                openLogin();
+                break;
+        }
+    }
+
+
+    private void openLogin() {
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("MyLogin.txt", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

@@ -1,34 +1,49 @@
 package com.divya.sprxs.fragment;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.divya.sprxs.R;
-import com.divya.sprxs.activity.LoginActivity;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.navigation.NavigationView;
+import com.divya.sprxs.adapter.DataAdapter;
+import com.divya.sprxs.adapter.DataAdapterInbox;
+import com.divya.sprxs.api.RetrofitClient;
+import com.divya.sprxs.model.MyIdeasSummaryRequest;
+import com.divya.sprxs.model.MyIdeasSummaryResponse;
+import com.divya.sprxs.model.RefreshTokenResponse;
+import com.divya.sprxs.model.ViewEventsRequest;
+import com.divya.sprxs.model.ViewEventsResponse;
+
+import org.json.JSONObject;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.divya.sprxs.activity.LoginActivity.MY_PREFS_NAME;
 
 
-public class MenuFragment extends Fragment implements View.OnClickListener {
+public class MenuFragment extends Fragment {
 
-    Button logoutButton;
+
+    private RecyclerView recyclerViewInbox;
+    private DataAdapterInbox dataAdapterInbox;
+    private List<ViewEventsResponse> viewEventsResponsedata;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,56 +54,89 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_menu, container, false);
 
-        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
-        LayoutInflater layoutInflater = LayoutInflater.from( getActivity() );
-        View header = layoutInflater.inflate( R.layout.toolbar, null );
+        LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+        View header = layoutInflater.inflate(R.layout.toolbar, null);
         TextView textView = header.findViewById(R.id.titleTextView);
         textView.setText("Inbox");
         ImageView imageView = header.findViewById(R.id.menu);
         actionBar.setCustomView(header);
-
-        logoutButton = v.findViewById(R.id.logoutButton);
-        logoutButton.setOnClickListener(this);
-//
-//        DrawerLayout drawer = v.findViewById(R.id.drawer_layout);
-//        NavigationView navigationView = v.findViewById(R.id.nav_view);
-//
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.addDrawerListener(toggle);
-//        toggle.syncState();
-//        navigationView.setNavigationItemSelectedListener(this);
+        recyclerViewInbox = v.findViewById(R.id.recycler_view_inbox);
+        viewEvent();
         return v;
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.logoutButton:
-              openLogin();
-                break;
-        }
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
+    public void viewEvent() {
+        SharedPreferences prefs = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        final SharedPreferences.Editor editor = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+        final String token = prefs.getString("token", null);
+        final String refresh_token = prefs.getString("refresh_token", null);
+        Call<List<ViewEventsResponse>> call;
+        call = RetrofitClient.getInstance().getApi().viewEvent(
+                "Bearer " + token,
+                new ViewEventsRequest(0,"Activity","","","",""));
+        call.enqueue(new Callback<List<ViewEventsResponse>>() {
+            @Override
+            public void onResponse(Call<List<ViewEventsResponse>> call, Response<List<ViewEventsResponse>> response) {
+                if (response.code() == 200) {
+                    viewEventsResponsedata = response.body();
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                        recyclerViewInbox.setLayoutManager(layoutManager);
+                        dataAdapterInbox = new DataAdapterInbox(getActivity(), viewEventsResponsedata, getContext());
+                        recyclerViewInbox.setAdapter(dataAdapterInbox);
+                        dataAdapterInbox.notifyDataSetChanged();
 
-    private void openLogin() {
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("MyLogin.txt", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear();
-        editor.commit();
-        Intent intent = new Intent(getActivity(), LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+                } else if (response.code() == 401) {
+                    Call<RefreshTokenResponse> callrefresh;
+                    callrefresh = RetrofitClient.getInstance().getApi().refreshToken(
+                            "Bearer " + refresh_token);
+
+                    callrefresh.enqueue(new Callback<RefreshTokenResponse>() {
+                        @Override
+                        public void onResponse(Call<RefreshTokenResponse> call, Response<RefreshTokenResponse> response) {
+                            if (response.code() == 200) {
+                                RefreshTokenResponse refreshTokenResponse = response.body();
+                                editor.putString("token", refreshTokenResponse.getAccess_token());
+                                editor.apply();
+                                viewEvent();
+                            } else {
+                                try {
+                                    JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                    Toast.makeText(getActivity(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                                } catch (Exception e) {
+                                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<RefreshTokenResponse> call, Throwable t) {
+                        }
+                    });
+
+                } else {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Toast.makeText(getActivity(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ViewEventsResponse>> call, Throwable t) {
+            }
+        });
     }
-
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//        return false;
-//    }
 }
 
 

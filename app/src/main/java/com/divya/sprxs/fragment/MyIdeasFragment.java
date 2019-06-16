@@ -41,8 +41,6 @@ public class MyIdeasFragment extends Fragment {
     private RecyclerView recyclerView;
     private DataAdapter dataAdapter;
     private List<MyIdeasSummaryResponse> myIdeasSummaryResponsedata;
-    private NestedScrollView nestedScrollView;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

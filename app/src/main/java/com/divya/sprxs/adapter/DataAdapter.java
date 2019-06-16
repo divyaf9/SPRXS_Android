@@ -1,9 +1,7 @@
 package com.divya.sprxs.adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.divya.sprxs.R;
 import com.divya.sprxs.activity.IdeaDetailsActivity;
-import com.divya.sprxs.activity.LoggedIn;
-import com.divya.sprxs.fragment.NoIdeasFragment;
-import com.divya.sprxs.model.MyIdeasResponse;
 import com.divya.sprxs.model.MyIdeasSummaryResponse;
+import com.divya.sprxs.model.ViewEventsResponse;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
