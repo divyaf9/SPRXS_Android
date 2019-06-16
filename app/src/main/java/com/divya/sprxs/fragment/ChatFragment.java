@@ -71,16 +71,16 @@ public class ChatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        LayoutInflater layoutInflater = LayoutInflater.from( getActivity() );
-        View header = layoutInflater.inflate( R.layout.toolbar, null );
-        TextView textView = header.findViewById(R.id.titleTextView);
-        textView.setText("Chat");
-        ImageView imageView = header.findViewById(R.id.menu);
-        actionBar.setCustomView(header);
-
+//        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+//        actionBar.setDisplayShowCustomEnabled(true);
+//        actionBar.setDisplayShowTitleEnabled(false);
+//        LayoutInflater layoutInflater = LayoutInflater.from( getActivity() );
+//        View header = layoutInflater.inflate( R.layout.toolbar, null );
+//        TextView textView = header.findViewById(R.id.titleTextView);
+//        textView.setText("Chat");
+//        ImageView imageView = header.findViewById(R.id.menu);
+//        actionBar.setCustomView(header);
+        getActivity().setTitle("Chat");
         return inflater.inflate(R.layout.fragment_chat, container, false);
     }
 

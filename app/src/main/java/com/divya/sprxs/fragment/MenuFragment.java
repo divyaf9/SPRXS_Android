@@ -54,16 +54,16 @@ public class MenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_menu, container, false);
 
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-        View header = layoutInflater.inflate(R.layout.toolbar, null);
-        TextView textView = header.findViewById(R.id.titleTextView);
-        textView.setText("Inbox");
-        ImageView imageView = header.findViewById(R.id.menu);
-        actionBar.setCustomView(header);
-        recyclerViewInbox = v.findViewById(R.id.recycler_view_inbox);
+//        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+//        actionBar.setDisplayShowCustomEnabled(true);
+//        actionBar.setDisplayShowTitleEnabled(false);
+//        LayoutInflater layoutInflater = LayoutInflater.from( getActivity() );
+//        View header = layoutInflater.inflate( R.layout.toolbar, null );
+//        TextView textView = header.findViewById(R.id.titleTextView);
+//        textView.setText("Inbox");
+//        ImageView imageView = header.findViewById(R.id.menu);
+//        actionBar.setCustomView(header);
+        getActivity().setTitle("Menu");
         viewEvent();
         return v;
     }

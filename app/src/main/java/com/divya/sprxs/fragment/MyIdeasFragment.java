@@ -57,15 +57,16 @@ public class MyIdeasFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_my_ideas, container, false);
 
 
-        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        LayoutInflater layoutInflater = LayoutInflater.from( getActivity() );
-        View header = layoutInflater.inflate( R.layout.toolbar, null );
-        TextView textView = header.findViewById(R.id.titleTextView);
-        textView.setText("My Ideas");
-        ImageView imageView = header.findViewById(R.id.menu);
-        actionBar.setCustomView(header);
+//        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+//        actionBar.setDisplayShowCustomEnabled(true);
+//        actionBar.setDisplayShowTitleEnabled(false);
+//        LayoutInflater layoutInflater = LayoutInflater.from( getActivity() );
+//        View header = layoutInflater.inflate( R.layout.toolbar, null );
+//        TextView textView = header.findViewById(R.id.titleTextView);
+//        textView.setText("My Ideas");
+//        ImageView imageView = header.findViewById(R.id.menu);
+//        actionBar.setCustomView(header);
+        getActivity().setTitle("My Ideas");
         recyclerView = v.findViewById(R.id.recycler_view);
         ideasSummary();
         return v;

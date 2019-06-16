@@ -80,16 +80,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         logoutButton = v.findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(this);
 
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-        View header = layoutInflater.inflate(R.layout.toolbar, null);
-        TextView textView = header.findViewById(R.id.titleTextView);
-        textView.setText("Home");
-        ImageView imageView = header.findViewById(R.id.menu);
-        actionBar.setCustomView(header);
-        return v;
+//        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+//        actionBar.setDisplayShowCustomEnabled(true);
+//        actionBar.setDisplayShowTitleEnabled(false);
+//        LayoutInflater layoutInflater = LayoutInflater.from( getActivity() );
+//        View header = layoutInflater.inflate( R.layout.toolbar, null );
+//        TextView textView = header.findViewById(R.id.titleTextView);
+//        textView.setText("Home");
+//        ImageView imageView = header.findViewById(R.id.menu);
+//        actionBar.setCustomView(header);
+
+        getActivity().setTitle("Home");
+
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -105,16 +105,18 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
         progressBar.setVisibility(View.GONE);
 
 
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowHomeEnabled(false);
-        View header = getLayoutInflater().inflate(R.layout.toolbar, null);
-        TextView textView = header.findViewById(R.id.titleTextView);
-        textView.setText("Create Idea");
-        ImageView imageView = header.findViewById(R.id.menu);
-        imageView.setOnClickListener(this);
-        actionBar.setCustomView(header);
+//        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+//        actionBar.setDisplayShowCustomEnabled(true);
+//        actionBar.setDisplayShowTitleEnabled(false);
+//        actionBar.setDisplayShowHomeEnabled(false);
+//        View header = getLayoutInflater().inflate(R.layout.toolbar, null);
+//        TextView textView = header.findViewById(R.id.titleTextView);
+//        textView.setText("Create Idea");
+//        ImageView imageView = header.findViewById(R.id.menu);
+//        imageView.setOnClickListener(this);
+//        actionBar.setCustomView(header);
+
+        getActivity().setTitle("Create Ideas");
 
         List<String> categories = new ArrayList<>();
         categories.add(0, "I have a");

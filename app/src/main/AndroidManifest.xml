@@ -36,7 +36,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.HomeActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/NoActionBar" />
         <activity android:name=".activity.LoggedIn" />
         <activity
             android:name=".activity.LoginActivity"
