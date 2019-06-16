@@ -33,7 +33,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    Button logoutButton;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -77,8 +76,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         // Inflate the layout for this fragment
-        logoutButton = v.findViewById(R.id.logoutButton);
-        logoutButton.setOnClickListener(this);
 
 //        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
 //        actionBar.setDisplayShowCustomEnabled(true);
@@ -137,22 +134,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.logoutButton:
-                openLogin();
-                break;
         }
-    }
-
-
-    private void openLogin() {
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("MyLogin.txt", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear();
-        editor.commit();
-        Intent intent = new Intent(getActivity(), LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
     }
 }

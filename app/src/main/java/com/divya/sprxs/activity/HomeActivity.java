@@ -1,5 +1,8 @@
 package com.divya.sprxs.activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -112,16 +115,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         if (id == R.id.nav_home) {
             setFragment(homeFragment);
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_tools) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_my_ideas) {
+            setFragment(myIdeasFragment);
+        } else if (id == R.id.nav_create_ideas) {
+            setFragment(createIdeasFragment);
+        } else if (id == R.id.nav_inbox) {
+            setFragment(inboxFragment);
+        } else if (id == R.id.nav_chat) {
+            setFragment(chatFragment);
+        } else if (id == R.id.nav_logout) {
+            openLogin();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -134,6 +137,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout,fragment);
         fragmentTransaction.commit();
+    }
+
+    private void openLogin() {
+        SharedPreferences preferences = this.getSharedPreferences("MyLogin.txt", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     @Override
