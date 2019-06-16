@@ -18,12 +18,10 @@ import com.divya.sprxs.R;
 import com.divya.sprxs.fragment.ChatFragment;
 import com.divya.sprxs.fragment.CreateIdeasFragment;
 import com.divya.sprxs.fragment.HomeFragment;
-import com.divya.sprxs.fragment.MenuFragment;
+import com.divya.sprxs.fragment.InboxFragment;
 import com.divya.sprxs.fragment.MyIdeasFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -33,7 +31,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private MyIdeasFragment myIdeasFragment;
     private CreateIdeasFragment createIdeasFragment;
     private ChatFragment chatFragment;
-    private MenuFragment menuFragment;
+    private InboxFragment inboxFragment;
 
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
@@ -50,7 +48,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         myIdeasFragment = new MyIdeasFragment();
         createIdeasFragment = new CreateIdeasFragment();
         chatFragment = new ChatFragment();
-        menuFragment = new MenuFragment();
+        inboxFragment = new InboxFragment();
         setFragment(homeFragment);
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
@@ -86,7 +84,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         return true;
 
                     case R.id.Inbox_icon:
-                        setFragment(menuFragment);
+                        setFragment(inboxFragment);
                         return true;
 
                 }

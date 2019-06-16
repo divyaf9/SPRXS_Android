@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/navigation_bar_height"
-    tools:context=".fragment.MenuFragment">
+    tools:context=".fragment.InboxFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_inbox"

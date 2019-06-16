@@ -5,23 +5,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.divya.sprxs.R;
-import com.divya.sprxs.adapter.DataAdapter;
 import com.divya.sprxs.adapter.DataAdapterInbox;
 import com.divya.sprxs.api.RetrofitClient;
-import com.divya.sprxs.model.MyIdeasSummaryRequest;
-import com.divya.sprxs.model.MyIdeasSummaryResponse;
 import com.divya.sprxs.model.RefreshTokenResponse;
 import com.divya.sprxs.model.ViewEventsRequest;
 import com.divya.sprxs.model.ViewEventsResponse;
@@ -38,7 +30,7 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.divya.sprxs.activity.LoginActivity.MY_PREFS_NAME;
 
 
-public class MenuFragment extends Fragment {
+public class InboxFragment extends Fragment {
 
 
     private RecyclerView recyclerViewInbox;
@@ -52,17 +44,8 @@ public class MenuFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_menu, container, false);
-
-//        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-//        actionBar.setDisplayShowCustomEnabled(true);
-//        actionBar.setDisplayShowTitleEnabled(false);
-//        LayoutInflater layoutInflater = LayoutInflater.from( getActivity() );
-//        View header = layoutInflater.inflate( R.layout.toolbar, null );
-//        TextView textView = header.findViewById(R.id.titleTextView);
-//        textView.setText("Inbox");
-//        ImageView imageView = header.findViewById(R.id.menu);
-//        actionBar.setCustomView(header);
+        View v = inflater.inflate(R.layout.fragment_inbox, container, false);
+        recyclerViewInbox = v.findViewById(R.id.recycler_view_inbox);
         getActivity().setTitle("Menu");
         viewEvent();
         return v;
