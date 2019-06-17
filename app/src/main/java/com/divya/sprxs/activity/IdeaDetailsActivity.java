@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
@@ -37,7 +38,8 @@ import static com.divya.sprxs.activity.LoginActivity.MY_PREFS_NAME;
 
 public class IdeaDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView blockchainStatus, attachmentStatus, ideaStatus;
+    private TextView blockchainStatus, attachmentStatus;
+    private ToggleButton ideaStatus;
     private TextView ideaName_IdeaDetails, ideaId_IdeaDetails, dateText_IdeaDetails, ideaDescriptionText_IdeaDetails;
     public static final String MY_IDEA_ID = "MyIdPrefsFile";
     private List<MyIdeasResponse> myIdeasResponsedata = null;
@@ -63,12 +65,23 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
 
         blockchainStatus = findViewById(R.id.blockchainStatus);
         attachmentStatus = findViewById(R.id.attachmentStatus);
-        ideaStatus = findViewById(R.id.ideaStatus);
+        ideaStatus = (ToggleButton)findViewById(R.id.toggleButton);
         ideaName_IdeaDetails = findViewById(R.id.ideaName_IdeaDetails);
         ideaId_IdeaDetails = findViewById(R.id.ideaId_IdeaDetails);
         dateText_IdeaDetails = findViewById(R.id.dateText_IdeaDetails);
         ideaDescriptionText_IdeaDetails = findViewById(R.id.ideaDescriptionText_IdeaDetails);
         ideaDescriptionText_IdeaDetails.setMovementMethod(new ScrollingMovementMethod());
+
+        ideaStatus.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Toast.makeText(IdeaDetailsActivity.this, "sample", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
         myIdeas();
     }
 
@@ -83,6 +96,10 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
     private void goToEditIdea() {
         Intent intent = new Intent(IdeaDetailsActivity.this, EditIdeaActivity.class);
         startActivity(intent);
+    }
+
+    public void changeIdeaStatus() {
+
     }
 
     public void myIdeas() {
@@ -119,9 +136,9 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
                             dateText_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaDateCreated());
                             attachmentStatus.setText(myIdeasResponsedata.get(i).getIdeaFilepath());
                             if (myIdeasResponsedata.get(i).isAllowSearch() == true) {
-                                ideaStatus.setText("PUBLIC");
+                                ideaStatus.setSelected(true);
                             } else {
-                                ideaStatus.setText("PRIVATE");
+                                ideaStatus.setSelected(false);
                             }
                         }
                 } else if (response.code() == 401) {
