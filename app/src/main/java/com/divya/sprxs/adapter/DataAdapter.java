@@ -50,6 +50,13 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         holder.ideaIdText.setText("#"+myIdeasSummaryResponse.get(position).getIdea_id());
         holder.collaboratorText.setText(myIdeasSummaryResponse.get(position).getNo_of_collaborators());
         holder.equityText.setText(myIdeasSummaryResponse.get(position).getTokens_owned());
+        if(myIdeasSummaryResponse.get(position).isIdea_status()==true) {
+            holder.publicImageView.setVisibility(View.VISIBLE);
+            holder.privateImageView.setVisibility(View.INVISIBLE);
+        }else {
+            holder.publicImageView.setVisibility(View.INVISIBLE);
+            holder.privateImageView.setVisibility(View.VISIBLE);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +76,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView ideaNameText, ideaIdText, collaboratorText, equityText;
-        private ImageView collaboratorImage, equityimage;
+        private ImageView collaboratorImage, equityimage,privateImageView,publicImageView;
 
         public ViewHolder(View view) {
             super(view);
@@ -79,6 +86,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             equityText = view.findViewById(R.id.equityText);
             collaboratorImage = view.findViewById(R.id.collaboratorImage);
             equityimage = view.findViewById(R.id.equityImage);
+            privateImageView = view.findViewById(R.id.privateImageView);
+            publicImageView = view.findViewById(R.id.publicImageView);
 //              if(myIdeasSummaryResponse==null){
 //                  Intent intent = new Intent(view.getContext(),LoggedIn.class);
 //                  context.startActivity(intent);
