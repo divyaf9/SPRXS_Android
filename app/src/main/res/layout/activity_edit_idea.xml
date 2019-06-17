@@ -7,23 +7,23 @@
     tools:context=".activity.EditIdeaActivity">
 
     <!--<TextView-->
-        <!--android:id="@+id/textView8"-->
-        <!--android:layout_width="280dp"-->
-        <!--android:layout_height="47dp"-->
-        <!--android:layout_marginStart="30dp"-->
-        <!--android:layout_marginLeft="30dp"-->
-        <!--android:layout_marginTop="114dp"-->
-        <!--android:layout_marginEnd="101dp"-->
-        <!--android:layout_marginRight="101dp"-->
-        <!--android:layout_marginBottom="685dp"-->
-        <!--android:gravity="center_vertical"-->
-        <!--android:text="Edit Idea"-->
-        <!--android:textColor="@color/colorPrimary"-->
-        <!--android:textSize="36sp"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent" />-->
+    <!--android:id="@+id/textView8"-->
+    <!--android:layout_width="280dp"-->
+    <!--android:layout_height="47dp"-->
+    <!--android:layout_marginStart="30dp"-->
+    <!--android:layout_marginLeft="30dp"-->
+    <!--android:layout_marginTop="114dp"-->
+    <!--android:layout_marginEnd="101dp"-->
+    <!--android:layout_marginRight="101dp"-->
+    <!--android:layout_marginBottom="685dp"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:text="Edit Idea"-->
+    <!--android:textColor="@color/colorPrimary"-->
+    <!--android:textSize="36sp"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/ideaIdEditTextView"
@@ -123,8 +123,8 @@
         android:id="@+id/confirmEditButton"
         android:layout_width="278dp"
         android:layout_height="55dp"
-        android:layout_marginTop="598dp"
-        android:layout_marginBottom="193dp"
+        android:layout_marginTop="624dp"
+        android:layout_marginBottom="52dp"
         android:background="@drawable/oval_shape"
         android:noHistory="true"
         android:text="CONFIRM"
