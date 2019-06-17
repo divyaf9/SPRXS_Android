@@ -1,17 +1,14 @@
 package com.divya.sprxs.fragment;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,9 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.divya.sprxs.R;
 import com.divya.sprxs.adapter.DataAdapter;
 import com.divya.sprxs.api.RetrofitClient;
+import com.divya.sprxs.model.EndlessRecyclerOnScrollListener;
 import com.divya.sprxs.model.MyIdeasSummaryRequest;
 import com.divya.sprxs.model.MyIdeasSummaryResponse;
 import com.divya.sprxs.model.RefreshTokenResponse;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONObject;
 
@@ -40,7 +39,14 @@ public class MyIdeasFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private DataAdapter dataAdapter;
+    private LinearLayoutManager layoutManager;
+    private  Boolean isScrolling=false;
+    private  int currentItems,totalItems,scrolledOutItems;
+    private BottomNavigationView bottomNavigationView;
+    private EndlessRecyclerOnScrollListener scrollListener;
+
     private List<MyIdeasSummaryResponse> myIdeasSummaryResponsedata;
+    private List<MyIdeasSummaryResponse> list;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,18 +62,9 @@ public class MyIdeasFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_my_ideas, container, false);
 
-
-//        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-//        actionBar.setDisplayShowCustomEnabled(true);
-//        actionBar.setDisplayShowTitleEnabled(false);
-//        LayoutInflater layoutInflater = LayoutInflater.from( getActivity() );
-//        View header = layoutInflater.inflate( R.layout.toolbar, null );
-//        TextView textView = header.findViewById(R.id.titleTextView);
-//        textView.setText("My Ideas");
-//        ImageView imageView = header.findViewById(R.id.menu);
-//        actionBar.setCustomView(header);
         getActivity().setTitle("My Ideas");
         recyclerView = v.findViewById(R.id.recycler_view);
+        layoutManager = new LinearLayoutManager(getActivity());
         ideasSummary();
         return v;
 
@@ -102,11 +99,11 @@ public class MyIdeasFragment extends Fragment {
                         fragTransaction.commit();
                     } else {
                         recyclerView.setNestedScrollingEnabled(false);
-                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
                         recyclerView.setLayoutManager(layoutManager);
                         dataAdapter = new DataAdapter(getActivity(), myIdeasSummaryResponsedata, getContext());
                         recyclerView.setAdapter(dataAdapter);
                         dataAdapter.notifyDataSetChanged();
+
                     }
 
                 } else if (response.code() == 401) {
@@ -125,9 +122,39 @@ public class MyIdeasFragment extends Fragment {
                             } else {
                                 try {
                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                    Toast.makeText(getActivity(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(getActivity(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
+                                    View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                                    TextView textView;
+                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                    textView.setText("Technical Error\nPlease try again later");
+                                    String positiveText = getString(android.R.string.ok);
+                                    builder.setPositiveButton(positiveText,
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    builder.setView(errorDialogView);
+                                    builder.show();
                                 } catch (Exception e) {
-                                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
+                                    View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                                    TextView textView;
+                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                    textView.setText("Technical Error\nPlease try again later");
+                                    String positiveText = getString(android.R.string.ok);
+                                    builder.setPositiveButton(positiveText,
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    builder.setView(errorDialogView);
+                                    builder.show();
                                 }
                             }
                         }
@@ -140,9 +167,39 @@ public class MyIdeasFragment extends Fragment {
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        Toast.makeText(getActivity(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getActivity(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
+                        View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                        TextView textView;
+                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView.setText("Technical Error\nPlease try again later");
+                        String positiveText = getString(android.R.string.ok);
+                        builder.setPositiveButton(positiveText,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        builder.setView(errorDialogView);
+                        builder.show();
                     } catch (Exception e) {
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
+                        View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                        TextView textView;
+                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView.setText("Technical Error\nPlease try again later");
+                        String positiveText = getString(android.R.string.ok);
+                        builder.setPositiveButton(positiveText,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        builder.setView(errorDialogView);
+                        builder.show();
                     }
                 }
             }

@@ -1,17 +1,21 @@
 
 package com.divya.sprxs.activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.divya.sprxs.R;
@@ -48,6 +52,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
 
         if (loginEmail.isEmpty()) {
             emailTextView.setError("Email is required");
+            emailTextView.requestFocus();
             return;
         }
 
@@ -65,19 +70,64 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
                 @Override
                 public void onResponse(Call<ResetPasswordResponse> call, Response<ResetPasswordResponse> response) {
 
-                    ResetPasswordResponse resetPasswordResponse = response.body();
 
-                    if (response.code() >= 200 || response.code() < 300) {
-                        if (resetPasswordResponse.getResetPW_response().contentEquals("PASS")) {
-                            Toast.makeText(ResetPasswordActivity.this, resetPasswordResponse.getResetPW_message(), Toast.LENGTH_LONG).show();
-                        }
+
+                    if (response.code() == 201) {
+                        ResetPasswordResponse resetPasswordResponse = response.body();
+//                            Toast.makeText(ResetPasswordActivity.this, resetPasswordResponse.getResetPW_message(), Toast.LENGTH_LONG).show();
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ResetPasswordActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                            View successDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.success_dialog, null);
+                            TextView textView;
+                            textView = successDialogView.findViewById(R.id.dialogTextView);
+                            textView.setText("If the account exists on our system, you will receive an email with your new password");
+                            String positiveText = getString(android.R.string.ok);
+                            builder.setPositiveButton(positiveText,
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            builder.setView(successDialogView);
+                            builder.show();
 
                     } else {
                         try {
                             JSONObject jObjError = new JSONObject(response.errorBody().string());
-                            Toast.makeText(ResetPasswordActivity.this, jObjError.getString("getResetPW_message"), Toast.LENGTH_LONG).show();
+//                            Toast.makeText(ResetPasswordActivity.this, jObjError.getString("getResetPW_message"), Toast.LENGTH_LONG).show();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ResetPasswordActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                            View errorDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.error_dialog, null);
+                            TextView textView;
+                            textView = errorDialogView.findViewById(R.id.dialogTextView);
+                            textView.setText("Technical Error\nPlease try again later");
+                            String positiveText = getString(android.R.string.ok);
+                            builder.setPositiveButton(positiveText,
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            builder.setView(errorDialogView);
+                            builder.show();
                         } catch (Exception e) {
-                            Toast.makeText(ResetPasswordActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+//                            Toast.makeText(ResetPasswordActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ResetPasswordActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                            View errorDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.error_dialog, null);
+                            TextView textView;
+                            textView = errorDialogView.findViewById(R.id.dialogTextView);
+                            textView.setText("Technical Error\nPlease try again later");
+                            String positiveText = getString(android.R.string.ok);
+                            builder.setPositiveButton(positiveText,
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            builder.setView(errorDialogView);
+                            builder.show();
                         }
                     }
                 }

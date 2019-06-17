@@ -6,35 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".activity.EditIdeaActivity">
 
-    <!--<TextView-->
-        <!--android:id="@+id/textView8"-->
-        <!--android:layout_width="280dp"-->
-        <!--android:layout_height="47dp"-->
-        <!--android:layout_marginStart="30dp"-->
-        <!--android:layout_marginLeft="30dp"-->
-        <!--android:layout_marginTop="114dp"-->
-        <!--android:layout_marginEnd="101dp"-->
-        <!--android:layout_marginRight="101dp"-->
-        <!--android:layout_marginBottom="685dp"-->
-        <!--android:gravity="center_vertical"-->
-        <!--android:text="Edit Idea"-->
-        <!--android:textColor="@color/colorPrimary"-->
-        <!--android:textSize="36sp"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/ideaIdEditTextView"
-        android:layout_width="280dp"
-        android:layout_height="21dp"
+        android:layout_width="279dp"
+        android:layout_height="40dp"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="161dp"
-        android:layout_marginEnd="104dp"
-        android:layout_marginRight="104dp"
-        android:layout_marginBottom="660dp"
+        android:layout_marginTop="144dp"
+        android:layout_marginEnd="102dp"
+        android:layout_marginRight="102dp"
+        android:layout_marginBottom="663dp"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,9 +46,10 @@
         android:layout_marginBottom="501dp"
         android:background="@drawable/text_view_shape"
         android:ems="10"
-        android:hint="Idea Name"
+        android:hint="Idea Name*"
         android:inputType="textPersonName"
         android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -78,9 +63,10 @@
         android:layout_marginTop="368dp"
         android:layout_marginBottom="368dp"
         android:background="@drawable/text_view_shape"
-        android:hint="Idea Description"
+        android:hint="Idea Description*"
         android:inputType="textMultiLine"
         android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:paddingBottom="40dp"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -132,6 +118,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/loadingPanel"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:indeterminate="true"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

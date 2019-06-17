@@ -1,18 +1,26 @@
 package com.divya.sprxs.activity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.divya.sprxs.R;
@@ -40,6 +48,8 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
     private Button confirmEditButton;
     private TextView ideaIdEditTextView;
     private int mySpinnerValue;
+    private ProgressBar progressBar;
+
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -58,7 +68,10 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         confirmEditButton.setOnClickListener(this);
         SharedPreferences idPrefs = getSharedPreferences(MY_IDEA_ID, MODE_PRIVATE);
         final String ideaId = idPrefs.getString("ideaId", null);
-        ideaIdEditTextView.setText(ideaId);
+        ideaIdEditTextView.setText("#"+ideaId);
+        progressBar=findViewById(R.id.loadingPanel);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
+        progressBar.setVisibility(View.GONE);
 
 
         List<String> categories = new ArrayList<>();
@@ -92,7 +105,6 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.confirmEditButton:
                 editIdea();
@@ -104,6 +116,17 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         String ideaName = ideaNameEditTextView.getText().toString().trim();
         String ideaDescription = ideaDescriptionEditTextView.getText().toString().trim();
         String fileName = filenameEditTextView.getText().toString().trim();
+
+        if (ideaName.isEmpty()) {
+            ideaNameEditTextView.setError("This Field is required");
+            ideaNameEditTextView.requestFocus();
+            return;
+        } else if (ideaDescription.isEmpty()) {
+            ideaDescriptionEditTextView.setError("This Field is required");
+            ideaDescriptionEditTextView.requestFocus();
+            return;
+        }
+
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         final SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
         final String token = prefs.getString("token", null);
@@ -113,6 +136,7 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
 
 
         Call<EditIdeaResponse> call;
+        progressBar.setVisibility(View.VISIBLE);
         call = RetrofitClient.getInstance().getApi().editIdea(
                 "Bearer " + token,
                 new EditIdeaRequest(ideaId, mySpinnerValue, 2, 3, ideaName, ideaDescription, "", "", "","",""));
@@ -121,7 +145,23 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
             public void onResponse(Call<EditIdeaResponse> call, Response<EditIdeaResponse> response) {
                 EditIdeaResponse editIdeaResponse = response.body();
                 if (response.code() == 200) {
-                    Toast.makeText(EditIdeaActivity.this, editIdeaResponse.getEditIdea_response(), Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EditIdeaActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                    View successDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.success_dialog, null);
+                    TextView textView;
+                    textView = successDialogView.findViewById(R.id.dialogTextView);
+                    textView.setText("Idea has been edited with ID " +editIdeaResponse.getIdea_ID());
+                    String positiveText = getString(android.R.string.ok);
+                    builder.setPositiveButton(positiveText,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(EditIdeaActivity.this,IdeaDetailsActivity.class);
+                                    startActivity(intent);
+                                }
+                            });
+                    builder.setView(successDialogView);
+                    builder.show();
+                    progressBar.setVisibility(View.GONE);
                 } else if (response.code() == 401) {
                     Call<RefreshTokenResponse> callrefresh;
                     callrefresh = RetrofitClient.getInstance().getApi().refreshToken(
@@ -138,9 +178,40 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                             } else {
                                 try {
                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                    Toast.makeText(EditIdeaActivity.this, jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(EditIdeaActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                                    View errorDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
+                                    TextView textView;
+                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                    textView.setText("Technical Error\nPlease try again later");
+                                    String positiveText = getString(android.R.string.ok);
+                                    builder.setPositiveButton(positiveText,
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    builder.setView(errorDialogView);
+                                    builder.show();
+                                    progressBar.setVisibility(View.GONE);
                                 } catch (Exception e) {
-                                    Toast.makeText(EditIdeaActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(EditIdeaActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(EditIdeaActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                                    View errorDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
+                                    TextView textView;
+                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                    textView.setText("Technical Error\nPlease try again later");
+                                    String positiveText = getString(android.R.string.ok);
+                                    builder.setPositiveButton(positiveText,
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                   openIdeaDetails();
+                                                }
+                                            });
+                                    builder.setView(errorDialogView);
+                                    builder.show();
+                                    progressBar.setVisibility(View.GONE);
                                 }
                             }
                         }
@@ -153,9 +224,41 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        Toast.makeText(EditIdeaActivity.this, jObjError.getString("error"), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(EditIdeaActivity.this, jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(EditIdeaActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                        View errorDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
+                        TextView textView;
+                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView.setText("Please complete all the fields");
+                        String positiveText = getString(android.R.string.ok);
+                        builder.setPositiveButton(positiveText,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        builder.setView(errorDialogView);
+                        builder.show();
+                        progressBar.setVisibility(View.GONE);
                     } catch (Exception e) {
-                        Toast.makeText(EditIdeaActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(EditIdeaActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(EditIdeaActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                        View errorDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
+                        TextView textView;
+                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView.setText("Technical Error\nPlease try again later");
+                        String positiveText = getString(android.R.string.ok);
+                        builder.setPositiveButton(positiveText,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        builder.setView(errorDialogView);
+                        builder.show();
+                        progressBar.setVisibility(View.GONE);
                     }
                 }
             }
@@ -165,5 +268,11 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
             }
         });
     }
+
+    public void openIdeaDetails(){
+        Intent intent = new Intent (EditIdeaActivity.this,IdeaDetailsActivity.class);
+        startActivity(intent);
+    }
+
 
 }

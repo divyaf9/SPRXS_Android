@@ -1,6 +1,7 @@
 package com.divya.sprxs.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -13,20 +14,20 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.divya.sprxs.R;
 import com.divya.sprxs.api.RetrofitClient;
-import com.divya.sprxs.fragment.HomeFragment;
 import com.divya.sprxs.model.LoginRequest;
 import com.divya.sprxs.model.LoginResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -50,9 +51,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView forgotPasswordTextView;
     private TextView signupTextView;
     private ProgressBar progressBar;
-
-
-    private Boolean isFirebaseAuthValid = Boolean.TRUE;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
     public final String firebasePassword = "ljsdlgkj&fefsd$%SDFsdf123£";
 
@@ -71,11 +69,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         loginButton.setOnClickListener(this);
         forgotPasswordTextView.setOnClickListener(this);
 
-        progressBar=findViewById(R.id.loadingPanel);
+        progressBar = findViewById(R.id.loadingPanel);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.GONE);
-
-
 
         String text = "Don't have an account? Sign Up";
         SpannableString spannableString = new SpannableString(text);
@@ -138,21 +134,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 if (user != null) {
                                     final SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                                     Call<LoginResponse> call;
+
+                                    progressBar.setVisibility(View.VISIBLE);
+
                                     call = RetrofitClient.getInstance().getApi().userLogin(new LoginRequest(loginEmail, loginPassword));
 
                                     call.enqueue(new Callback<LoginResponse>() {
                                         @Override
                                         public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
-                                            LoginResponse loginResponse = response.body();
                                             if (response.code() == 200) {
-                                                if (loginResponse.getLogin_response().contentEquals("PASS")) {
+                                                LoginResponse loginResponse = response.body();
                                                     if (loginResponse.getProfile_type().contentEquals("1")) {
                                                         editor.putString("token", loginResponse.getToken());
                                                         editor.putString("refresh_token", loginResponse.getRefresh_token());
-                                                        editor.putString("email",loginResponse.getLogin_email());
-                                                        editor.putString("firstname",loginResponse.getLogin_firstname());
-                                                        editor.putString("surname",loginResponse.getLogin_surname());
+                                                        editor.putString("email", loginResponse.getLogin_email());
+                                                        editor.putString("firstname", loginResponse.getLogin_firstname());
+                                                        editor.putString("surname", loginResponse.getLogin_surname());
                                                         editor.apply();
                                                         SharedPreferences sharedPreferences = getSharedPreferences("MyLogin.txt", Context.MODE_PRIVATE);
                                                         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -164,15 +162,44 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                         editor.apply();
                                                         loggedIn();
                                                     }
-                                                }
-                                            }
-                                            else
-                                             {
+                                            } else {
                                                 try {
                                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                                    Toast.makeText(LoginActivity.this, jObjError.getString("error"), Toast.LENGTH_LONG).show();
+//
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                                                    View errorDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
+                                                    TextView textView;
+                                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                                    textView.setText("Invalid login, please check your credentials and try again");
+                                                    String positiveText = getString(android.R.string.ok);
+                                                    builder.setPositiveButton(positiveText,
+                                                            new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                    dialog.dismiss();
+                                                                }
+                                                            });
+                                                    builder.setView(errorDialogView);
+                                                    builder.show();
+                                                    progressBar.setVisibility(View.GONE);
                                                 } catch (Exception e) {
-                                                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+//                                                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                                                    View errorDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
+                                                    TextView textView;
+                                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                                    textView.setText("Technical Error\nPlease try again later");
+                                                    String positiveText = getString(android.R.string.ok);
+                                                    builder.setPositiveButton(positiveText,
+                                                            new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                    dialog.dismiss();
+                                                                }
+                                                            });
+                                                    builder.setView(errorDialogView);
+                                                    builder.show();
+                                                    progressBar.setVisibility(View.GONE);
                                                 }
                                             }
                                         }
@@ -186,10 +213,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             } else {
                                 Log.w("Message:", "signInWithEmail:failure", task.getException());
-                                Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(LoginActivity.this, "Authentication failed.",
+//                                        Toast.LENGTH_SHORT).show();
+                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                                View errorDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
+                                TextView textView;
+                                textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                textView.setText("Authentication Failed\nPlease enter a correct credentials");
+                                String positiveText = getString(android.R.string.ok);
+                                builder.setPositiveButton(positiveText,
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                builder.setView(errorDialogView);
+                                builder.show();
+                                progressBar.setVisibility(View.GONE);
                                 updateUI(null);
-                                isFirebaseAuthValid = Boolean.FALSE;
                             }
 
                         }
@@ -202,7 +244,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.loginButton:
                 userLogin();
-                progressBar.setVisibility(View.VISIBLE);
                 break;
             case R.id.forgotPasswordTextView:
                 goToForgetPassword();
@@ -224,7 +265,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void loggedIn() {
-
         Intent intent = new Intent(LoginActivity.this, LoggedIn.class);
         startActivity(intent);
         finish();
@@ -240,9 +280,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String email = currentUser.getEmail();
-            Log.e("email", email);
             String uid = currentUser.getUid();
-            Log.e("Uid", uid);
         }
     }
 

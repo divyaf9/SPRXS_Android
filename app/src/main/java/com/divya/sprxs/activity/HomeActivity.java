@@ -13,13 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.divya.sprxs.R;
-import com.divya.sprxs.R.layout.*;
 import com.divya.sprxs.fragment.ChatFragment;
 import com.divya.sprxs.fragment.CreateIdeasFragment;
 import com.divya.sprxs.fragment.HomeFragment;
@@ -41,19 +41,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private InboxFragment inboxFragment;
     private TextView drawerNameTextView,drawerMailTextView;
 
-    private DrawerLayout dl;
-    private ActionBarDrawerToggle t;
-    private NavigationView nv;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setTitle("Home");
-        setContentView(R.layout.activity_home);
 
+
+
+        setContentView(R.layout.activity_home);
+        this.setTitle("Home");
         bottomNavigationView = findViewById(R.id.bottomNavBar);
         frameLayout = findViewById(R.id.frameLayout);
-
         homeFragment = new HomeFragment();
         myIdeasFragment = new MyIdeasFragment();
         createIdeasFragment = new CreateIdeasFragment();
@@ -122,10 +119,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {

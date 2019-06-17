@@ -174,7 +174,6 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
 
         switch (v1.getId()) {
             case R.id.submitButton:
-                progressBar.setVisibility(View.VISIBLE);
                 createIdea();
                 break;
             case R.id.dismissButton:
@@ -183,17 +182,9 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
             case R.id.attachButton:
                 openActivity();
                 break;
-//            case R.id.menu:
-//                openMenu();
-//                break;
         }
     }
-//
-//    private void openMenu() {
-//        Intent intent = new Intent(getActivity(), HomeActivity.class);
-//        startActivity(intent);
-//
-//    }
+
 
     private void openActivity() {
         Intent intent = new Intent();
@@ -261,8 +252,10 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
             Log.d("IMAGE PATH ", uri.getPath());
         }
 
+
         final SharedPreferences.Editor editor = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
         Call<CreateIdeasResponse> call;
+        progressBar.setVisibility(View.VISIBLE);
         call = RetrofitClient.getInstance().getApi().createIdea(
                 "Bearer " + token,
                 new CreateIdeasRequest(mySpinnerValue, 2, 3, ideaName, ideaDescription, "", fileName, ""));
@@ -274,8 +267,6 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
                 CreateIdeasResponse createIdeasResponse = response.body();
 
                 if (response.code() == 201) {
-                    if (createIdeasResponse.getCreateIdea_response().contentEquals("PASS")) {
-                        Log.e("token+", token);
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
                         View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.success_dialog, null);
@@ -287,14 +278,13 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        Log.d("myTag", "positive button clicked");
-
+                                        dialog.dismiss();
                                     }
                                 });
                         builder.setView(successDialogView);
                         builder.show();
                         progressBar.setVisibility(View.GONE);
-                    }
+
 
                 } else if (response.code() == 401) {
                     Call<RefreshTokenResponse> callrefresh;
@@ -312,6 +302,7 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
                             } else {
                                 try {
                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
+
                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
                                     View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
                                     TextView textView;
@@ -327,6 +318,8 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
                                             });
                                     builder.setView(errorDialogView);
                                     builder.show();
+                                    progressBar.setVisibility(View.GONE);
+
 
                                 } catch (Exception e) {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
@@ -344,6 +337,8 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
                                             });
                                     builder.setView(errorDialogView);
                                     builder.show();
+                                    progressBar.setVisibility(View.GONE);
+
 
                                 }
                             }
@@ -371,6 +366,8 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
                                 });
                         builder.setView(errorDialogView);
                         builder.show();
+                        progressBar.setVisibility(View.GONE);
+
 
                     } catch (Exception e) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
@@ -388,6 +385,8 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
                                 });
                         builder.setView(errorDialogView);
                         builder.show();
+                        progressBar.setVisibility(View.GONE);
+
 
                     }
                 }

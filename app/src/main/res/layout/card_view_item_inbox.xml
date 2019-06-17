@@ -32,6 +32,7 @@
             android:id="@+id/inboxTextView"
             android:layout_width="100dp"
             android:layout_height="25dp"
+            android:textColor="#494949"
             android:layout_marginStart="89dp"
             android:layout_marginLeft="89dp"
             android:layout_marginTop="38dp"

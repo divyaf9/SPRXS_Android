@@ -1,20 +1,21 @@
 package com.divya.sprxs.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
+import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.divya.sprxs.R;
 import com.divya.sprxs.api.RetrofitClient;
 import com.divya.sprxs.model.CreateProfileRequest;
@@ -41,7 +42,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText passwordTextView;
     private EditText confirmPasswordTextView;
     private Button signupButton;
-    private Boolean isFirebaseAuthValid;
     public final String firebasePassword = "ljsdlgkj&fefsd$%SDFsdf123£";
     private ProgressBar progressBar;
 
@@ -122,8 +122,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             confirmPasswordTextView.requestFocus();
             return;
         } else {
-//            checkEmail();
-            //create user
+
             mAuth.createUserWithEmailAndPassword(email_add, firebasePassword)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -135,6 +134,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     String UserUid = user.getUid();
                                     String email_add_firebase = emailTextView.getText().toString().trim();
                                     Call<CreateProfileResponse> call;
+                                    progressBar.setVisibility(View.VISIBLE);
+
                                     call = RetrofitClient.getInstance().getApi().userSignup(new CreateProfileRequest(1, firstName, lastName, 0, 0, "0", email_add_firebase, password, confirmPassword, Boolean.TRUE, Boolean.FALSE, UserUid));
 
                                     call.enqueue(new Callback<CreateProfileResponse>() {
@@ -143,18 +144,64 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                         @Override
                                         public void onResponse(Call<CreateProfileResponse> call, Response<CreateProfileResponse> response) {
 
-                                            CreateProfileResponse createProfileResponseResponse = response.body();
+
 
                                             if (response.code() == 201) {
-                                                if (createProfileResponseResponse.getCreateProfile_response().contentEquals("PASS")) {
+                                                CreateProfileResponse createProfileResponseResponse = response.body();
                                                     openHome();
-                                                }
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                                                    View successDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.success_dialog, null);
+                                                    TextView textView;
+                                                    textView = successDialogView.findViewById(R.id.dialogTextView);
+                                                    textView.setText("Welcome to SPRXS");
+                                                    String positiveText = getString(android.R.string.ok);
+                                                    builder.setPositiveButton(positiveText,
+                                                            new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                    dialog.dismiss();
+                                                                }
+                                                            });
+                                                    builder.setView(successDialogView);
+                                                    builder.show();
                                             } else {
                                                 try {
                                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                                    Toast.makeText(RegisterActivity.this, jObjError.getString("error"), Toast.LENGTH_LONG).show();
+//                                                    Toast.makeText(RegisterActivity.this, jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                                                    View errorDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
+                                                    TextView textView;
+                                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                                    textView.setText("Technical Error\nPlease try again later");
+                                                    String positiveText = getString(android.R.string.ok);
+                                                    builder.setPositiveButton(positiveText,
+                                                            new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                    dialog.dismiss();
+                                                                }
+                                                            });
+                                                    builder.setView(errorDialogView);
+                                                    builder.show();
+                                                    progressBar.setVisibility(View.GONE);
                                                 } catch (Exception e) {
-                                                    Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+//                                                    Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                                                    View errorDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
+                                                    TextView textView;
+                                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                                    textView.setText("Technical Error\nPlease try again later");
+                                                    String positiveText = getString(android.R.string.ok);
+                                                    builder.setPositiveButton(positiveText,
+                                                            new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                    dialog.dismiss();
+                                                                }
+                                                            });
+                                                    builder.setView(errorDialogView);
+                                                    builder.show();
+                                                    progressBar.setVisibility(View.GONE);
                                                 }
                                             }
                                         }
@@ -167,14 +214,47 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                             } else {
                                 String message = "The email address is already in use by another account.";
-                                if (task.getException().getMessage().equals(message))
-                                    Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
-                                else
+                                if (task.getException().getMessage().equals(message)){
+//                                    Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                                    View errorDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
+                                    TextView textView;
+                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                    textView.setText(message);
+                                    String positiveText = getString(android.R.string.ok);
+                                    builder.setPositiveButton(positiveText,
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    builder.setView(errorDialogView);
+                                    builder.show();
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                                else {
                                     Log.w("error", "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_LONG).show();
-                                updateUI(null);
-                                isFirebaseAuthValid = Boolean.FALSE;
+//                                    Toast.makeText(RegisterActivity.this, "Authentication failed.",
+//                                            Toast.LENGTH_LONG).show();
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                                    View errorDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
+                                    TextView textView;
+                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                    textView.setText("Authentication Failed\nPlease enter a correct credentials");
+                                    String positiveText = getString(android.R.string.ok);
+                                    builder.setPositiveButton(positiveText,
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    builder.setView(errorDialogView);
+                                    builder.show();
+                                    progressBar.setVisibility(View.GONE);
+                                    updateUI(null);
+                                }
                             }
                         }
                     });
@@ -194,8 +274,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private void openHome() {
         Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
         startActivity(intent);
+        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+        View successDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.success_dialog, null);
+        TextView textView;
+        textView = successDialogView.findViewById(R.id.dialogTextView);
+        textView.setText("Welcome to SPRXS");
+        String positiveText = getString(android.R.string.ok);
+        builder.setPositiveButton(positiveText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.setView(successDialogView);
+        builder.show();
         finish();
-        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -203,7 +297,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.signupButton:
                 userSignup();
-                progressBar.setVisibility(View.VISIBLE);
                 break;
         }
     }
