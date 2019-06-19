@@ -17,10 +17,10 @@
         android:title="Create Idea" />
 
 
-    <item
-        android:id="@+id/Chat_icon"
-        android:icon="@drawable/ic_icons8_speech"
-        android:title="Chat" />
+    <!--<item-->
+        <!--android:id="@+id/Chat_icon"-->
+        <!--android:icon="@drawable/ic_icons8_speech"-->
+        <!--android:title="Chat" />-->
 
     <item
         android:id="@+id/Inbox_icon"

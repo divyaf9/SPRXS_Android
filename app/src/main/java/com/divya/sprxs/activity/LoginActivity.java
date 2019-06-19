@@ -127,8 +127,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("Message:", "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 updateUI(user);
                                 if (user != null) {
@@ -165,7 +163,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                             } else {
                                                 try {
                                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-//
                                                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
                                                     View errorDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
                                                     TextView textView;
@@ -183,7 +180,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                     builder.show();
                                                     progressBar.setVisibility(View.GONE);
                                                 } catch (Exception e) {
-//                                                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                                                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
                                                     View errorDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
                                                     TextView textView;
@@ -213,8 +209,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             } else {
                                 Log.w("Message:", "signInWithEmail:failure", task.getException());
-//                                Toast.makeText(LoginActivity.this, "Authentication failed.",
-//                                        Toast.LENGTH_SHORT).show();
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
                                 View errorDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
                                 TextView textView;

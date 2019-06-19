@@ -4,13 +4,21 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -31,6 +39,7 @@ import com.divya.sprxs.model.MyIdeasSummaryResponse;
 import com.divya.sprxs.model.RefreshTokenResponse;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -42,7 +51,7 @@ import retrofit2.Response;
 import static android.content.Context.MODE_PRIVATE;
 import static com.divya.sprxs.activity.LoginActivity.MY_PREFS_NAME;
 
-public class MyIdeasFragment extends Fragment {
+public class MyIdeasFragment extends Fragment implements View.OnClickListener{
 
     private RecyclerView recyclerView;
     private DataAdapter dataAdapter;
@@ -53,7 +62,6 @@ public class MyIdeasFragment extends Fragment {
     private EndlessRecyclerOnScrollListener scrollListener;
 
     private List<MyIdeasSummaryResponse> myIdeasSummaryResponsedata;
-    private List<MyIdeasSummaryResponse> list;
     SwipeController swipeController = null;
 
     @Override
@@ -70,6 +78,7 @@ public class MyIdeasFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_my_ideas, container, false);
         getActivity().setTitle("My Ideas");
+
         recyclerView = v.findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(getActivity());
         ideasSummary();
@@ -98,6 +107,7 @@ public class MyIdeasFragment extends Fragment {
             public void onResponse(Call<List<MyIdeasSummaryResponse>> call, Response<List<MyIdeasSummaryResponse>> response) {
                 if (response.code() == 200) {
                     myIdeasSummaryResponsedata = response.body();
+                      String IdeaId = "";
                     if (myIdeasSummaryResponsedata.size() == 0) {
                         NoIdeasFragment noIdeasFragment = new NoIdeasFragment();
                         FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
@@ -110,9 +120,12 @@ public class MyIdeasFragment extends Fragment {
                         dataAdapter = new DataAdapter(getActivity(), myIdeasSummaryResponsedata, getContext());
                         recyclerView.setAdapter(dataAdapter);
                         dataAdapter.notifyDataSetChanged();
-
                         recyclerView.setAdapter(dataAdapter);
 
+
+                        
+
+                        final String finalIdeaId = IdeaId;
                         swipeController = new SwipeController(new SwipeControllerActions() {
                             @Override
                             public void onLeftClicked(int position) {
@@ -149,7 +162,6 @@ public class MyIdeasFragment extends Fragment {
                             } else {
                                 try {
                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-//                                    Toast.makeText(getActivity(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
                                     View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
                                     TextView textView;
@@ -166,7 +178,6 @@ public class MyIdeasFragment extends Fragment {
                                     builder.setView(errorDialogView);
                                     builder.show();
                                 } catch (Exception e) {
-//                                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
                                     View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
                                     TextView textView;
@@ -194,7 +205,6 @@ public class MyIdeasFragment extends Fragment {
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-//                        Toast.makeText(getActivity(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
                         View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
                         TextView textView;
@@ -211,7 +221,6 @@ public class MyIdeasFragment extends Fragment {
                         builder.setView(errorDialogView);
                         builder.show();
                     } catch (Exception e) {
-//                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
                         View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
                         TextView textView;
@@ -236,5 +245,14 @@ public class MyIdeasFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+
+
+
 
 }

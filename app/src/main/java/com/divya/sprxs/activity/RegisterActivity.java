@@ -1,7 +1,9 @@
 package com.divya.sprxs.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -13,9 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.divya.sprxs.R;
 import com.divya.sprxs.api.RetrofitClient;
 import com.divya.sprxs.model.CreateProfileRequest;
@@ -42,8 +46,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText passwordTextView;
     private EditText confirmPasswordTextView;
     private Button signupButton;
-    public final String firebasePassword = "ljsdlgkj&fefsd$%SDFsdf123£";
     private ProgressBar progressBar;
+    public static final String MY_PREFS_NAME = "MyPrefsFile";
+    public final String firebasePassword = "ljsdlgkj&fefsd$%SDFsdf123£";
+
 
 
     @Override
@@ -62,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         signupButton = findViewById(R.id.signupButton);
         signupButton.setOnClickListener(this);
 
-        progressBar=findViewById(R.id.loadingPanel);
+        progressBar = findViewById(R.id.loadingPanel);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.GONE);
     }
@@ -131,6 +137,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 updateUI(user);
                                 if (user != null) {
+                                    final SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                                     String UserUid = user.getUid();
                                     String email_add_firebase = emailTextView.getText().toString().trim();
                                     Call<CreateProfileResponse> call;
@@ -145,29 +152,23 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                         public void onResponse(Call<CreateProfileResponse> call, Response<CreateProfileResponse> response) {
 
 
-
                                             if (response.code() == 201) {
                                                 CreateProfileResponse createProfileResponseResponse = response.body();
-                                                    openHome();
-                                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                                                    View successDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.success_dialog, null);
-                                                    TextView textView;
-                                                    textView = successDialogView.findViewById(R.id.dialogTextView);
-                                                    textView.setText("Welcome to SPRXS");
-                                                    String positiveText = getString(android.R.string.ok);
-                                                    builder.setPositiveButton(positiveText,
-                                                            new DialogInterface.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(DialogInterface dialog, int which) {
-                                                                    dialog.dismiss();
-                                                                }
-                                                            });
-                                                    builder.setView(successDialogView);
-                                                    builder.show();
+                                                editor.putString("token", createProfileResponseResponse.getToken());
+                                                editor.putString("refresh_token", createProfileResponseResponse.getRefresh_token());
+                                                editor.apply();
+                                                SharedPreferences sharedPreferences = getSharedPreferences("MySignup", Context.MODE_PRIVATE);
+                                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                editor.putBoolean("FirstSignup", true);
+                                                editor.commit();
+                                                editor.putString("emailSignup", String.valueOf(emailTextView.getText()));
+                                                editor.putString("firstnameSignup", String.valueOf(firstNameTextView.getText()));
+                                                editor.putString("surnameSignup", String.valueOf(lastNameTextView.getText()));
+                                                editor.apply();
+                                                openHome();
                                             } else {
                                                 try {
                                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-//                                                    Toast.makeText(RegisterActivity.this, jObjError.getString("error"), Toast.LENGTH_LONG).show();
                                                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
                                                     View errorDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
                                                     TextView textView;
@@ -185,7 +186,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                                     builder.show();
                                                     progressBar.setVisibility(View.GONE);
                                                 } catch (Exception e) {
-//                                                    Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                                                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
                                                     View errorDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
                                                     TextView textView;
@@ -214,8 +214,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                             } else {
                                 String message = "The email address is already in use by another account.";
-                                if (task.getException().getMessage().equals(message)){
-//                                    Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
+                                if (task.getException().getMessage().equals(message)) {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
                                     View errorDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
                                     TextView textView;
@@ -232,11 +231,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     builder.setView(errorDialogView);
                                     builder.show();
                                     progressBar.setVisibility(View.GONE);
-                                }
-                                else {
+                                } else {
                                     Log.w("error", "createUserWithEmail:failure", task.getException());
-//                                    Toast.makeText(RegisterActivity.this, "Authentication failed.",
-//                                            Toast.LENGTH_LONG).show();
                                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
                                     View errorDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
                                     TextView textView;
@@ -274,21 +270,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private void openHome() {
         Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
         startActivity(intent);
-        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-        View successDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.success_dialog, null);
-        TextView textView;
-        textView = successDialogView.findViewById(R.id.dialogTextView);
-        textView.setText("Welcome to SPRXS");
-        String positiveText = getString(android.R.string.ok);
-        builder.setPositiveButton(positiveText,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-        builder.setView(successDialogView);
-        builder.show();
         finish();
     }
 
@@ -300,6 +281,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
         }
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

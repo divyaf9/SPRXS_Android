@@ -20,18 +20,20 @@
             android:id="@+id/nav_inbox"
             android:icon="@drawable/ic_icons8_envelope"
             android:title="@string/menu_inbox" />
-        <item
-            android:id="@+id/nav_chat"
-            android:icon="@drawable/ic_icons8_speech"
-            android:title="@string/menu_chat" />
-        <item
-            android:id="@+id/nav_marketplace"
-            android:icon="@drawable/ic_icons8_search_client"
-            android:title="@string/menu_marketplace" />
-        <item
-            android:id="@+id/nav_search"
-            android:icon="@drawable/ic_icons8_search"
-            android:title="@string/menu_search" />
+
+        <!--<item-->
+            <!--android:id="@+id/nav_chat"-->
+            <!--android:icon="@drawable/ic_icons8_speech"-->
+            <!--android:title="@string/menu_chat" />-->
+
+        <!--<item-->
+            <!--android:id="@+id/nav_marketplace"-->
+            <!--android:icon="@drawable/ic_icons8_search_client"-->
+            <!--android:title="@string/menu_marketplace" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_search"-->
+            <!--android:icon="@drawable/ic_icons8_search"-->
+            <!--android:title="@string/menu_search" />-->
 
         <item
             android:id="@+id/nav_logout"

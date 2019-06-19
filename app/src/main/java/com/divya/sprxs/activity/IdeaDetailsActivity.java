@@ -41,7 +41,7 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
     private TextView blockchainStatus, attachmentStatus;
     private ToggleButton ideaStatus;
     private TextView ideaName_IdeaDetails, ideaId_IdeaDetails, dateText_IdeaDetails, ideaDescriptionText_IdeaDetails;
-    public static final String MY_IDEA_ID = "MyIdPrefsFile";
+    public static final String MY_IDEA_DETAILS = "MyIdPrefsFile";
     private List<MyIdeasResponse> myIdeasResponsedata = null;
 
 
@@ -106,8 +106,8 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
         SharedPreferences prefs = getApplicationContext().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         String token = prefs.getString("token", null);
         final String refresh_token = prefs.getString("refresh_token", null);
-        SharedPreferences idPrefs = getApplicationContext().getSharedPreferences(MY_IDEA_ID, MODE_PRIVATE);
-        final SharedPreferences.Editor editor = getSharedPreferences(MY_IDEA_ID, MODE_PRIVATE).edit();
+        SharedPreferences idPrefs = getApplicationContext().getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE);
+        final SharedPreferences.Editor editor = getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE).edit();
         Call<List<MyIdeasResponse>> call;
         call = RetrofitClient.getInstance().getApi().myIdeas(
                 "Bearer " + token,
@@ -131,6 +131,8 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
                             ideaName_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaName());
                             ideaId_IdeaDetails.setText("#" + myIdeasResponsedata.get(i).getIdeaUniqueID());
                             editor.putString("ideaId", myIdeasResponsedata.get(i).getIdeaUniqueID());
+                            editor.putString("ideaName",myIdeasResponsedata.get(i).getIdeaName());
+                            editor.putString("ideaDescription",myIdeasResponsedata.get(i).getIdeaDescription());
                             editor.apply();
                             ideaDescriptionText_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaDescription());
                             dateText_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaDateCreated());

@@ -1,19 +1,22 @@
 package com.divya.sprxs.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -39,15 +42,41 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private CreateIdeasFragment createIdeasFragment;
     private ChatFragment chatFragment;
     private InboxFragment inboxFragment;
-    private TextView drawerNameTextView,drawerMailTextView;
+    private ImageView helpImageView;
+    private TextView drawerNameTextView, drawerMailTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
-
         setContentView(R.layout.activity_home);
+        SharedPreferences preferences = getSharedPreferences("MySignup", MODE_PRIVATE);
+        Boolean status = preferences.getBoolean("FirstSignup", false);
+        String emailSignup = preferences.getString("emailSignup",null);
+        String firstnameSignup = preferences.getString("firstnameSignup", null);
+        String surnameSignup = preferences.getString("surnameSignup", null);
+
+        if (status) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+            View successDialogView = LayoutInflater.from(HomeActivity.this).inflate(R.layout.success_dialog, null);
+            TextView textView;
+            textView = successDialogView.findViewById(R.id.dialogTextView);
+            textView.setText("Welcome to SPRXS");
+            String positiveText = getString(android.R.string.ok);
+            builder.setPositiveButton(positiveText,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            builder.setView(successDialogView);
+            builder.show();
+        }
+
+
+
         this.setTitle("Home");
         bottomNavigationView = findViewById(R.id.bottomNavBar);
         frameLayout = findViewById(R.id.frameLayout);
@@ -59,6 +88,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setFragment(homeFragment);
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
+        helpImageView = findViewById(R.id.helpImageView);
+        helpImageView.setOnClickListener(this);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view_home);
         View headerView = navigationView.getHeaderView(0);
@@ -68,13 +99,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        SharedPreferences prefs = this.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        String email = prefs.getString("email", "");
-        String firstname = prefs.getString("firstname", "");
-        String surname = prefs.getString("surname", "");
-        drawerNameTextView.setText(firstname+" "+surname);
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        String email = prefs.getString("email", null);
+        String firstname = prefs.getString("firstname", null);
+        String surname = prefs.getString("surname", null);
+        drawerNameTextView.setText(firstname + " " + surname);
         drawerMailTextView.setText(email);
         navigationView.setNavigationItemSelectedListener(this);
+
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -94,9 +126,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.Create_Ideas_icon:
                         setFragment(createIdeasFragment);
                         return true;
-                    case R.id.Chat_icon:
-                        setFragment(chatFragment);
-                        return true;
+//                    case R.id.Chat_icon:
+//                        setFragment(chatFragment);
+//                        return true;
 
                     case R.id.Inbox_icon:
                         setFragment(inboxFragment);
@@ -114,8 +146,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
         }
     }
 
@@ -132,8 +162,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             setFragment(createIdeasFragment);
         } else if (id == R.id.nav_inbox) {
             setFragment(inboxFragment);
-        } else if (id == R.id.nav_chat) {
-            setFragment(chatFragment);
+//        } else if (id == R.id.nav_chat) {
+//            setFragment(chatFragment);
         } else if (id == R.id.nav_logout) {
             openLogin();
         }
@@ -146,7 +176,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void setFragment(Fragment fragment) {
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout,fragment);
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.commit();
     }
 
@@ -155,6 +185,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
         editor.commit();
+        editor.apply();
+        SharedPreferences sharedPreferences = this.getSharedPreferences("MySignup", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.clear();
+        edit.commit();
+        edit.apply();
+
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                 Intent.FLAG_ACTIVITY_CLEAR_TASK |
@@ -164,7 +201,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.helpImageView:
+                openHelp();
+        }
 
+    }
+
+    private void openHelp() {
+        Intent intent = new Intent(HomeActivity.this,HelpActivity.class);
+        startActivity(intent);
     }
 
     @Override

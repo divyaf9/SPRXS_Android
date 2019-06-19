@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.divya.sprxs.activity.IdeaDetailsActivity.MY_IDEA_ID;
+import static com.divya.sprxs.activity.IdeaDetailsActivity.MY_IDEA_DETAILS;
 import static com.divya.sprxs.activity.LoginActivity.MY_PREFS_NAME;
 
 public class EditIdeaActivity extends AppCompatActivity implements View.OnClickListener {
@@ -66,10 +64,15 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         attachEditButton.setOnClickListener(this);
         confirmEditButton = findViewById(R.id.confirmEditButton);
         confirmEditButton.setOnClickListener(this);
-        SharedPreferences idPrefs = getSharedPreferences(MY_IDEA_ID, MODE_PRIVATE);
+        SharedPreferences idPrefs = getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE);
         final String ideaId = idPrefs.getString("ideaId", null);
-        ideaIdEditTextView.setText("#"+ideaId);
-        progressBar=findViewById(R.id.loadingPanel);
+        final String ideaName = idPrefs.getString("ideaName", null);
+        final String ideaDescription = idPrefs.getString("ideaDescription", null);
+        ideaIdEditTextView.setText("#" + ideaId);
+        ideaNameEditTextView.setText(ideaName);
+        ideaDescriptionEditTextView.setText(ideaDescription);
+
+        progressBar = findViewById(R.id.loadingPanel);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.GONE);
 
@@ -101,6 +104,7 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
+
     }
 
     @Override
@@ -131,7 +135,7 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         final SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
         final String token = prefs.getString("token", null);
         final String refresh_token = prefs.getString("refresh_token", null);
-        SharedPreferences idPrefs = getSharedPreferences(MY_IDEA_ID, MODE_PRIVATE);
+        SharedPreferences idPrefs = getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE);
         final String ideaId = idPrefs.getString("ideaId", null);
 
 
@@ -139,7 +143,7 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         progressBar.setVisibility(View.VISIBLE);
         call = RetrofitClient.getInstance().getApi().editIdea(
                 "Bearer " + token,
-                new EditIdeaRequest(ideaId, mySpinnerValue, 2, 3, ideaName, ideaDescription, "", "", "","",""));
+                new EditIdeaRequest(ideaId, mySpinnerValue, 2, 3, ideaName, ideaDescription, "", "", "", "", ""));
         call.enqueue(new Callback<EditIdeaResponse>() {
             @Override
             public void onResponse(Call<EditIdeaResponse> call, Response<EditIdeaResponse> response) {
@@ -149,13 +153,13 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                     View successDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.success_dialog, null);
                     TextView textView;
                     textView = successDialogView.findViewById(R.id.dialogTextView);
-                    textView.setText("Idea has been edited with ID " +editIdeaResponse.getIdea_ID());
+                    textView.setText("Idea has been edited with ID " + editIdeaResponse.getIdea_ID());
                     String positiveText = getString(android.R.string.ok);
                     builder.setPositiveButton(positiveText,
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(EditIdeaActivity.this,IdeaDetailsActivity.class);
+                                    Intent intent = new Intent(EditIdeaActivity.this, IdeaDetailsActivity.class);
                                     startActivity(intent);
                                 }
                             });
@@ -206,7 +210,7 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                                             new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                   openIdeaDetails();
+                                                    openIdeaDetails();
                                                 }
                                             });
                                     builder.setView(errorDialogView);
@@ -269,8 +273,8 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
-    public void openIdeaDetails(){
-        Intent intent = new Intent (EditIdeaActivity.this,IdeaDetailsActivity.class);
+    public void openIdeaDetails() {
+        Intent intent = new Intent(EditIdeaActivity.this, IdeaDetailsActivity.class);
         startActivity(intent);
     }
 

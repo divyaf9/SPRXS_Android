@@ -1,13 +1,16 @@
 package com.divya.sprxs.fragment;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,66 +66,9 @@ public class InboxFragment extends Fragment {
         final String token = prefs.getString("token", null);
         final String refresh_token = prefs.getString("refresh_token", null);
         Call<List<ViewEventsResponse>> call, call1;
-        call1 = RetrofitClient.getInstance().getApi().viewEvent(
-                "Bearer " + token,
-                new ViewEventsRequest(0, "Notification", "", "", "", ""));
-        call1.enqueue(new Callback<List<ViewEventsResponse>>() {
-            @Override
-            public void onResponse(Call<List<ViewEventsResponse>> call, Response<List<ViewEventsResponse>> response) {
-                if (response.code() == 200) {
-                    viewEventsResponsedata = response.body();
-                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                    recyclerViewInbox.setLayoutManager(layoutManager);
-                    dataAdapterInbox = new DataAdapterInbox(getActivity(), viewEventsResponsedata, getContext());
-                    recyclerViewInbox.setAdapter(dataAdapterInbox);
-                    dataAdapterInbox.notifyDataSetChanged();
-
-                } else if (response.code() == 401) {
-                    Call<RefreshTokenResponse> callrefresh;
-                    callrefresh = RetrofitClient.getInstance().getApi().refreshToken(
-                            "Bearer " + refresh_token);
-
-                    callrefresh.enqueue(new Callback<RefreshTokenResponse>() {
-                        @Override
-                        public void onResponse(Call<RefreshTokenResponse> call, Response<RefreshTokenResponse> response) {
-                            if (response.code() == 200) {
-                                RefreshTokenResponse refreshTokenResponse = response.body();
-                                editor.putString("token", refreshTokenResponse.getAccess_token());
-                                editor.apply();
-                                viewEvent();
-                            } else {
-                                try {
-                                    JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                    Toast.makeText(getActivity(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
-                                } catch (Exception e) {
-                                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<RefreshTokenResponse> call, Throwable t) {
-                        }
-                    });
-
-                } else {
-                    try {
-                        JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        Toast.makeText(getActivity(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
-                    } catch (Exception e) {
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ViewEventsResponse>> call, Throwable t) {
-            }
-        });
-
         call = RetrofitClient.getInstance().getApi().viewEvent(
                 "Bearer " + token,
-                new ViewEventsRequest(0, "Activity", "", "", "", ""));
+                new ViewEventsRequest(0, "Both", "", "", "", ""));
         call.enqueue(new Callback<List<ViewEventsResponse>>() {
             @Override
             public void onResponse(Call<List<ViewEventsResponse>> call, Response<List<ViewEventsResponse>> response) {
@@ -150,9 +96,39 @@ public class InboxFragment extends Fragment {
                             } else {
                                 try {
                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                    Toast.makeText(getActivity(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(getActivity(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
+                                    View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                                    TextView textView;
+                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                    textView.setText("Technical Error\nPlease try again later");
+                                    String positiveText = getString(android.R.string.ok);
+                                    builder.setPositiveButton(positiveText,
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    builder.setView(errorDialogView);
+                                    builder.show();
                                 } catch (Exception e) {
-                                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
+                                    View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                                    TextView textView;
+                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                    textView.setText("Technical Error\nPlease try again later");
+                                    String positiveText = getString(android.R.string.ok);
+                                    builder.setPositiveButton(positiveText,
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    builder.setView(errorDialogView);
+                                    builder.show();
                                 }
                             }
                         }
@@ -165,9 +141,39 @@ public class InboxFragment extends Fragment {
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        Toast.makeText(getActivity(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getActivity(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
+                        View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                        TextView textView;
+                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView.setText("Technical Error\nPlease try again later");
+                        String positiveText = getString(android.R.string.ok);
+                        builder.setPositiveButton(positiveText,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        builder.setView(errorDialogView);
+                        builder.show();
                     } catch (Exception e) {
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
+                        View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                        TextView textView;
+                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView.setText("Technical Error\nPlease try again later");
+                        String positiveText = getString(android.R.string.ok);
+                        builder.setPositiveButton(positiveText,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        builder.setView(errorDialogView);
+                        builder.show();
                     }
                 }
             }

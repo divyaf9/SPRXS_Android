@@ -9,12 +9,15 @@ import retrofit2.Response;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +34,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
 
     private Button resetPasswordButton;
     private EditText emailTextView;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,10 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
         resetPasswordButton = findViewById(R.id.ResetPasswordbutton);
         emailTextView = findViewById(R.id.emailTextView);
         resetPasswordButton.setOnClickListener(this);
+
+        progressBar = findViewById(R.id.loadingPanel);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
+        progressBar.setVisibility(View.GONE);
 
     }
 
@@ -64,6 +72,8 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
         else {
 
             Call<ResetPasswordResponse> call;
+            progressBar.setVisibility(View.VISIBLE);
+
             call = RetrofitClient.getInstance().getApi().resetPassword(new ResetPasswordRequest(loginEmail));
 
             call.enqueue(new Callback<ResetPasswordResponse>() {
@@ -74,8 +84,6 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
 
                     if (response.code() == 201) {
                         ResetPasswordResponse resetPasswordResponse = response.body();
-//                            Toast.makeText(ResetPasswordActivity.this, resetPasswordResponse.getResetPW_message(), Toast.LENGTH_LONG).show();
-
                             AlertDialog.Builder builder = new AlertDialog.Builder(ResetPasswordActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
                             View successDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.success_dialog, null);
                             TextView textView;
@@ -91,11 +99,11 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
                                     });
                             builder.setView(successDialogView);
                             builder.show();
+                            progressBar.setVisibility(View.GONE);
 
                     } else {
                         try {
                             JSONObject jObjError = new JSONObject(response.errorBody().string());
-//                            Toast.makeText(ResetPasswordActivity.this, jObjError.getString("getResetPW_message"), Toast.LENGTH_LONG).show();
                             AlertDialog.Builder builder = new AlertDialog.Builder(ResetPasswordActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
                             View errorDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.error_dialog, null);
                             TextView textView;
@@ -111,8 +119,8 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
                                     });
                             builder.setView(errorDialogView);
                             builder.show();
+                            progressBar.setVisibility(View.GONE);
                         } catch (Exception e) {
-//                            Toast.makeText(ResetPasswordActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                             AlertDialog.Builder builder = new AlertDialog.Builder(ResetPasswordActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
                             View errorDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.error_dialog, null);
                             TextView textView;
@@ -128,6 +136,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
                                     });
                             builder.setView(errorDialogView);
                             builder.show();
+                            progressBar.setVisibility(View.GONE);
                         }
                     }
                 }
