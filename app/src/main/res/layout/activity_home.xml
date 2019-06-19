@@ -35,6 +35,7 @@
                 android:layout_height="30dp"
                 android:layout_marginRight="20dp"
                 android:layout_gravity="end"
+                android:visibility="invisible"
                 app:srcCompat="@drawable/ic_help_outline_black_24dp" />
 
 

@@ -71,16 +71,6 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
         ideaDescriptionText_IdeaDetails = findViewById(R.id.ideaDescriptionText_IdeaDetails);
         ideaDescriptionText_IdeaDetails.setMovementMethod(new ScrollingMovementMethod());
 
-        ideaStatus.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(IdeaDetailsActivity.this, "sample", Toast.LENGTH_LONG).show();
-            }
-        });
-
-
         myIdeas();
     }
 
@@ -95,10 +85,6 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
     private void goToEditIdea() {
         Intent intent = new Intent(IdeaDetailsActivity.this, EditIdeaActivity.class);
         startActivity(intent);
-    }
-
-    public void changeIdeaStatus() {
-
     }
 
     public void myIdeas() {
@@ -136,11 +122,6 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
                             ideaDescriptionText_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaDescription());
                             dateText_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaDateCreated());
                             attachmentStatus.setText(myIdeasResponsedata.get(i).getIdeaFilepath());
-                            if (myIdeasResponsedata.get(i).isAllowSearch() == true) {
-                                ideaStatus.setSelected(true);
-                            } else {
-                                ideaStatus.setSelected(false);
-                            }
                         }
                 } else if (response.code() == 401) {
                     Call<RefreshTokenResponse> callrefresh;

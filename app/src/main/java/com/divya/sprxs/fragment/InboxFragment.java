@@ -50,6 +50,7 @@ public class InboxFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_inbox, container, false);
         recyclerViewInbox = v.findViewById(R.id.recycler_view_inbox);
         getActivity().setTitle("Inbox");
+        getActivity().findViewById(R.id.helpImageView).setVisibility(View.INVISIBLE);
         viewEvent();
         return v;
     }

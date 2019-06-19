@@ -61,7 +61,7 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
 
         View v = inflater.inflate(R.layout.fragment_my_ideas, container, false);
         getActivity().setTitle("My Ideas");
-
+        getActivity().findViewById(R.id.helpImageView).setVisibility(View.VISIBLE);
         recyclerView = v.findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(getActivity());
         ideasSummary();
@@ -104,29 +104,6 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
                         recyclerView.setAdapter(dataAdapter);
                         dataAdapter.notifyDataSetChanged();
                         recyclerView.setAdapter(dataAdapter);
-
-
-                        
-
-                        final String finalIdeaId = IdeaId;
-                        swipeController = new SwipeController(new SwipeControllerActions() {
-                            @Override
-                            public void onLeftClicked(int position) {
-                                Intent intent = new Intent(getActivity(), EditIdeaActivity.class);
-                                startActivity(intent);
-                            }
-                        });
-
-                        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
-                        itemTouchhelper.attachToRecyclerView(recyclerView);
-
-                        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-                            @Override
-                            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-                                swipeController.onDraw(c);
-                            }
-                        });
-
                     }
 
                 } else if (response.code() == 401) {

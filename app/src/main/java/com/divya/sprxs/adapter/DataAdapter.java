@@ -88,10 +88,6 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             equityimage = view.findViewById(R.id.equityImage);
             privateImageView = view.findViewById(R.id.privateImageView);
             publicImageView = view.findViewById(R.id.publicImageView);
-//              if(myIdeasSummaryResponse==null){
-//                  Intent intent = new Intent(view.getContext(),LoggedIn.class);
-//                  context.startActivity(intent);
-//              }
         }
     }
 }

@@ -105,6 +105,7 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
         progressBar.setVisibility(View.GONE);
 
         getActivity().setTitle("Create Ideas");
+        getActivity().findViewById(R.id.helpImageView).setVisibility(View.INVISIBLE);
 
         List<String> categories = new ArrayList<>();
         categories.add(0, "I have a");

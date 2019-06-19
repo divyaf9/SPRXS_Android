@@ -81,6 +81,7 @@ public class ChatFragment extends Fragment {
 //        ImageView imageView = header.findViewById(R.id.menu);
 //        actionBar.setCustomView(header);
         getActivity().setTitle("Chat");
+        getActivity().findViewById(R.id.helpImageView).setVisibility(View.INVISIBLE);
         return inflater.inflate(R.layout.fragment_chat, container, false);
     }
 

@@ -88,6 +88,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //        actionBar.setCustomView(header);
 
         getActivity().setTitle("Home");
+        getActivity().findViewById(R.id.helpImageView).setVisibility(View.INVISIBLE);
 
         return inflater.inflate(R.layout.fragment_home, container, false);
     }

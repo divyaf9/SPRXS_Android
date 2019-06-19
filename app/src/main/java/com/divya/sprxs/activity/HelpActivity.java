@@ -18,25 +18,16 @@ public class HelpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
 
-//        toolbar_help = findViewById(R.id.toolbar_help);
+        this.setTitle("Help and Support");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+    }
 
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setDisplayOptions( ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
-//        ImageView imageView = new ImageView(actionBar.getThemedContext());
-//        imageView.setScaleType(ImageView.ScaleType.CENTER);
-//        imageView.setImageResource(R.drawable.ic_edit_black_24dp);
-//        imageView.setId(R.id.editIdeaButton);
-//        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(100, 100, Gravity.RIGHT | Gravity.CENTER_VERTICAL);
-//        layoutParams.rightMargin = 40;
-//        imageView.setLayoutParams(layoutParams);
-//        actionBar.setCustomView(imageView);
-//
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setDisplayShowHomeEnabled(true);
-
+    @Override
+    public boolean onSupportNavigateUp(){
+        onBackPressed();
+        return true;
 
     }
 }
