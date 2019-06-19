@@ -6,6 +6,8 @@ import com.divya.sprxs.model.CreateProfileRequest;
 import com.divya.sprxs.model.CreateProfileResponse;
 import com.divya.sprxs.model.EditIdeaRequest;
 import com.divya.sprxs.model.EditIdeaResponse;
+import com.divya.sprxs.model.ListIdeaForCollaborationRequest;
+import com.divya.sprxs.model.ListIdeaForCollaborationResponse;
 import com.divya.sprxs.model.LoginRequest;
 import com.divya.sprxs.model.LoginResponse;
 import com.divya.sprxs.model.MyIdeasRequest;
@@ -76,6 +78,12 @@ public interface Api {
     Call<List<ViewEventsResponse>> viewEvent(
             @Header("Authorization") String token,
             @Body ViewEventsRequest viewEventsRequest
+    );
+
+    @POST("/listIdeaForCollaboration")
+    Call<ListIdeaForCollaborationResponse> publishIdea(
+            @Header("Authorization") String token,
+            @Body ListIdeaForCollaborationRequest listIdeaForCollaborationRequest
     );
 
 }

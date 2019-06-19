@@ -25,8 +25,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.HelpActivity"
-                  android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity android:name=".activity.PublishIdea"></activity>
+        <activity
+            android:name=".activity.HelpActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".activity.EditIdeaActivity" />
         <activity android:name=".activity.IdeaDetailsActivity" />
         <activity

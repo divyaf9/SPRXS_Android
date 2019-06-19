@@ -4,22 +4,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -28,10 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.divya.sprxs.R;
 import com.divya.sprxs.activity.EditIdeaActivity;
-import com.divya.sprxs.activity.IdeaDetailsActivity;
 import com.divya.sprxs.adapter.DataAdapter;
 import com.divya.sprxs.api.RetrofitClient;
-import com.divya.sprxs.model.EndlessRecyclerOnScrollListener;
 import com.divya.sprxs.controller.SwipeController;
 import com.divya.sprxs.controller.SwipeControllerActions;
 import com.divya.sprxs.model.MyIdeasSummaryRequest;
@@ -39,7 +28,6 @@ import com.divya.sprxs.model.MyIdeasSummaryResponse;
 import com.divya.sprxs.model.RefreshTokenResponse;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -56,11 +44,6 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
     private RecyclerView recyclerView;
     private DataAdapter dataAdapter;
     private LinearLayoutManager layoutManager;
-    private  Boolean isScrolling=false;
-    private  int currentItems,totalItems,scrolledOutItems;
-    private BottomNavigationView bottomNavigationView;
-    private EndlessRecyclerOnScrollListener scrollListener;
-
     private List<MyIdeasSummaryResponse> myIdeasSummaryResponsedata;
     SwipeController swipeController = null;
 

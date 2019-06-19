@@ -65,7 +65,6 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
 
         blockchainStatus = findViewById(R.id.blockchainStatus);
         attachmentStatus = findViewById(R.id.attachmentStatus);
-        ideaStatus = (ToggleButton)findViewById(R.id.toggleButton);
         ideaName_IdeaDetails = findViewById(R.id.ideaName_IdeaDetails);
         ideaId_IdeaDetails = findViewById(R.id.ideaId_IdeaDetails);
         dateText_IdeaDetails = findViewById(R.id.dateText_IdeaDetails);

@@ -1,6 +1,8 @@
 package com.divya.sprxs.activity;
 
-import android.annotation.SuppressLint;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,28 +11,18 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.divya.sprxs.R;
 import com.divya.sprxs.api.RetrofitClient;
-import com.divya.sprxs.model.EditIdeaRequest;
-import com.divya.sprxs.model.EditIdeaResponse;
+import com.divya.sprxs.model.ListIdeaForCollaborationRequest;
+import com.divya.sprxs.model.ListIdeaForCollaborationResponse;
 import com.divya.sprxs.model.RefreshTokenResponse;
 
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,127 +31,79 @@ import retrofit2.Response;
 import static com.divya.sprxs.activity.IdeaDetailsActivity.MY_IDEA_DETAILS;
 import static com.divya.sprxs.activity.LoginActivity.MY_PREFS_NAME;
 
-public class EditIdeaActivity extends AppCompatActivity implements View.OnClickListener {
+public class PublishIdea extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText ideaNameEditTextView, ideaDescriptionEditTextView, filenameEditTextView;
-    private ImageView attachEditButton;
-    private Button confirmEditButton;
-    private TextView ideaIdEditTextView;
-    private int mySpinnerValue;
+    private EditText ideaNamePublishTextView,collabSkillsTextView,ideaSynopsisTextView;
+    private TextView ideaIdPublish;
+    private Button publishButton;
     private ProgressBar progressBar;
 
-
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_idea);
+        setContentView(R.layout.activity_publish_idea);
 
-        this.setTitle("Edit Idea");
-        ideaNameEditTextView = findViewById(R.id.ideaNameEditTextView);
-        ideaDescriptionEditTextView = findViewById(R.id.ideaDescriptionEditTextView);
-        filenameEditTextView = findViewById(R.id.filenameEditTextView);
-        ideaIdEditTextView = findViewById(R.id.ideaIdEditTextView);
-        attachEditButton = findViewById(R.id.attachEditButton);
-        attachEditButton.setOnClickListener(this);
-        confirmEditButton = findViewById(R.id.confirmEditButton);
-        confirmEditButton.setOnClickListener(this);
+        ideaNamePublishTextView = findViewById(R.id.ideaNamePublishTextView);
+        collabSkillsTextView = findViewById(R.id.collabSkillsTextView);
+        ideaSynopsisTextView = findViewById(R.id.ideaSynopsisTextView);
+        ideaIdPublish = findViewById(R.id.ideaIdPublish);
+        publishButton = findViewById(R.id.publishButton);
+        publishButton.setOnClickListener(this);
+
         SharedPreferences idPrefs = getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE);
         final String ideaId = idPrefs.getString("ideaId", null);
         final String ideaName = idPrefs.getString("ideaName", null);
         final String ideaDescription = idPrefs.getString("ideaDescription", null);
-        ideaIdEditTextView.setText("#" + ideaId);
-        ideaNameEditTextView.setText(ideaName);
-        ideaDescriptionEditTextView.setText(ideaDescription);
+        ideaIdPublish.setText("#" + ideaId);
+        ideaNamePublishTextView.setText(ideaName);
+        ideaSynopsisTextView.setText(ideaDescription);
 
         progressBar = findViewById(R.id.loadingPanel);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.GONE);
 
 
-        List<String> categories = new ArrayList<>();
-        categories.add(0, "I have a ");
-        categories.add(1, "Technology idea");
-        categories.add(2, "Lifestyle & Wellbeing idea");
-        categories.add(3, "Food & Drink idea");
-        categories.add(4, "Gaming idea");
-        categories.add(5, "Business & Finance idea");
-        categories.add(6, "Art and Fashion idea");
-        categories.add(7, "Film,Theatre & Music idea");
-        categories.add(8, "Media & Journalism idea");
-
-        final Spinner spinner = findViewById(R.id.textSpinnerEdit);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
-        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mySpinnerValue = spinner.getSelectedItemPosition();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                mySpinnerValue = 0;
-            }
-        });
-
-
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.confirmEditButton:
-                editIdea();
-        }
-
+       switch (v.getId()){
+           case R.id.publishButton:
+               publishIdea();
+       }
     }
 
-    private void editIdea() {
-        String ideaName = ideaNameEditTextView.getText().toString().trim();
-        String ideaDescription = ideaDescriptionEditTextView.getText().toString().trim();
-        String fileName = filenameEditTextView.getText().toString().trim();
+    private void publishIdea() {
 
-        if (ideaName.isEmpty()) {
-            ideaNameEditTextView.setError("This Field is required");
-            ideaNameEditTextView.requestFocus();
-            return;
-        } else if (ideaDescription.isEmpty()) {
-            ideaDescriptionEditTextView.setError("This Field is required");
-            ideaDescriptionEditTextView.requestFocus();
-            return;
-        }
+        String ideaSynopsis = ideaSynopsisTextView.getText().toString().trim();
+        String collabSkills = collabSkillsTextView.getText().toString().trim();
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         final SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
         final String token = prefs.getString("token", null);
         final String refresh_token = prefs.getString("refresh_token", null);
-        SharedPreferences idPrefs = getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE);
-        final String ideaId = idPrefs.getString("ideaId", null);
 
-
-        Call<EditIdeaResponse> call;
+        Call<ListIdeaForCollaborationResponse> call;
         progressBar.setVisibility(View.VISIBLE);
-        call = RetrofitClient.getInstance().getApi().editIdea(
+        call = RetrofitClient.getInstance().getApi().publishIdea(
                 "Bearer " + token,
-                new EditIdeaRequest(ideaId, mySpinnerValue, 2, 3, ideaName, ideaDescription, "", "", "", "", ""));
-        call.enqueue(new Callback<EditIdeaResponse>() {
+                new ListIdeaForCollaborationRequest("",ideaSynopsis,collabSkills));
+        call.enqueue(new Callback<ListIdeaForCollaborationResponse>() {
             @Override
-            public void onResponse(Call<EditIdeaResponse> call, Response<EditIdeaResponse> response) {
-                EditIdeaResponse editIdeaResponse = response.body();
+            public void onResponse(Call<ListIdeaForCollaborationResponse> call, Response<ListIdeaForCollaborationResponse> response) {
+                ListIdeaForCollaborationResponse listIdeaForCollaborationResponse = response.body();
                 if (response.code() == 200) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(EditIdeaActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                    View successDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.success_dialog, null);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PublishIdea.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                    View successDialogView = LayoutInflater.from(PublishIdea.this).inflate(R.layout.success_dialog, null);
                     TextView textView;
                     textView = successDialogView.findViewById(R.id.dialogTextView);
-                    textView.setText("Idea has been edited with ID " + editIdeaResponse.getIdea_ID());
+                    textView.setText("Idea has been made Public" + listIdeaForCollaborationResponse.getMessage());
                     String positiveText = getString(android.R.string.ok);
                     builder.setPositiveButton(positiveText,
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(EditIdeaActivity.this, IdeaDetailsActivity.class);
+                                    Intent intent = new Intent(PublishIdea.this, IdeaDetailsActivity.class);
                                     startActivity(intent);
                                 }
                             });
@@ -178,12 +122,12 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                                 RefreshTokenResponse refreshTokenResponse = response.body();
                                 editor.putString("token", refreshTokenResponse.getAccess_token());
                                 editor.apply();
-                                editIdea();
+                                publishIdea();
                             } else {
                                 try {
                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(EditIdeaActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                                    View errorDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(PublishIdea.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                                    View errorDialogView = LayoutInflater.from(PublishIdea.this).inflate(R.layout.error_dialog, null);
                                     TextView textView;
                                     textView = errorDialogView.findViewById(R.id.dialogTextView);
                                     textView.setText("Technical Error\nPlease try again later");
@@ -199,8 +143,8 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                                     builder.show();
                                     progressBar.setVisibility(View.GONE);
                                 } catch (Exception e) {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(EditIdeaActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                                    View errorDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(PublishIdea.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                                    View errorDialogView = LayoutInflater.from(PublishIdea.this).inflate(R.layout.error_dialog, null);
                                     TextView textView;
                                     textView = errorDialogView.findViewById(R.id.dialogTextView);
                                     textView.setText("Technical Error\nPlease try again later");
@@ -209,7 +153,6 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                                             new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                    openIdeaDetails();
                                                 }
                                             });
                                     builder.setView(errorDialogView);
@@ -227,8 +170,8 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        AlertDialog.Builder builder = new AlertDialog.Builder(EditIdeaActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                        View errorDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(PublishIdea.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                        View errorDialogView = LayoutInflater.from(PublishIdea.this).inflate(R.layout.error_dialog, null);
                         TextView textView;
                         textView = errorDialogView.findViewById(R.id.dialogTextView);
                         textView.setText("Please complete all the fields");
@@ -244,8 +187,8 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                         builder.show();
                         progressBar.setVisibility(View.GONE);
                     } catch (Exception e) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(EditIdeaActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                        View errorDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(PublishIdea.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                        View errorDialogView = LayoutInflater.from(PublishIdea.this).inflate(R.layout.error_dialog, null);
                         TextView textView;
                         textView = errorDialogView.findViewById(R.id.dialogTextView);
                         textView.setText("Technical Error\nPlease try again later");
@@ -265,14 +208,11 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
             }
 
             @Override
-            public void onFailure(Call<EditIdeaResponse> call, Throwable t) {
+            public void onFailure(Call<ListIdeaForCollaborationResponse> call, Throwable t) {
             }
         });
-    }
 
-    public void openIdeaDetails() {
-        Intent intent = new Intent(EditIdeaActivity.this, IdeaDetailsActivity.class);
-        startActivity(intent);
+
     }
 
 
