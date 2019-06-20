@@ -122,6 +122,11 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
                             ideaDescriptionText_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaDescription());
                             dateText_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaDateCreated());
                             attachmentStatus.setText(myIdeasResponsedata.get(i).getIdeaFilepath());
+//                            if(myIdeasResponsedata.get(i).isAllowSearch()==true){
+//                                ideaStatus.setText("Public");
+//                            } else{
+//                                ideaStatus.setText("Private");
+//                            }
                         }
                 } else if (response.code() == 401) {
                     Call<RefreshTokenResponse> callrefresh;

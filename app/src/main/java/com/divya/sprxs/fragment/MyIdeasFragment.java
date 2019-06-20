@@ -104,6 +104,18 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
                         recyclerView.setAdapter(dataAdapter);
                         dataAdapter.notifyDataSetChanged();
                         recyclerView.setAdapter(dataAdapter);
+
+
+                        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                            @Override
+                            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                                super.onScrollStateChanged(recyclerView, newState);
+                            }
+                            @Override
+                            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                                super.onScrolled(recyclerView, dx, dy);
+                            }
+                        });
                     }
 
                 } else if (response.code() == 401) {
