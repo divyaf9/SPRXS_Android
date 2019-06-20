@@ -52,13 +52,20 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
         publishButton = findViewById(R.id.publishButton);
         publishButton.setOnClickListener(this);
 
-        SharedPreferences idPrefs = getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE);
-        final String ideaId = idPrefs.getString("ideaId", null);
-        final String ideaName = idPrefs.getString("ideaName", null);
-        final String ideaDescription = idPrefs.getString("ideaDescription", null);
-        ideaIdPublish.setText("#" + ideaId);
-        ideaNamePublishTextView.setText(ideaName);
-        ideaSynopsisTextView.setText(ideaDescription);
+//        SharedPreferences idPrefs = getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE);
+//        final String ideaId = idPrefs.getString("ideaId", null);
+//        final String ideaName = idPrefs.getString("ideaName", null);
+//        final String ideaDescription = idPrefs.getString("ideaDescription", null);
+
+
+        final String IdeaId = getIntent().getStringExtra("myList");
+        final String IdeaDesc = getIntent().getStringExtra("myListIdeaDesc");
+        final String IdeaName = getIntent().getStringExtra("myListIdeaName");
+
+
+        ideaIdPublish.setText("#" + IdeaId);
+        ideaNamePublishTextView.setText(IdeaName);
+        ideaSynopsisTextView.setText(IdeaDesc);
 
         progressBar = findViewById(R.id.loadingPanel);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
@@ -84,12 +91,14 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
         final SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
         final String token = prefs.getString("token", null);
         final String refresh_token = prefs.getString("refresh_token", null);
+        final String IdeaId = getIntent().getStringExtra("myList");
+
 
         Call<ListIdeaForCollaborationResponse> call;
         progressBar.setVisibility(View.VISIBLE);
         call = RetrofitClient.getInstance().getApi().publishIdea(
                 "Bearer " + token,
-                new ListIdeaForCollaborationRequest("",ideaSynopsis,collabSkills));
+                new ListIdeaForCollaborationRequest(IdeaId,ideaSynopsis,collabSkills));
         call.enqueue(new Callback<ListIdeaForCollaborationResponse>() {
             @Override
             public void onResponse(Call<ListIdeaForCollaborationResponse> call, Response<ListIdeaForCollaborationResponse> response) {
@@ -105,8 +114,7 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(PublishIdea.this, IdeaDetailsActivity.class);
-                                    startActivity(intent);
+
                                 }
                             });
                     builder.setView(successDialogView);

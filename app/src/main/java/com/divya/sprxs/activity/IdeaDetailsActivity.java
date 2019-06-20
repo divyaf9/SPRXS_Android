@@ -38,11 +38,11 @@ import static com.divya.sprxs.activity.LoginActivity.MY_PREFS_NAME;
 
 public class IdeaDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView blockchainStatus, attachmentStatus;
-    private ToggleButton ideaStatus;
+    private TextView blockchainStatus, attachmentStatus,ideaStatus;
     private TextView ideaName_IdeaDetails, ideaId_IdeaDetails, dateText_IdeaDetails, ideaDescriptionText_IdeaDetails;
     public static final String MY_IDEA_DETAILS = "MyIdPrefsFile";
     private List<MyIdeasResponse> myIdeasResponsedata = null;
+    private  String IdeaId,IdeaName,IdeaDescription;
 
 
     @Override
@@ -65,6 +65,7 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
 
         blockchainStatus = findViewById(R.id.blockchainStatus);
         attachmentStatus = findViewById(R.id.attachmentStatus);
+        ideaStatus = findViewById(R.id.ideaStatus);
         ideaName_IdeaDetails = findViewById(R.id.ideaName_IdeaDetails);
         ideaId_IdeaDetails = findViewById(R.id.ideaId_IdeaDetails);
         dateText_IdeaDetails = findViewById(R.id.dateText_IdeaDetails);
@@ -82,17 +83,15 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    private void goToEditIdea() {
-        Intent intent = new Intent(IdeaDetailsActivity.this, EditIdeaActivity.class);
-        startActivity(intent);
-    }
+
 
     public void myIdeas() {
-        SharedPreferences prefs = getApplicationContext().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         String token = prefs.getString("token", null);
         final String refresh_token = prefs.getString("refresh_token", null);
-        SharedPreferences idPrefs = getApplicationContext().getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE);
-        final SharedPreferences.Editor editor = getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE).edit();
+        final SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+//        SharedPreferences idPrefs = getApplicationContext().getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE);
+//        final SharedPreferences.Editor editor = getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE).edit();
         Call<List<MyIdeasResponse>> call;
         call = RetrofitClient.getInstance().getApi().myIdeas(
                 "Bearer " + token,
@@ -112,21 +111,21 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
                     for (int i = 0; i < myIdeasResponsedata.size(); i++)
                         if (ideaId.contentEquals(myIdeasResponsedata.get(i).getIdeaUniqueID())) {
 
+                             IdeaId = myIdeasResponsedata.get(i).getIdeaUniqueID();
+                             IdeaName= myIdeasResponsedata.get(i).getIdeaName();
+                             IdeaDescription= myIdeasResponsedata.get(i).getIdeaDescription();
+
                             blockchainStatus.setText(myIdeasResponsedata.get(i).getTokenId());
                             ideaName_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaName());
                             ideaId_IdeaDetails.setText("#" + myIdeasResponsedata.get(i).getIdeaUniqueID());
-                            editor.putString("ideaId", myIdeasResponsedata.get(i).getIdeaUniqueID());
-                            editor.putString("ideaName",myIdeasResponsedata.get(i).getIdeaName());
-                            editor.putString("ideaDescription",myIdeasResponsedata.get(i).getIdeaDescription());
-                            editor.apply();
                             ideaDescriptionText_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaDescription());
                             dateText_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaDateCreated());
                             attachmentStatus.setText(myIdeasResponsedata.get(i).getIdeaFilepath());
-//                            if(myIdeasResponsedata.get(i).isAllowSearch()==true){
-//                                ideaStatus.setText("Public");
-//                            } else{
-//                                ideaStatus.setText("Private");
-//                            }
+                            if(myIdeasResponsedata.get(i).isAllowSearch()==true){
+                                ideaStatus.setText("Public");
+                            } else{
+                                ideaStatus.setText("Private");
+                            }
                         }
                 } else if (response.code() == 401) {
                     Call<RefreshTokenResponse> callrefresh;
@@ -233,5 +232,13 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
         });
 
     }
+    private void goToEditIdea() {
+        Intent intent = new Intent(IdeaDetailsActivity.this, EditIdeaActivity.class);
+        intent.putExtra("myList",IdeaId);
+        intent.putExtra("myListIdeaName",IdeaName);
+        intent.putExtra("myListIdeaDesc",IdeaDescription);
+        startActivity(intent);
+    }
+
 
 }

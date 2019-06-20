@@ -64,13 +64,19 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         attachEditButton.setOnClickListener(this);
         confirmEditButton = findViewById(R.id.confirmEditButton);
         confirmEditButton.setOnClickListener(this);
-        SharedPreferences idPrefs = getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE);
-        final String ideaId = idPrefs.getString("ideaId", null);
-        final String ideaName = idPrefs.getString("ideaName", null);
-        final String ideaDescription = idPrefs.getString("ideaDescription", null);
-        ideaIdEditTextView.setText("#" + ideaId);
-        ideaNameEditTextView.setText(ideaName);
-        ideaDescriptionEditTextView.setText(ideaDescription);
+
+//        SharedPreferences idPrefs = getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE);
+//        final String IdeaId = idPrefs.getString("ideaId", null);
+//        final String IdeaDesc = idPrefs.getString("ideaName", null);
+//        final String ideaDescription = idPrefs.getString("ideaDescription", null);
+
+
+        final String IdeaId = getIntent().getStringExtra("myList");
+        final String IdeaDesc = getIntent().getStringExtra("myListIdeaDesc");
+        final String IdeaName = getIntent().getStringExtra("myListIdeaName");
+        ideaIdEditTextView.setText("#" + IdeaId);
+        ideaNameEditTextView.setText(IdeaName);
+        ideaDescriptionEditTextView.setText(IdeaDesc);
 
         progressBar = findViewById(R.id.loadingPanel);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
@@ -136,19 +142,22 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         final String token = prefs.getString("token", null);
         final String refresh_token = prefs.getString("refresh_token", null);
         SharedPreferences idPrefs = getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE);
-        final String ideaId = idPrefs.getString("ideaId", null);
+//        final String ideaId = idPrefs.getString("ideaId", null);
+        final String IdeaId = getIntent().getStringExtra("myList");
+
 
 
         Call<EditIdeaResponse> call;
         progressBar.setVisibility(View.VISIBLE);
         call = RetrofitClient.getInstance().getApi().editIdea(
                 "Bearer " + token,
-                new EditIdeaRequest(ideaId, mySpinnerValue, 2, 3, ideaName, ideaDescription, "", "", "", "", ""));
+                new EditIdeaRequest(IdeaId, mySpinnerValue, 2, 3, ideaName, ideaDescription, "", "", "", "", ""));
         call.enqueue(new Callback<EditIdeaResponse>() {
             @Override
             public void onResponse(Call<EditIdeaResponse> call, Response<EditIdeaResponse> response) {
                 EditIdeaResponse editIdeaResponse = response.body();
                 if (response.code() == 200) {
+
                     AlertDialog.Builder builder = new AlertDialog.Builder(EditIdeaActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
                     View successDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.success_dialog, null);
                     TextView textView;
@@ -159,13 +168,14 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(EditIdeaActivity.this, IdeaDetailsActivity.class);
-                                    startActivity(intent);
+//                                    Intent intent = new Intent(EditIdeaActivity.this, IdeaDetailsActivity.class);
+//                                    startActivity(intent);
                                 }
                             });
                     builder.setView(successDialogView);
                     builder.show();
                     progressBar.setVisibility(View.GONE);
+
                 } else if (response.code() == 401) {
                     Call<RefreshTokenResponse> callrefresh;
                     callrefresh = RetrofitClient.getInstance().getApi().refreshToken(

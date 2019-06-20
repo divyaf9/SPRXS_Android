@@ -7,13 +7,14 @@
     tools:context=".fragment.HomeFragment">
 
     <TextView
-        android:layout_width="215dp"
-        android:layout_height="39dp"
+        android:layout_width="209dp"
+        android:layout_height="140dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="358dp"
+        android:layout_marginTop="257dp"
         android:gravity="center"
-        android:text="Hi Home" />
+        android:textSize="24sp"
+        android:text="Hi!!! Welcome to SPRXS" />
 
 </RelativeLayout>
 
