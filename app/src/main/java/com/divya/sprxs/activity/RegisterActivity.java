@@ -156,14 +156,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                                 CreateProfileResponse createProfileResponseResponse = response.body();
                                                 editor.putString("token", createProfileResponseResponse.getToken());
                                                 editor.putString("refresh_token", createProfileResponseResponse.getRefresh_token());
+                                                editor.putString("email", email_add);
+                                                editor.putString("firstname",firstName);
+                                                editor.putString("surname", lastName);
                                                 editor.apply();
                                                 SharedPreferences sharedPreferences = getSharedPreferences("MySignup", Context.MODE_PRIVATE);
                                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                                 editor.putBoolean("FirstSignup", true);
                                                 editor.commit();
-                                                editor.putString("emailSignup", String.valueOf(emailTextView.getText()));
-                                                editor.putString("firstnameSignup", String.valueOf(firstNameTextView.getText()));
-                                                editor.putString("surnameSignup", String.valueOf(lastNameTextView.getText()));
                                                 editor.apply();
                                                 openHome();
                                             } else {

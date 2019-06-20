@@ -43,6 +43,8 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish_idea);
 
+        this.setTitle("Make Idea Searchable");
+
         ideaNamePublishTextView = findViewById(R.id.ideaNamePublishTextView);
         collabSkillsTextView = findViewById(R.id.collabSkillsTextView);
         ideaSynopsisTextView = findViewById(R.id.ideaSynopsisTextView);
