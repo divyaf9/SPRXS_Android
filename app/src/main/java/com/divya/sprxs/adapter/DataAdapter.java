@@ -107,7 +107,9 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         holder.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, " Click : 1", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(v.getContext(), IdeaDetailsActivity.class);
+                intent.putExtra("myList",IdeaId);
+                context.startActivity(intent);
             }
         });
 
@@ -121,7 +123,9 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         holder.Edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Clicked on Edit  ", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(), IdeaDetailsActivity.class);
+                intent.putExtra("myList",IdeaId);
+                context.startActivity(intent);
             }
         });
 
