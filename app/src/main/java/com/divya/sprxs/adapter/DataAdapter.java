@@ -7,12 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.divya.sprxs.R;
 import com.divya.sprxs.activity.IdeaDetailsActivity;
 import com.divya.sprxs.model.MyIdeasSummaryResponse;
@@ -65,6 +67,64 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
                 context.startActivity(intent);
             }
         });
+
+        holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+
+        holder.swipeLayout.addDrag(SwipeLayout.DragEdge.Left, holder.swipeLayout.findViewById(R.id.bottom_wraper));
+
+        holder.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
+            @Override
+            public void onStartOpen(SwipeLayout layout) {
+
+            }
+
+            @Override
+            public void onOpen(SwipeLayout layout) {
+
+            }
+
+            @Override
+            public void onStartClose(SwipeLayout layout) {
+
+            }
+
+            @Override
+            public void onClose(SwipeLayout layout) {
+
+            }
+
+            @Override
+            public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {
+
+            }
+
+            @Override
+            public void onHandRelease(SwipeLayout layout, float xvel, float yvel) {
+
+            }
+        });
+
+        holder.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, " Click : 1", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.Share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Clicked on Share ", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.Edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Clicked on Edit  ", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
@@ -73,10 +133,16 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         return (myIdeasSummaryResponse == null) ? 0 : myIdeasSummaryResponse.size();
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView ideaNameText, ideaIdText, collaboratorText, equityText;
         private ImageView collaboratorImage, equityimage,privateImageView,publicImageView;
+
+        public SwipeLayout swipeLayout;
+
+        public TextView Edit;
+        public TextView Share;
 
         public ViewHolder(View view) {
             super(view);
@@ -88,6 +154,12 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             equityimage = view.findViewById(R.id.equityImage);
             privateImageView = view.findViewById(R.id.privateImageView);
             publicImageView = view.findViewById(R.id.publicImageView);
+
+            Edit = (TextView) itemView.findViewById(R.id.Edit);
+            Share = (TextView) itemView.findViewById(R.id.Share);
+
+            swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
+
         }
     }
 }
