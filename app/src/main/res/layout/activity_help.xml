@@ -29,8 +29,8 @@
     <ImageView
         android:layout_width="370dp"
         android:layout_height="166dp"
-        android:layout_marginTop="254dp"
-        android:layout_marginBottom="311dp"
+        android:layout_marginTop="230dp"
+        android:layout_marginBottom="450dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -116,7 +116,7 @@
         android:layout_marginEnd="27dp"
         android:layout_marginRight="27dp"
         android:layout_marginBottom="211dp"
-        android:text="swipe left to Edit an Idea"
+        android:text="swipe right to make your idea searchable"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -137,7 +137,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_icons8_swipe" />
+        app:srcCompat="@drawable/ic_icons8_swipe_right_gesture" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="370dp"
+        android:layout_height="105dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="641dp"
+        android:text="Below idea card displays the summary of your idea such as Idea Name,Status of your Idea,No of Collaborators and Equity of your Idea."
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

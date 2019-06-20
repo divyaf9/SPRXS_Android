@@ -93,12 +93,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         signupTextView.setText(spannableString);
         signupTextView.setMovementMethod(LinkMovementMethod.getInstance());
 
-        SharedPreferences sharedPreferences = getSharedPreferences("MyLogin.txt", Context.MODE_PRIVATE);
-        Boolean loginCheck = sharedPreferences.getBoolean("FirstLogin", false);
-        if (loginCheck) {
-            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-            startActivity(intent);
-        }
+
 
     }
 
@@ -154,6 +149,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                                         editor.putBoolean("FirstLogin", true);
                                                         editor.commit();
+                                                        editor.apply();
                                                         myHome();
                                                     } else if (loginResponse.getProfile_type().contentEquals("2")) {
                                                         editor.putString("token", loginResponse.getToken());
