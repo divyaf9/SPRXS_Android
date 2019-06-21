@@ -97,7 +97,6 @@ public class InboxFragment extends Fragment {
                             } else {
                                 try {
                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-//                                    Toast.makeText(getActivity(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
                                     View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
                                     TextView textView;
@@ -114,7 +113,6 @@ public class InboxFragment extends Fragment {
                                     builder.setView(errorDialogView);
                                     builder.show();
                                 } catch (Exception e) {
-//                                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
                                     View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
                                     TextView textView;
@@ -142,7 +140,6 @@ public class InboxFragment extends Fragment {
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-//                        Toast.makeText(getActivity(), jObjError.getString("error"), Toast.LENGTH_LONG).show();
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
                         View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
                         TextView textView;
@@ -159,7 +156,6 @@ public class InboxFragment extends Fragment {
                         builder.setView(errorDialogView);
                         builder.show();
                     } catch (Exception e) {
-//                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
                         View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
                         TextView textView;

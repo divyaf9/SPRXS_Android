@@ -93,7 +93,6 @@ public class DividetItemDecoration extends RecyclerView.ItemDecoration {
             mDivider.draw(c);
         }
 
-        // divider terakhir
         if (mShowLastDivider && childCount > 0) {
             View child = parent.getChildAt(childCount - 1);
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
@@ -115,7 +114,7 @@ public class DividetItemDecoration extends RecyclerView.ItemDecoration {
             return layoutManager.getOrientation();
         }
         else{
-            throw new IllegalStateException("bla bla");
+            throw new IllegalStateException("");
         }
     }
 

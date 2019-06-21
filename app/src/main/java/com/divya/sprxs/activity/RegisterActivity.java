@@ -50,8 +50,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public static final String MY_PREFS_NAME = "MyPrefsFile";
     public final String firebasePassword = "ljsdlgkj&fefsd$%SDFsdf123£";
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -73,9 +71,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progressBar.setVisibility(View.GONE);
     }
 
-
     private void userSignup() {
-
         final String firstName = firstNameTextView.getText().toString().trim();
         final String lastName = lastNameTextView.getText().toString().trim();
         final String email_add = emailTextView.getText().toString().trim();
@@ -128,7 +124,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             confirmPasswordTextView.requestFocus();
             return;
         } else {
-
             mAuth.createUserWithEmailAndPassword(email_add, firebasePassword)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -144,13 +139,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     progressBar.setVisibility(View.VISIBLE);
 
                                     call = RetrofitClient.getInstance().getApi().userSignup(new CreateProfileRequest(1, firstName, lastName, 0, 0, "0", email_add_firebase, password, confirmPassword, Boolean.TRUE, Boolean.FALSE, UserUid));
-
                                     call.enqueue(new Callback<CreateProfileResponse>() {
-
-
                                         @Override
                                         public void onResponse(Call<CreateProfileResponse> call, Response<CreateProfileResponse> response) {
-
 
                                             if (response.code() == 201) {
                                                 CreateProfileResponse createProfileResponseResponse = response.body();
@@ -254,8 +245,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             }
                         }
                     });
-
-
         }
     }
 

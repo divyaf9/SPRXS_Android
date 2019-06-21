@@ -205,8 +205,8 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
 
     public void createIdea() {
 
-        String ideaName = ideaNameTextView.getText().toString().trim();
-        String ideaDescription = ideaDescriptionTextView.getText().toString().trim();
+        final String ideaName = ideaNameTextView.getText().toString().trim();
+        final String ideaDescription = ideaDescriptionTextView.getText().toString().trim();
         String fileName = fileNameTextView.getText().toString().trim();
 
         if (ideaName.isEmpty()) {
@@ -285,6 +285,8 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
                         builder.setView(successDialogView);
                         builder.show();
                         progressBar.setVisibility(View.GONE);
+                        ideaNameTextView.getText().clear();
+                        ideaDescriptionTextView.getText().clear();
 
 
                 } else if (response.code() == 401) {

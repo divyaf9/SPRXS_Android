@@ -1,8 +1,6 @@
 package com.divya.sprxs.activity;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -36,7 +34,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.divya.sprxs.activity.IdeaDetailsActivity.MY_IDEA_DETAILS;
 import static com.divya.sprxs.activity.LoginActivity.MY_PREFS_NAME;
 
 public class EditIdeaActivity extends AppCompatActivity implements View.OnClickListener {
@@ -45,11 +42,9 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
     private ImageView attachEditButton;
     private Button confirmEditButton;
     private TextView ideaIdEditTextView;
-    private int mySpinnerValue;
     private ProgressBar progressBar;
+    private int mySpinnerValue;
 
-
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,12 +59,6 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         attachEditButton.setOnClickListener(this);
         confirmEditButton = findViewById(R.id.confirmEditButton);
         confirmEditButton.setOnClickListener(this);
-
-//        SharedPreferences idPrefs = getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE);
-//        final String IdeaId = idPrefs.getString("ideaId", null);
-//        final String IdeaDesc = idPrefs.getString("ideaName", null);
-//        final String ideaDescription = idPrefs.getString("ideaDescription", null);
-
 
         final String IdeaId = getIntent().getStringExtra("myList");
         final String IdeaDesc = getIntent().getStringExtra("myListIdeaDesc");
@@ -141,11 +130,7 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         final SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
         final String token = prefs.getString("token", null);
         final String refresh_token = prefs.getString("refresh_token", null);
-        SharedPreferences idPrefs = getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE);
-//        final String ideaId = idPrefs.getString("ideaId", null);
         final String IdeaId = getIntent().getStringExtra("myList");
-
-
 
         Call<EditIdeaResponse> call;
         progressBar.setVisibility(View.VISIBLE);
@@ -219,7 +204,7 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                                             new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                    openIdeaDetails();
+//                                                    openIdeaDetails();
                                                 }
                                             });
                                     builder.setView(errorDialogView);
@@ -280,10 +265,9 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
-    public void openIdeaDetails() {
-        Intent intent = new Intent(EditIdeaActivity.this, IdeaDetailsActivity.class);
-        startActivity(intent);
-    }
-
+//    public void openIdeaDetails() {
+//        Intent intent = new Intent(EditIdeaActivity.this, IdeaDetailsActivity.class);
+//        startActivity(intent);
+//    }
 
 }

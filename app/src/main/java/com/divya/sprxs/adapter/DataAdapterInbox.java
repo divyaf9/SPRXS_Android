@@ -34,7 +34,6 @@ public class DataAdapterInbox extends RecyclerView.Adapter<DataAdapterInbox.View
         this.context = context;
     }
 
-
     @NonNull
     @Override
     public DataAdapterInbox.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,8 +41,6 @@ public class DataAdapterInbox extends RecyclerView.Adapter<DataAdapterInbox.View
         cardViewInbox = v.findViewById(R.id.card_view_inbox);
         return new ViewHolder(v);
     }
-
-
 
     @Override
     public void onBindViewHolder(@NonNull final DataAdapterInbox.ViewHolder holder, final int position) {
@@ -56,12 +53,10 @@ public class DataAdapterInbox extends RecyclerView.Adapter<DataAdapterInbox.View
             holder.inboxTextView.setText("Activity");
 
         }
-
     }
 
     @Override
     public int getItemCount() {
-
         return (viewEventsResponses == null) ? 0 : viewEventsResponses.size();
     }
 

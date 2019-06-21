@@ -9,11 +9,8 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
@@ -40,7 +37,6 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
 
     private TextView blockchainStatus, attachmentStatus,ideaStatus;
     private TextView ideaName_IdeaDetails, ideaId_IdeaDetails, dateText_IdeaDetails, ideaDescriptionText_IdeaDetails;
-    public static final String MY_IDEA_DETAILS = "MyIdPrefsFile";
     private List<MyIdeasResponse> myIdeasResponsedata = null;
     private  String IdeaId,IdeaName,IdeaDescription;
 
@@ -90,8 +86,6 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
         String token = prefs.getString("token", null);
         final String refresh_token = prefs.getString("refresh_token", null);
         final SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-//        SharedPreferences idPrefs = getApplicationContext().getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE);
-//        final SharedPreferences.Editor editor = getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE).edit();
         Call<List<MyIdeasResponse>> call;
         call = RetrofitClient.getInstance().getApi().myIdeas(
                 "Bearer " + token,
@@ -143,7 +137,6 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
                             } else {
                                 try {
                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-//                                    Toast.makeText(IdeaDetailsActivity.this, jObjError.getString("error"), Toast.LENGTH_LONG).show();
                                     AlertDialog.Builder builder = new AlertDialog.Builder(IdeaDetailsActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
                                     View errorDialogView = LayoutInflater.from(IdeaDetailsActivity.this).inflate(R.layout.error_dialog, null);
                                     TextView textView;
@@ -188,7 +181,6 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-//                        Toast.makeText(IdeaDetailsActivity.this, jObjError.getString("error"), Toast.LENGTH_SHORT).show();
                         AlertDialog.Builder builder = new AlertDialog.Builder(IdeaDetailsActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
                         View errorDialogView = LayoutInflater.from(IdeaDetailsActivity.this).inflate(R.layout.error_dialog, null);
                         TextView textView;
@@ -205,7 +197,6 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
                         builder.setView(errorDialogView);
                         builder.show();
                     } catch (Exception e) {
-//                        Toast.makeText(IdeaDetailsActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                         AlertDialog.Builder builder = new AlertDialog.Builder(IdeaDetailsActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
                         View errorDialogView = LayoutInflater.from(IdeaDetailsActivity.this).inflate(R.layout.error_dialog, null);
                         TextView textView;

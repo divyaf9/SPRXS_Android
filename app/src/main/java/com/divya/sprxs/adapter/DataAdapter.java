@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -20,7 +19,6 @@ import com.divya.sprxs.activity.EditIdeaActivity;
 import com.divya.sprxs.activity.IdeaDetailsActivity;
 import com.divya.sprxs.activity.PublishIdea;
 import com.divya.sprxs.model.MyIdeasSummaryResponse;
-import com.divya.sprxs.model.ViewEventsResponse;
 
 import java.util.List;
 
@@ -112,6 +110,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         holder.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                holder.swipeLayout.close();
                 Intent intent = new Intent(v.getContext(), IdeaDetailsActivity.class);
                 intent.putExtra("myList",IdeaId);
                 context.startActivity(intent);
@@ -121,24 +120,29 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         holder.Share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             Intent intent = new Intent(view.getContext(), PublishIdea.class);
+                holder.swipeLayout.close();
+                Intent intent = new Intent(view.getContext(), PublishIdea.class);
                 intent.putExtra("myList",IdeaId);
                 intent.putExtra("myListIdeaName",IdeaName);
                 intent.putExtra("myListIdeaDesc",IdeaDescription);
                 context.startActivity(intent);
+
             }
         });
 
         holder.Edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                holder.swipeLayout.close();
                 Intent intent = new Intent(v.getContext(), EditIdeaActivity.class);
                 intent.putExtra("myList",IdeaId);
                 intent.putExtra("myListIdeaName",IdeaName);
                 intent.putExtra("myListIdeaDesc",IdeaDescription);
                 context.startActivity(intent);
+                notifyDataSetChanged();
             }
         });
+
 
     }
 
@@ -153,9 +157,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
         private TextView ideaNameText, ideaIdText, collaboratorText, equityText;
         private ImageView collaboratorImage, equityimage,privateImageView,publicImageView;
-
         public SwipeLayout swipeLayout;
-
         public TextView Edit;
         public TextView Share;
 
@@ -174,7 +176,6 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             Share = (TextView) itemView.findViewById(R.id.Share);
 
             swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
-
         }
     }
 }

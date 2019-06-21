@@ -116,7 +116,7 @@
         android:layout_marginEnd="27dp"
         android:layout_marginRight="27dp"
         android:layout_marginBottom="186dp"
-        android:text="swipe right to make your idea searchable(SHARE) and edit your ideas(EDIT)"
+        android:text="swipe to make your idea searchable(SHARE) and edit your ideas(EDIT)"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

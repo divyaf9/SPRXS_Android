@@ -3,6 +3,8 @@ package com.divya.sprxs.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,10 +19,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+//        if(android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+//            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyLogin.txt", Context.MODE_PRIVATE);
         Boolean loginCheck = sharedPreferences.getBoolean("FirstLogin", false);
@@ -28,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         }
-
 
         loginButton= findViewById(R.id.loginButton);
         registerButton= findViewById(R.id.registerButton);

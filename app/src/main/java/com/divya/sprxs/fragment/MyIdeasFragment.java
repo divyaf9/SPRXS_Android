@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,7 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getActivity().findViewById(R.id.helpImageView).setVisibility(View.VISIBLE);
 
     }
 
@@ -61,13 +62,26 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
 
         View v = inflater.inflate(R.layout.fragment_my_ideas, container, false);
         getActivity().setTitle("My Ideas");
-        getActivity().findViewById(R.id.helpImageView).setVisibility(View.VISIBLE);
         recyclerView = v.findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(getActivity());
         ideasSummary();
         return v;
 
     }
+
+//
+//    public void onWindowFocusChanged (boolean hasFocus) {
+//        DisplayMetrics dm = new DisplayMetrics();
+//        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+//
+//        int[] loc = new int[2];
+//        recyclerView.getLocationOnScreen(loc); // get the location of the recyclerview
+//        int distance_to_bottom = dm.heightPixels - loc[1]; // similar to Marcin's design
+//        // RecyclerView 直到版面的最下端
+//        ViewGroup.LayoutParams params = recyclerView.getLayoutParams();
+//        params.height = distance_to_bottom;
+//        recyclerView.requestLayout(); // set it right here
+//    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -90,7 +104,6 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
             public void onResponse(Call<List<MyIdeasSummaryResponse>> call, Response<List<MyIdeasSummaryResponse>> response) {
                 if (response.code() == 200) {
                     myIdeasSummaryResponsedata = response.body();
-                      String IdeaId = "";
                     if (myIdeasSummaryResponsedata.size() == 0) {
                         NoIdeasFragment noIdeasFragment = new NoIdeasFragment();
                         FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
@@ -103,19 +116,6 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
                         dataAdapter = new DataAdapter(getActivity(), myIdeasSummaryResponsedata, getContext());
                         recyclerView.setAdapter(dataAdapter);
                         dataAdapter.notifyDataSetChanged();
-                        recyclerView.setAdapter(dataAdapter);
-
-
-                        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                            @Override
-                            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                                super.onScrollStateChanged(recyclerView, newState);
-                            }
-                            @Override
-                            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                                super.onScrolled(recyclerView, dx, dy);
-                            }
-                        });
                     }
 
                 } else if (response.code() == 401) {

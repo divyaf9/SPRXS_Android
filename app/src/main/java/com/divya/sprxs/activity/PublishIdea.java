@@ -28,7 +28,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.divya.sprxs.activity.IdeaDetailsActivity.MY_IDEA_DETAILS;
 import static com.divya.sprxs.activity.LoginActivity.MY_PREFS_NAME;
 
 public class PublishIdea extends AppCompatActivity implements View.OnClickListener {
@@ -52,17 +51,9 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
         publishButton = findViewById(R.id.publishButton);
         publishButton.setOnClickListener(this);
 
-//        SharedPreferences idPrefs = getSharedPreferences(MY_IDEA_DETAILS, MODE_PRIVATE);
-//        final String ideaId = idPrefs.getString("ideaId", null);
-//        final String ideaName = idPrefs.getString("ideaName", null);
-//        final String ideaDescription = idPrefs.getString("ideaDescription", null);
-
-
         final String IdeaId = getIntent().getStringExtra("myList");
         final String IdeaDesc = getIntent().getStringExtra("myListIdeaDesc");
         final String IdeaName = getIntent().getStringExtra("myListIdeaName");
-
-
         ideaIdPublish.setText("#" + IdeaId);
         ideaNamePublishTextView.setText(IdeaName);
         ideaSynopsisTextView.setText(IdeaDesc);
@@ -70,8 +61,6 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
         progressBar = findViewById(R.id.loadingPanel);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.GONE);
-
-
     }
 
     @Override
@@ -83,7 +72,6 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
     }
 
     private void publishIdea() {
-
         String ideaSynopsis = ideaSynopsisTextView.getText().toString().trim();
         String collabSkills = collabSkillsTextView.getText().toString().trim();
 
@@ -108,7 +96,7 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
                     View successDialogView = LayoutInflater.from(PublishIdea.this).inflate(R.layout.success_dialog, null);
                     TextView textView;
                     textView = successDialogView.findViewById(R.id.dialogTextView);
-                    textView.setText("Idea has been made Public" + listIdeaForCollaborationResponse.getMessage());
+                    textView.setText("Idea has been made Public " + listIdeaForCollaborationResponse.getMessage());
                     String positiveText = getString(android.R.string.ok);
                     builder.setPositiveButton(positiveText,
                             new DialogInterface.OnClickListener() {
@@ -221,8 +209,6 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
             public void onFailure(Call<ListIdeaForCollaborationResponse> call, Throwable t) {
             }
         });
-
-
     }
 
 

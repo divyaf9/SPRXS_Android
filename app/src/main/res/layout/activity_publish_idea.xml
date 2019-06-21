@@ -136,9 +136,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

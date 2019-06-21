@@ -39,6 +39,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_reset_password);
         resetPasswordButton = findViewById(R.id.ResetPasswordbutton);
         emailTextView = findViewById(R.id.emailTextView);
@@ -70,7 +71,6 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
             return;
         }
         else {
-
             Call<ResetPasswordResponse> call;
             progressBar.setVisibility(View.VISIBLE);
 

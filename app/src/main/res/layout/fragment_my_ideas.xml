@@ -8,18 +8,31 @@
     android:layout_marginBottom="@dimen/navigation_bar_height"
     tools:context=".fragment.MyIdeasFragment">
 
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:dividerHeight="1dp"
+        android:paddingBottom="48dp"
         android:scrollbars="vertical"
+        android:clipToPadding="false"
         android:fitsSystemWindows="false"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintVertical_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="?attr/actionBarSize"
-        app:layout_constraintTop_toTopOf="@id/myIdeasFragment" />
+        app:layout_constraintTop_toTopOf="@id/myIdeasFragment"
+       />
+
+
+    <!--android:scrollbarStyle="outsideOverlay"-->
 
     <!--<ProgressBar-->
         <!--android:id="@+id/loadingPanel"-->

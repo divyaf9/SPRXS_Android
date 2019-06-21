@@ -53,9 +53,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_home);
         SharedPreferences preferences = getSharedPreferences("MySignup", MODE_PRIVATE);
         Boolean status = preferences.getBoolean("FirstSignup", false);
-        String emailSignup = preferences.getString("emailSignup",null);
-        String firstnameSignup = preferences.getString("firstnameSignup", null);
-        String surnameSignup = preferences.getString("surnameSignup", null);
 
         if (status) {
             AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
