@@ -2,6 +2,7 @@ package com.divya.sprxs.fragment;
 
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -269,21 +271,22 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
 
                 if (response.code() == 201) {
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
-                        View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.success_dialog, null);
+                        final View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.success_dialog, null);
+                        final Dialog dialog = new Dialog(getContext());
                         TextView textView;
                         textView = successDialogView.findViewById(R.id.dialogTextView);
                         textView.setText("Idea successfully minted on blockchain with ID " + createIdeasResponse.getIdea_ID());
-                        String positiveText = getString(android.R.string.ok);
-                        builder.setPositiveButton(positiveText,
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                        builder.setView(successDialogView);
-                        builder.show();
+                        Button button;
+                        button = successDialogView.findViewById(R.id.okButton);
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                              dialog.dismiss();
+                            }
+                        });
+                        dialog.setContentView(successDialogView);
+                        dialog.show();
+
                         progressBar.setVisibility(View.GONE);
                         ideaNameTextView.getText().clear();
                         ideaDescriptionTextView.getText().clear();

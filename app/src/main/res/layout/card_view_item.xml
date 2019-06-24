@@ -66,6 +66,7 @@
             android:id="@+id/ideaNameText"
             android:layout_width="178dp"
             android:layout_height="38dp"
+            android:textStyle="bold"
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="42dp"

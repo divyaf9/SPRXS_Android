@@ -12,6 +12,7 @@
         android:id="@+id/recycler_view_inbox"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="120dp"
         android:dividerHeight="1dp"
         android:paddingBottom="48dp"
         android:scrollbars="vertical"
