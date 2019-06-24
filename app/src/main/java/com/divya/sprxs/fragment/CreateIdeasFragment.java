@@ -273,6 +273,7 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
 
                         final View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.success_dialog, null);
                         final Dialog dialog = new Dialog(getContext());
+                        dialog.setContentView(R.layout.success_dialog);
                         TextView textView;
                         textView = successDialogView.findViewById(R.id.dialogTextView);
                         textView.setText("Idea successfully minted on blockchain with ID " + createIdeasResponse.getIdea_ID());
