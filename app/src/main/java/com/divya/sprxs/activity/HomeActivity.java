@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -138,6 +139,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public void openSearch(){
+        Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -163,6 +169,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //            setFragment(chatFragment);
         } else if (id == R.id.nav_logout) {
             openLogin();
+        } else if(id == R.id.nav_search){
+            openSearch();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

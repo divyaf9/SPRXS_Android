@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view_search_idea"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:clickable="true"
+    app:cardCornerRadius="10dp">
+
+    <!--app:cardElevation="2dp"-->
+    <!--app:cardPreventCornerOverlap="false"-->
+    <!--app:cardUseCompatPadding="true"-->
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        app:srcCompat="@drawable/imgpsh_mobile_save" />
+
+    <TextView
+        android:id="@+id/ideaNameSearchText"
+        android:layout_width="300dp"
+        android:layout_height="38dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:gravity="left|center_vertical"
+        android:inputType="textMultiLine"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="Idea Name"
+        android:textColor="#383736"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/dateSearchText"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="70dp"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+
+</androidx.cardview.widget.CardView>

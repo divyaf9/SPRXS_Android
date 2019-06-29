@@ -1,5 +1,6 @@
 package com.divya.sprxs.activity;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -142,23 +143,22 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
             public void onResponse(Call<EditIdeaResponse> call, Response<EditIdeaResponse> response) {
                 EditIdeaResponse editIdeaResponse = response.body();
                 if (response.code() == 200) {
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(EditIdeaActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                    View successDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.success_dialog, null);
+                    final View successDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.success_dialog, null);
+                    final Dialog dialog = new Dialog(getApplicationContext());
+                    dialog.setContentView(R.layout.success_dialog);
                     TextView textView;
                     textView = successDialogView.findViewById(R.id.dialogTextView);
                     textView.setText("Idea has been edited with ID " + editIdeaResponse.getIdea_ID());
-                    String positiveText = getString(android.R.string.ok);
-                    builder.setPositiveButton(positiveText,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-//                                    Intent intent = new Intent(EditIdeaActivity.this, IdeaDetailsActivity.class);
-//                                    startActivity(intent);
-                                }
-                            });
-                    builder.setView(successDialogView);
-                    builder.show();
+                    Button button;
+                    button = successDialogView.findViewById(R.id.okButton);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.setContentView(successDialogView);
+                    dialog.show();
                     progressBar.setVisibility(View.GONE);
 
                 } else if (response.code() == 401) {
@@ -177,38 +177,40 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                             } else {
                                 try {
                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(EditIdeaActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                                    View errorDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
+                                    final View successDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
+                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                    dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
-                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                    textView = successDialogView.findViewById(R.id.dialogTextView);
                                     textView.setText("Technical Error\nPlease try again later");
-                                    String positiveText = getString(android.R.string.ok);
-                                    builder.setPositiveButton(positiveText,
-                                            new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
-                                                }
-                                            });
-                                    builder.setView(errorDialogView);
-                                    builder.show();
+                                    Button button;
+                                    button = successDialogView.findViewById(R.id.okButton);
+                                    button.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    dialog.setContentView(successDialogView);
+                                    dialog.show();
                                     progressBar.setVisibility(View.GONE);
                                 } catch (Exception e) {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(EditIdeaActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                                    View errorDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
+                                    final View successDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
+                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                    dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
-                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                    textView = successDialogView.findViewById(R.id.dialogTextView);
                                     textView.setText("Technical Error\nPlease try again later");
-                                    String positiveText = getString(android.R.string.ok);
-                                    builder.setPositiveButton(positiveText,
-                                            new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-//                                                    openIdeaDetails();
-                                                }
-                                            });
-                                    builder.setView(errorDialogView);
-                                    builder.show();
+                                    Button button;
+                                    button = successDialogView.findViewById(R.id.okButton);
+                                    button.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    dialog.setContentView(successDialogView);
+                                    dialog.show();
                                     progressBar.setVisibility(View.GONE);
                                 }
                             }
@@ -222,38 +224,40 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        AlertDialog.Builder builder = new AlertDialog.Builder(EditIdeaActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                        View errorDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
+                        final View successDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
+                        final Dialog dialog = new Dialog(getApplicationContext());
+                        dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
-                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView = successDialogView.findViewById(R.id.dialogTextView);
                         textView.setText("Please complete all the fields");
-                        String positiveText = getString(android.R.string.ok);
-                        builder.setPositiveButton(positiveText,
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                        builder.setView(errorDialogView);
-                        builder.show();
+                        Button button;
+                        button = successDialogView.findViewById(R.id.okButton);
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.setContentView(successDialogView);
+                        dialog.show();
                         progressBar.setVisibility(View.GONE);
                     } catch (Exception e) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(EditIdeaActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                        View errorDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
+                        final View successDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
+                        final Dialog dialog = new Dialog(getApplicationContext());
+                        dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
-                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView = successDialogView.findViewById(R.id.dialogTextView);
                         textView.setText("Technical Error\nPlease try again later");
-                        String positiveText = getString(android.R.string.ok);
-                        builder.setPositiveButton(positiveText,
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                        builder.setView(errorDialogView);
-                        builder.show();
+                        Button button;
+                        button = successDialogView.findViewById(R.id.okButton);
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.setContentView(successDialogView);
+                        dialog.show();
                         progressBar.setVisibility(View.GONE);
                     }
                 }

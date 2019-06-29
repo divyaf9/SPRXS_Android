@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -32,7 +33,7 @@ import org.json.JSONObject;
 
 public class ResetPasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button resetPasswordButton;
+    private Button resetPasswordButton,cancelButton;
     private EditText emailTextView;
     private ProgressBar progressBar;
 
@@ -42,8 +43,11 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
 
         setContentView(R.layout.activity_reset_password);
         resetPasswordButton = findViewById(R.id.ResetPasswordbutton);
+        cancelButton = findViewById(R.id.cancelButton);
         emailTextView = findViewById(R.id.emailTextView);
         resetPasswordButton.setOnClickListener(this);
+        cancelButton.setOnClickListener(this);
+
 
         progressBar = findViewById(R.id.loadingPanel);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
@@ -53,7 +57,16 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        resetPasswordAPI();
+        switch (v.getId()){
+            case R.id.ResetPasswordbutton:
+                resetPasswordAPI();
+                break;
+            case R.id.cancelButton:
+                Intent intent = new Intent(ResetPasswordActivity.this,LoginActivity.class);
+                startActivity(intent);
+                break;
+        }
+
     }
 
     private void resetPasswordAPI(){
@@ -84,58 +97,62 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
 
                     if (response.code() == 201) {
                         ResetPasswordResponse resetPasswordResponse = response.body();
-                            AlertDialog.Builder builder = new AlertDialog.Builder(ResetPasswordActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                            View successDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.success_dialog, null);
-                            TextView textView;
-                            textView = successDialogView.findViewById(R.id.dialogTextView);
-                            textView.setText("If the account exists on our system, you will receive an email with your new password");
-                            String positiveText = getString(android.R.string.ok);
-                            builder.setPositiveButton(positiveText,
-                                    new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-                            builder.setView(successDialogView);
-                            builder.show();
-                            progressBar.setVisibility(View.GONE);
+
+                        final View successDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.success_dialog, null);
+                        final Dialog dialog = new Dialog(getApplicationContext());
+                        dialog.setContentView(R.layout.success_dialog);
+                        TextView textView;
+                        textView = successDialogView.findViewById(R.id.dialogTextView);
+                        textView.setText("If the account exists on our system, you will receive an email with your new password");
+                        Button button;
+                        button = successDialogView.findViewById(R.id.okButton);
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.setContentView(successDialogView);
+                        dialog.show();
+                        progressBar.setVisibility(View.GONE);
 
                     } else {
                         try {
                             JSONObject jObjError = new JSONObject(response.errorBody().string());
-                            AlertDialog.Builder builder = new AlertDialog.Builder(ResetPasswordActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                            View errorDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.error_dialog, null);
+                            final View successDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.error_dialog, null);
+                            final Dialog dialog = new Dialog(getApplicationContext());
+                            dialog.setContentView(R.layout.error_dialog);
                             TextView textView;
-                            textView = errorDialogView.findViewById(R.id.dialogTextView);
+                            textView = successDialogView.findViewById(R.id.dialogTextView);
                             textView.setText("Technical Error\nPlease try again later");
-                            String positiveText = getString(android.R.string.ok);
-                            builder.setPositiveButton(positiveText,
-                                    new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-                            builder.setView(errorDialogView);
-                            builder.show();
+                            Button button;
+                            button = successDialogView.findViewById(R.id.okButton);
+                            button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            dialog.setContentView(successDialogView);
+                            dialog.show();
                             progressBar.setVisibility(View.GONE);
                         } catch (Exception e) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(ResetPasswordActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                            View errorDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.error_dialog, null);
+                            final View successDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.error_dialog, null);
+                            final Dialog dialog = new Dialog(getApplicationContext());
+                            dialog.setContentView(R.layout.error_dialog);
                             TextView textView;
-                            textView = errorDialogView.findViewById(R.id.dialogTextView);
+                            textView = successDialogView.findViewById(R.id.dialogTextView);
                             textView.setText("Technical Error\nPlease try again later");
-                            String positiveText = getString(android.R.string.ok);
-                            builder.setPositiveButton(positiveText,
-                                    new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-                            builder.setView(errorDialogView);
-                            builder.show();
+                            Button button;
+                            button = successDialogView.findViewById(R.id.okButton);
+                            button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            dialog.setContentView(successDialogView);
+                            dialog.show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }

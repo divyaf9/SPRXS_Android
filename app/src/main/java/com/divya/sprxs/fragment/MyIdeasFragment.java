@@ -1,5 +1,6 @@
 package com.divya.sprxs.fragment;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +10,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -44,14 +46,13 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
 
     private RecyclerView recyclerView;
     private DataAdapter dataAdapter;
-    private LinearLayoutManager layoutManager;
     private List<MyIdeasSummaryResponse> myIdeasSummaryResponsedata;
     SwipeController swipeController = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().findViewById(R.id.helpImageView).setVisibility(View.VISIBLE);
+        getActivity().findViewById(R.id.helpImageView).setVisibility(View.INVISIBLE);
 
     }
 
@@ -63,25 +64,10 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
         View v = inflater.inflate(R.layout.fragment_my_ideas, container, false);
         getActivity().setTitle("My Ideas");
         recyclerView = v.findViewById(R.id.recycler_view);
-        layoutManager = new LinearLayoutManager(getActivity());
         ideasSummary();
         return v;
 
     }
-
-//
-//    public void onWindowFocusChanged (boolean hasFocus) {
-//        DisplayMetrics dm = new DisplayMetrics();
-//        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-//
-//        int[] loc = new int[2];
-//        recyclerView.getLocationOnScreen(loc); // get the location of the recyclerview
-//        int distance_to_bottom = dm.heightPixels - loc[1]; // similar to Marcin's design
-//        // RecyclerView 直到版面的最下端
-//        ViewGroup.LayoutParams params = recyclerView.getLayoutParams();
-//        params.height = distance_to_bottom;
-//        recyclerView.requestLayout(); // set it right here
-//    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -112,6 +98,7 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
                         fragTransaction.commit();
                     } else {
                         recyclerView.setNestedScrollingEnabled(false);
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
                         recyclerView.setLayoutManager(layoutManager);
                         dataAdapter = new DataAdapter(getActivity(), myIdeasSummaryResponsedata, getContext());
                         recyclerView.setAdapter(dataAdapter);
@@ -134,37 +121,39 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
                             } else {
                                 try {
                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
-                                    View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                                    final View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                                    final Dialog dialog = new Dialog(getContext());
+                                    dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
-                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                    textView = successDialogView.findViewById(R.id.dialogTextView);
                                     textView.setText("Technical Error\nPlease try again later");
-                                    String positiveText = getString(android.R.string.ok);
-                                    builder.setPositiveButton(positiveText,
-                                            new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
-                                                }
-                                            });
-                                    builder.setView(errorDialogView);
-                                    builder.show();
+                                    Button button;
+                                    button = successDialogView.findViewById(R.id.okButton);
+                                    button.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    dialog.setContentView(successDialogView);
+                                    dialog.show();
                                 } catch (Exception e) {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
-                                    View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                                    final View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                                    final Dialog dialog = new Dialog(getContext());
+                                    dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
-                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                    textView = successDialogView.findViewById(R.id.dialogTextView);
                                     textView.setText("Technical Error\nPlease try again later");
-                                    String positiveText = getString(android.R.string.ok);
-                                    builder.setPositiveButton(positiveText,
-                                            new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
-                                                }
-                                            });
-                                    builder.setView(errorDialogView);
-                                    builder.show();
+                                    Button button;
+                                    button = successDialogView.findViewById(R.id.okButton);
+                                    button.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    dialog.setContentView(successDialogView);
+                                    dialog.show();
                                 }
                             }
                         }
@@ -177,37 +166,39 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
-                        View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                        final View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                        final Dialog dialog = new Dialog(getContext());
+                        dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
-                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView = successDialogView.findViewById(R.id.dialogTextView);
                         textView.setText("Technical Error\nPlease try again later");
-                        String positiveText = getString(android.R.string.ok);
-                        builder.setPositiveButton(positiveText,
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                        builder.setView(errorDialogView);
-                        builder.show();
+                        Button button;
+                        button = successDialogView.findViewById(R.id.okButton);
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.setContentView(successDialogView);
+                        dialog.show();
                     } catch (Exception e) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
-                        View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                        final View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                        final Dialog dialog = new Dialog(getContext());
+                        dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
-                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView = successDialogView.findViewById(R.id.dialogTextView);
                         textView.setText("Technical Error\nPlease try again later");
-                        String positiveText = getString(android.R.string.ok);
-                        builder.setPositiveButton(positiveText,
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                        builder.setView(errorDialogView);
-                        builder.show();
+                        Button button;
+                        button = successDialogView.findViewById(R.id.okButton);
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.setContentView(successDialogView);
+                        dialog.show();
                     }
                 }
             }

@@ -17,7 +17,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <Spinner
             android:id="@+id/textSpinner"
@@ -137,7 +137,7 @@
             android:layout_marginTop="540dp"
             android:layout_marginBottom="187dp"
             android:background="@drawable/oval_shape_white"
-            android:text="DISMISS"
+            android:text="CANCEL"
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

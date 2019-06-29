@@ -10,6 +10,7 @@ public class MyIdeasSummaryResponse {
     private boolean allowSearch;
     private int lkpIdeaCat1;
     private String date_created;
+    private String date_created_android;
     private boolean idea_status;
     private String tokens_owned;
     private Long date_created_timestamp;
@@ -17,7 +18,7 @@ public class MyIdeasSummaryResponse {
     private String getDashboard_message;
     private String error;
 
-    public MyIdeasSummaryResponse(String idea_name, String ideaDescription, String tokenId, String idea_id, String no_of_collaborators, boolean allowSearch, int lkpIdeaCat1, String date_created, boolean idea_status, String tokens_owned, Long date_created_timestamp, String getDashboard_response, String getDashboard_message, String error) {
+    public MyIdeasSummaryResponse(String idea_name, String ideaDescription, String tokenId, String idea_id, String no_of_collaborators, boolean allowSearch, int lkpIdeaCat1, String date_created, String date_created_android, boolean idea_status, String tokens_owned, Long date_created_timestamp, String getDashboard_response, String getDashboard_message, String error) {
         this.idea_name = idea_name;
         this.ideaDescription = ideaDescription;
         this.tokenId = tokenId;
@@ -26,6 +27,7 @@ public class MyIdeasSummaryResponse {
         this.allowSearch = allowSearch;
         this.lkpIdeaCat1 = lkpIdeaCat1;
         this.date_created = date_created;
+        this.date_created_android = date_created_android;
         this.idea_status = idea_status;
         this.tokens_owned = tokens_owned;
         this.date_created_timestamp = date_created_timestamp;
@@ -64,6 +66,10 @@ public class MyIdeasSummaryResponse {
 
     public String getDate_created() {
         return date_created;
+    }
+
+    public String getDate_created_android() {
+        return date_created_android;
     }
 
     public boolean isIdea_status() {

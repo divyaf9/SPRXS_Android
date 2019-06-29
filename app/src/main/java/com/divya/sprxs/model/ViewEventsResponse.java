@@ -14,8 +14,9 @@ public class ViewEventsResponse {
     private String title;
     private String created_profile_sender;
     private String error;
+    private String date_android;
 
-    public ViewEventsResponse(int event_type, String firstname, String surname, String created_profile_recipient, String date_created, String event_description, String description, String id, String idea_id, String title, String created_profile_sender, String error) {
+    public ViewEventsResponse(int event_type, String firstname, String surname, String created_profile_recipient, String date_created, String event_description, String description, String id, String idea_id, String title, String created_profile_sender, String error, String date_android) {
         Event_type = event_type;
         this.firstname = firstname;
         this.surname = surname;
@@ -28,6 +29,7 @@ public class ViewEventsResponse {
         this.title = title;
         this.created_profile_sender = created_profile_sender;
         this.error = error;
+        this.date_android = date_android;
     }
 
     public int getEvent_type() {
@@ -76,5 +78,9 @@ public class ViewEventsResponse {
 
     public String getError() {
         return error;
+    }
+
+    public String getDate_android() {
+        return date_android;
     }
 }

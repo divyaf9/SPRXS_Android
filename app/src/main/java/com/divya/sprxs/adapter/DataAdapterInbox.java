@@ -45,6 +45,7 @@ public class DataAdapterInbox extends RecyclerView.Adapter<DataAdapterInbox.View
     @Override
     public void onBindViewHolder(@NonNull final DataAdapterInbox.ViewHolder holder, final int position) {
         holder.message.setText(viewEventsResponses.get(position).getDescription());
+        holder.inboxDate.setText(viewEventsResponses.get(position).getDate_android());
         if(viewEventsResponses.get(position).getEvent_type()==0){
             holder.imageView.setBackgroundResource(R.drawable.ic_icons8_notification_filled);
             holder.inboxTextView.setText("Notification");
@@ -69,7 +70,7 @@ public class DataAdapterInbox extends RecyclerView.Adapter<DataAdapterInbox.View
         public ViewHolder(View view) {
             super(view);
             message = view.findViewById(R.id.message);
-//            inboxDate = view.findViewById(R.id.inboxDate);
+            inboxDate = view.findViewById(R.id.inboxDate);
             inboxTextView = view.findViewById(R.id.inboxTextView);
             imageView =view.findViewById(R.id.inboxImageView);
         }

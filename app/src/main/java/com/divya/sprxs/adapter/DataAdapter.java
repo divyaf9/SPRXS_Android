@@ -49,17 +49,19 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         final String IdeaId = myIdeasSummaryResponse.get(position).getIdea_id();
         final String IdeaName= myIdeasSummaryResponse.get(position).getIdea_name();
         final String IdeaDescription= myIdeasSummaryResponse.get(position).getIdeaDescription();
-        holder.ideaNameText.setText(myIdeasSummaryResponse.get(position).getIdea_name().substring(0,  Math.min(myIdeasSummaryResponse.get(position).getIdea_name().length(), 15)));
-        holder.ideaIdText.setText("#"+myIdeasSummaryResponse.get(position).getIdea_id());
+        holder.ideaNameText.setText(myIdeasSummaryResponse.get(position).getIdea_name());
+//                .substring(0,  Math.min(myIdeasSummaryResponse.get(position).getIdea_name().length(), 15)));
+//        holder.ideaIdText.setText("#"+myIdeasSummaryResponse.get(position).getIdea_id());
         holder.collaboratorText.setText(myIdeasSummaryResponse.get(position).getNo_of_collaborators());
-        holder.equityText.setText(myIdeasSummaryResponse.get(position).getTokens_owned());
-        if(myIdeasSummaryResponse.get(position).isIdea_status()==true) {
-            holder.publicImageView.setVisibility(View.VISIBLE);
-            holder.privateImageView.setVisibility(View.INVISIBLE);
-        }else {
-            holder.publicImageView.setVisibility(View.INVISIBLE);
-            holder.privateImageView.setVisibility(View.VISIBLE);
-        }
+        holder.dateText.setText(myIdeasSummaryResponse.get(position).getDate_created_android());
+//        holder.equityText.setText(myIdeasSummaryResponse.get(position).getTokens_owned());
+//        if(myIdeasSummaryResponse.get(position).isIdea_status()==true) {
+//            holder.publicImageView.setVisibility(View.VISIBLE);
+//            holder.privateImageView.setVisibility(View.INVISIBLE);
+//        }else {
+//            holder.publicImageView.setVisibility(View.INVISIBLE);
+//            holder.privateImageView.setVisibility(View.VISIBLE);
+//        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,7 +157,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView ideaNameText, ideaIdText, collaboratorText, equityText;
+        private TextView ideaNameText, ideaIdText, collaboratorText, equityText,dateText;
         private ImageView collaboratorImage, equityimage,privateImageView,publicImageView;
         public SwipeLayout swipeLayout;
         public TextView Edit;
@@ -164,13 +166,14 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         public ViewHolder(View view) {
             super(view);
             ideaNameText = view.findViewById(R.id.ideaNameText);
-            ideaIdText = view.findViewById(R.id.ideaIdText);
+////            ideaIdText = view.findViewById(R.id.ideaIdText);
             collaboratorText = view.findViewById(R.id.collaboratorText);
-            equityText = view.findViewById(R.id.equityText);
-            collaboratorImage = view.findViewById(R.id.collaboratorImage);
-            equityimage = view.findViewById(R.id.equityImage);
-            privateImageView = view.findViewById(R.id.privateImageView);
-            publicImageView = view.findViewById(R.id.publicImageView);
+            dateText = view.findViewById(R.id.dateText);
+//            equityText = view.findViewById(R.id.equityText);
+//            collaboratorImage = view.findViewById(R.id.collaboratorImage);
+//            equityimage = view.findViewById(R.id.equityImage);
+//            privateImageView = view.findViewById(R.id.privateImageView);
+//            publicImageView = view.findViewById(R.id.publicImageView);
 
             Edit = (TextView) itemView.findViewById(R.id.Edit);
             Share = (TextView) itemView.findViewById(R.id.Share);

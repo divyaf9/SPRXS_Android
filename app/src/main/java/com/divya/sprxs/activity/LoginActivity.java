@@ -1,5 +1,6 @@
 package com.divya.sprxs.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -93,6 +94,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         signupTextView.setText(spannableString);
         signupTextView.setMovementMethod(LinkMovementMethod.getInstance());
 
+        SharedPreferences sharedPreferences = getSharedPreferences("MyLogin.txt", Context.MODE_PRIVATE);
+        Boolean loginCheck = sharedPreferences.getBoolean("FirstLogin", false);
+        if (loginCheck) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
+
 
 
     }
@@ -159,38 +167,41 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                             } else {
                                                 try {
                                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                                                    View errorDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
+
+                                                    final View successDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
+                                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                                    dialog.setContentView(R.layout.error_dialog);
                                                     TextView textView;
-                                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                                    textView = successDialogView.findViewById(R.id.dialogTextView);
                                                     textView.setText("Invalid login, please check your credentials and try again");
-                                                    String positiveText = getString(android.R.string.ok);
-                                                    builder.setPositiveButton(positiveText,
-                                                            new DialogInterface.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(DialogInterface dialog, int which) {
-                                                                    dialog.dismiss();
-                                                                }
-                                                            });
-                                                    builder.setView(errorDialogView);
-                                                    builder.show();
+                                                    Button button;
+                                                    button = successDialogView.findViewById(R.id.okButton);
+                                                    button.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                                    dialog.setContentView(successDialogView);
+                                                    dialog.show();
                                                     progressBar.setVisibility(View.GONE);
                                                 } catch (Exception e) {
-                                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                                                    View errorDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
+                                                    final View successDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
+                                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                                    dialog.setContentView(R.layout.error_dialog);
                                                     TextView textView;
-                                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                                    textView = successDialogView.findViewById(R.id.dialogTextView);
                                                     textView.setText("Technical Error\nPlease try again later");
-                                                    String positiveText = getString(android.R.string.ok);
-                                                    builder.setPositiveButton(positiveText,
-                                                            new DialogInterface.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(DialogInterface dialog, int which) {
-                                                                    dialog.dismiss();
-                                                                }
-                                                            });
-                                                    builder.setView(errorDialogView);
-                                                    builder.show();
+                                                    Button button;
+                                                    button = successDialogView.findViewById(R.id.okButton);
+                                                    button.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                                    dialog.setContentView(successDialogView);
+                                                    dialog.show();
                                                     progressBar.setVisibility(View.GONE);
                                                 }
                                             }
@@ -205,21 +216,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             } else {
                                 Log.w("Message:", "signInWithEmail:failure", task.getException());
-                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                                View errorDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
+                                final View successDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
+                                final Dialog dialog = new Dialog(getApplicationContext());
+                                dialog.setContentView(R.layout.error_dialog);
                                 TextView textView;
-                                textView = errorDialogView.findViewById(R.id.dialogTextView);
-                                textView.setText("Authentication Failed\nPlease enter a correct credentials");
-                                String positiveText = getString(android.R.string.ok);
-                                builder.setPositiveButton(positiveText,
-                                        new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
-                                            }
-                                        });
-                                builder.setView(errorDialogView);
-                                builder.show();
+                                textView = successDialogView.findViewById(R.id.dialogTextView);
+                                textView.setText("Technical Error\nPlease try again later");
+                                Button button;
+                                button = successDialogView.findViewById(R.id.okButton);
+                                button.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                                dialog.setContentView(successDialogView);
+                                dialog.show();
                                 progressBar.setVisibility(View.GONE);
                                 updateUI(null);
                             }

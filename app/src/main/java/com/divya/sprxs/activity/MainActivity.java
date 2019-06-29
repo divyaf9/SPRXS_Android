@@ -26,13 +26,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("MyLogin.txt", Context.MODE_PRIVATE);
-        Boolean loginCheck = sharedPreferences.getBoolean("FirstLogin", false);
-        if (loginCheck) {
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-        }
-
         loginButton= findViewById(R.id.loginButton);
         registerButton= findViewById(R.id.registerButton);
         loginButton.setOnClickListener(this);

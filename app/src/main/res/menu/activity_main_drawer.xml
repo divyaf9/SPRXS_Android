@@ -30,10 +30,11 @@
             <!--android:id="@+id/nav_marketplace"-->
             <!--android:icon="@drawable/ic_icons8_search_client"-->
             <!--android:title="@string/menu_marketplace" />-->
-        <!--<item-->
-            <!--android:id="@+id/nav_search"-->
-            <!--android:icon="@drawable/ic_icons8_search"-->
-            <!--android:title="@string/menu_search" />-->
+
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_icons8_search"
+            android:title="@string/menu_search" />
 
         <item
             android:id="@+id/nav_logout"
