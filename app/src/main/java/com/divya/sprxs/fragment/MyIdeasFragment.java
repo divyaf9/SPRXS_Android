@@ -64,6 +64,7 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
         View v = inflater.inflate(R.layout.fragment_my_ideas, container, false);
         getActivity().setTitle("My Ideas");
         recyclerView = v.findViewById(R.id.recycler_view);
+        recyclerView.setNestedScrollingEnabled(false);
         ideasSummary();
         return v;
 
