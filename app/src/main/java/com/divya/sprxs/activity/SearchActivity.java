@@ -52,37 +52,19 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
         this.setTitle("Search Ideas");
-//        searchView = findViewById(R.id.searchIdea);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         recyclerViewSearchIdea = findViewById(R.id.recycler_view_search_idea);
         searchIdea();
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater menuInflater = getMenuInflater();
-//        menuInflater.inflate(R.menu.search_idea_menu,menu);
-//        MenuItem menuItem = menu.findItem(R.id.searchIdeamenu);
-//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//        searchView = (SearchView) menuItem.getActionView();
-////        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-//
-//
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                dataAdapterSearchIdea.getFilter().filter(newText);
-//                return false;
-//            }
-//        });
-//        return true;
-//    }
+    @Override
+    public boolean onSupportNavigateUp(){
+        onBackPressed();
+        return true;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,8 +73,9 @@ public class SearchActivity extends AppCompatActivity {
         searchView = (SearchView) myActionMenuItem.getActionView();
         changeSearchViewTextColor(searchView);
         ((EditText) searchView.findViewById(
-                R.id.search_src_text)).
-                setHintTextColor(getResources().getColor(R.color.colorWhite));
+                R.id.search_src_text)).setHint("Search Idea Name");
+        ((EditText) searchView.findViewById(
+                R.id.search_src_text)).setHintTextColor(getResources().getColor(R.color.colorWhite));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override            public boolean onQueryTextSubmit(String query) {
                 if (!searchView.isIconified()) {

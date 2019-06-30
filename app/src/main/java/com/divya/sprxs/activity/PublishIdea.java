@@ -44,7 +44,8 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_publish_idea);
 
         this.setTitle("Make Idea Searchable");
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         ideaNamePublishTextView = findViewById(R.id.ideaNamePublishTextView);
         collabSkillsTextView = findViewById(R.id.collabSkillsTextView);
         ideaSynopsisTextView = findViewById(R.id.ideaSynopsisTextView);
@@ -62,6 +63,12 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
         progressBar = findViewById(R.id.loadingPanel);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        onBackPressed();
+        return true;
     }
 
     @Override

@@ -25,14 +25,12 @@ import java.util.Optional;
 public class DataAdapterSearchIdea extends RecyclerView.Adapter<DataAdapterSearchIdea.ViewHolder> {
 
     private List<SearchIdeaResponse> searchIdeaResponse;
-    private List<SearchIdeaResponse> searchIdeaResponsesList;
     private CardView cardViewInbox;
     private Context context;
 
 
     public DataAdapterSearchIdea(FragmentActivity activity, List<SearchIdeaResponse> searchIdeaResponse, Context context) {
         this.searchIdeaResponse = searchIdeaResponse;
-        searchIdeaResponsesList = new ArrayList<>(searchIdeaResponse);
         this.context = context;
     }
 
@@ -62,40 +60,6 @@ public class DataAdapterSearchIdea extends RecyclerView.Adapter<DataAdapterSearc
         searchIdeaResponse.addAll(listitem);
         notifyDataSetChanged();
     }
-//    public Filter getFilter() {
-//
-//        return searchIdeaResponseFilter;
-//    }
-
-//    Filter searchIdeaResponseFilter = new Filter() {pp
-//        @Override
-//        protected FilterResults performFiltering(CharSequence constraint) {
-//            List<SearchIdeaResponse> filteredSearchIdeaResponse = new ArrayList<>();
-//            if(constraint == null || constraint.length()== 0){
-//                filteredSearchIdeaResponse.addAll(searchIdeaResponsesList);
-//            }else{
-//                String filterPattern = constraint.toString().toLowerCase().trim();
-//                for(SearchIdeaResponse item : searchIdeaResponsesList){
-//                    if (item.getIdeaName().toLowerCase().contains(filterPattern)){
-//                        filteredSearchIdeaResponse.add(item);
-//                    }
-//                }
-//            }
-//
-//            FilterResults results = new FilterResults();
-//            results.values = filteredSearchIdeaResponse;
-//            return results;
-//        }
-//
-//        @Override
-//        protected void publishResults(CharSequence constraint, FilterResults results) {
-//
-//            searchIdeaResponse.clear();
-//            searchIdeaResponsesList.addAll((List)results.values);
-//            notifyDataSetChanged();
-//
-//        }
-//    };
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

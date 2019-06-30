@@ -60,6 +60,8 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
         actionBar.setCustomView(imageView);
         imageView.setOnClickListener(this);
         this.setTitle("Idea Details");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         blockchainStatus = findViewById(R.id.blockchainStatus);
 //        attachmentStatus = findViewById(R.id.attachmentStatus);
@@ -71,6 +73,12 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
         ideaDescriptionText_IdeaDetails.setMovementMethod(new ScrollingMovementMethod());
 
         myIdeas();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        onBackPressed();
+        return true;
     }
 
     public void onClick(View v) {

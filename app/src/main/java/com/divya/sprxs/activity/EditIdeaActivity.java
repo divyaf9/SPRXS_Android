@@ -1,12 +1,16 @@
 package com.divya.sprxs.activity;
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.divya.sprxs.R;
 import com.divya.sprxs.api.RetrofitClient;
+import com.divya.sprxs.fragment.MyIdeasFragment;
 import com.divya.sprxs.model.EditIdeaRequest;
 import com.divya.sprxs.model.EditIdeaResponse;
 import com.divya.sprxs.model.RefreshTokenResponse;
@@ -46,12 +51,15 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
     private ProgressBar progressBar;
     private int mySpinnerValue;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_idea);
 
         this.setTitle("Edit Idea");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         ideaNameEditTextView = findViewById(R.id.ideaNameEditTextView);
         ideaDescriptionEditTextView = findViewById(R.id.ideaDescriptionEditTextView);
         filenameEditTextView = findViewById(R.id.filenameEditTextView);
@@ -101,6 +109,11 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         });
 
 
+    }
+    @Override
+    public boolean onSupportNavigateUp(){
+        onBackPressed();
+        return true;
     }
 
     @Override
