@@ -3,8 +3,6 @@
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.divya.sprxs">
 
-    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="15" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -26,7 +24,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.SearchActivity"></activity>
+        <activity
+            android:name=".activity.IdeaActivity"
+            android:theme="@style/NoActionBar"></activity>
+        <activity
+            android:name=".activity.SecureActivity"
+            android:theme="@style/NoActionBar" />
+        <activity android:name=".activity.RequestToCollaborate" />
+        <activity android:name=".activity.SearchIdeaDetails" />
+        <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.PublishIdea" />
         <activity android:name=".activity.HelpActivity" />
         <activity android:name=".activity.EditIdeaActivity" />
@@ -36,23 +42,22 @@
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".activity.RegisterActivity"
-            android:noHistory="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".activity.HomeActivity"
             android:theme="@style/NoActionBar" />
-        <activity android:name=".activity.LoggedIn" /> <!-- <activity -->
-        <!-- android:name=".activity.LoginActivity" -->
-        <!-- android:noHistory="true" -->
-        <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar" /> -->
-        <!-- android:windowSoftInputMode="stateHidden|adjustResize" -->
+        <activity android:name=".activity.LoggedIn" />
         <activity
             android:name=".activity.LoginActivity"
+            android:noHistory="true"
+            android:theme="@style/NoActionBar" />
+        <!--android:windowSoftInputMode="stateHidden|adjustResize"-->
+        <activity
+            android:name=".activity.MainActivity"
             android:noHistory="true"
             android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

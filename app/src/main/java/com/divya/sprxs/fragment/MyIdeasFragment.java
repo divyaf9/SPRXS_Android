@@ -5,12 +5,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -47,7 +50,8 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
     private RecyclerView recyclerView;
     private DataAdapter dataAdapter;
     private List<MyIdeasSummaryResponse> myIdeasSummaryResponsedata;
-    SwipeController swipeController = null;
+    private SwipeController swipeController = null;
+    private ProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,9 +67,15 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
 
         View v = inflater.inflate(R.layout.fragment_my_ideas, container, false);
         getActivity().setTitle("My Ideas");
+
+        progressBar=v.findViewById(R.id.loadingPanel);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
+        progressBar.setVisibility(View.GONE);
+
         recyclerView = v.findViewById(R.id.recycler_view);
         recyclerView.setNestedScrollingEnabled(false);
         ideasSummary();
+
         return v;
 
     }
@@ -78,6 +88,8 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
 
 
     public void ideasSummary() {
+
+        progressBar.setVisibility(View.VISIBLE);
         SharedPreferences prefs = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         final SharedPreferences.Editor editor = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
         final String token = prefs.getString("token", null);
@@ -104,6 +116,8 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
                         dataAdapter = new DataAdapter(getActivity(), myIdeasSummaryResponsedata, getContext());
                         recyclerView.setAdapter(dataAdapter);
                         dataAdapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE);
+
                     }
 
                 } else if (response.code() == 401) {

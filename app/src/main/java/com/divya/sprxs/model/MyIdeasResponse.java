@@ -7,6 +7,7 @@ public class MyIdeasResponse {
     private String ideaFilepath;
     private String ideaUniqueID;
     private String ideaDateCreated;
+    private String androidDate;
     private int lkpIdeaCat1;
     private int lkpIdeaCat2;
     private int lkpIdeaCat3;
@@ -20,12 +21,13 @@ public class MyIdeasResponse {
     private boolean collabSkillsRequired;
     private String error;
 
-    public MyIdeasResponse(String ideaName, String ideaDescription, String ideaFilepath, String ideaUniqueID, String ideaDateCreated, int lkpIdeaCat1, int lkpIdeaCat2, int lkpIdeaCat3, int lkpIdeaStatus, String tokenId, boolean allowCollaborate, boolean allowSearch, boolean allowSale, boolean allowPublic, boolean collabSynopsis, boolean collabSkillsRequired, String error) {
+    public MyIdeasResponse(String ideaName, String ideaDescription, String ideaFilepath, String ideaUniqueID, String ideaDateCreated, String androidDate, int lkpIdeaCat1, int lkpIdeaCat2, int lkpIdeaCat3, int lkpIdeaStatus, String tokenId, boolean allowCollaborate, boolean allowSearch, boolean allowSale, boolean allowPublic, boolean collabSynopsis, boolean collabSkillsRequired, String error) {
         this.ideaName = ideaName;
         this.ideaDescription = ideaDescription;
         this.ideaFilepath = ideaFilepath;
         this.ideaUniqueID = ideaUniqueID;
         this.ideaDateCreated = ideaDateCreated;
+        this.androidDate = androidDate;
         this.lkpIdeaCat1 = lkpIdeaCat1;
         this.lkpIdeaCat2 = lkpIdeaCat2;
         this.lkpIdeaCat3 = lkpIdeaCat3;
@@ -58,6 +60,10 @@ public class MyIdeasResponse {
 
     public String getIdeaDateCreated() {
         return ideaDateCreated;
+    }
+
+    public String getAndroidDate() {
+        return androidDate;
     }
 
     public int getLkpIdeaCat1() {

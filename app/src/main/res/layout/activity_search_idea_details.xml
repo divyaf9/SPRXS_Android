@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.SearchIdeaDetails">
+
+
+    <TextView
+        android:id="@+id/ideaNameSearchDetailsText"
+        android:layout_width="316dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="63dp"
+        android:layout_marginRight="63dp"
+        android:layout_marginBottom="636dp"
+        android:textColor="#383736"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ideaIdSearchDetailsText"
+        android:layout_width="226dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="102dp"
+        android:layout_marginEnd="153dp"
+        android:layout_marginRight="153dp"
+        android:layout_marginBottom="597dp"
+        android:textColor="#383736"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="192dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="170dp"
+        android:layout_marginEnd="187dp"
+        android:layout_marginBottom="535dp"
+        android:text="Description:"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ideaDescriptionSearchDetailsText"
+        android:layout_width="346dp"
+        android:layout_height="166dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="214dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="351dp"
+        android:background="@drawable/text_view_shape"
+        android:gravity="start"
+        android:inputType="textMultiLine"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp"
+        android:scrollbars="vertical"
+        android:textColor="#383736"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="192dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="398dp"
+        android:layout_marginEnd="187dp"
+        android:layout_marginBottom="307dp"
+        android:text="Category:"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/categorySearchDetailsText"
+        android:layout_width="346dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="439dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="245dp"
+        android:background="@drawable/text_view_shape"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:textColor="#383736"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--<TextView-->
+    <!--android:layout_width="268dp"-->
+    <!--android:layout_height="29dp"-->
+    <!--android:layout_marginStart="32dp"-->
+    <!--android:layout_marginLeft="32dp"-->
+    <!--android:layout_marginTop="499dp"-->
+    <!--android:layout_marginEnd="111dp"-->
+    <!--android:layout_marginRight="111dp"-->
+    <!--android:layout_marginBottom="203dp"-->
+    <!--android:text="Request to collaborate:"-->
+    <!--android:textColor="@android:color/black"-->
+    <!--android:textSize="20sp"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+    <Button
+        android:id="@+id/requestToCollaborateButton"
+        android:layout_width="346dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="531dp"
+        android:layout_marginBottom="153dp"
+        android:background="@drawable/oval_shape"
+        android:text="REQUEST TO COLLABORATE"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_supervisor_account_black_24dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,7 +88,6 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
     private FirebaseDatabase firebaseDatabase;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
 
-    @SuppressLint("RestrictedApi")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -107,6 +107,8 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
         firebaseStorage = FirebaseStorage.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
+        ideaDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
+
         progressBar=v.findViewById(R.id.loadingPanel);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.GONE);
@@ -116,14 +118,14 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
 
         List<String> categories = new ArrayList<>();
         categories.add(0, "I have a");
-        categories.add(1, "Technology idea");
-        categories.add(2, "Lifestyle & Wellbeing idea");
-        categories.add(3, "Food & Drink idea");
-        categories.add(4, "Gaming idea");
-        categories.add(5, "Business & Finance idea");
-        categories.add(6, "Art and Fashion idea");
-        categories.add(7, "Film idea");
-        categories.add(8, "Media & Journalism idea");
+        categories.add(1, "Technology Idea");
+        categories.add(2, "Lifestyle & Wellbeing Idea");
+        categories.add(3, "Food & Drink Idea");
+        categories.add(4, "Gaming Idea");
+        categories.add(5, "Business & Finance Idea");
+        categories.add(6, "Art and Fashion Idea");
+        categories.add(7, "Film Idea");
+        categories.add(8, "Media & Journalism Idea");
         categories.add(9,"Theatre Idea");
         categories.add(10,"Music Idea");
         categories.add(11,"Other");
@@ -147,43 +149,8 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
         return v;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-//        if (requestCode == PICK_FROM_GALLERY && resultCode == RESULT_OK && data != null && data.getData() != null) {
-
-//            Uri selectedImage = data.getData();
-//            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-//            Cursor cursor = getActivity().getApplicationContext().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-//            cursor.moveToFirst();
-//            columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//            attachmentFile = cursor.getString(columnIndex);
-//            uri = Uri.parse("file://" + attachmentFile);
-//            if (attachmentFile != null) {
-//                attachmentFile = uri.getPath();
-//                int cut = attachmentFile.lastIndexOf('/');
-//                if (cut != -1) {
-//                    attachmentFile = attachmentFile.substring(cut + 1);
-//                }
-//            }
-//            fileNameTextView.setText(attachmentFile);
-//            cursor.close();
-//
-//
-//        } else if (resultCode != RESULT_CANCELED) {
-//            if (requestCode == PICK_FROM_GALLERY) {
-//                Bitmap photo = (Bitmap) data.getExtras().get("data");
-//                ImageView imageView = null;
-//                imageView.setImageBitmap(photo);
-//            }
-//        }
-//
-//            uri =data.getData();
-//            ImageView imageView = null;
-//            imageView.setImageURI(uri);
-//        }
-
 
         switch (requestCode) {
             case 1:
@@ -198,9 +165,7 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
                     cursor.moveToFirst();
                     fileNameTextView.setText(cursor.getString(nameIndex));
                     cursor.close();
-
                 }
-
         }
     }
 
@@ -226,15 +191,12 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.setType("*/*");
         startActivityForResult(intent, PICK_FROM_GALLERY);
-
-
     }
 
 
     public void myHome() {
         Intent intent = new Intent(getActivity(), HomeActivity.class);
         startActivity(intent);
-
     }
 
 
@@ -260,7 +222,6 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
         final String ideasFolder = "myIdeas";
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String UID = user.getUid();
-        Log.e("UID", UID);
 
         if (!fileName.isEmpty()) {
 
@@ -282,7 +243,6 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
                         @Override
                         public void onFailure(@NonNull Exception exception) {
                             // Handle unsuccessful uploads
-                            // ...
                             Log.e("FAILED TO UPLOAD FILE ", "TO FIREBASE");
                         }
                     });

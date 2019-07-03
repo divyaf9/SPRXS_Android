@@ -57,6 +57,7 @@ public class SearchActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         recyclerViewSearchIdea = findViewById(R.id.recycler_view_search_idea);
+        recyclerViewSearchIdea.setNestedScrollingEnabled(false);
         searchIdea();
     }
 

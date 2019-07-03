@@ -35,37 +35,55 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:targetApi="ice_cream_sandwich" />
 
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="278dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="438dp"
-        android:layout_marginBottom="245dp"
-        android:background="@drawable/oval_shape"
-        android:text="LOG IN"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:targetApi="ice_cream_sandwich" />
+    <!--<Button-->
+    <!--android:id="@+id/loginButton"-->
+    <!--android:layout_width="278dp"-->
+    <!--android:layout_height="55dp"-->
+    <!--android:layout_marginTop="438dp"-->
+    <!--android:layout_marginBottom="245dp"-->
+    <!--android:background="@drawable/oval_shape"-->
+    <!--android:text="LOGIN"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:textSize="24sp"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintHorizontal_bias="0.5"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--tools:targetApi="ice_cream_sandwich" />-->
 
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="278dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="514dp"
-        android:layout_marginBottom="169dp"
-        android:background="@drawable/oval_shape_white"
-        android:text="SIGN UP"
-        android:textColor="@color/colorPrimary"
-        android:textSize="24sp"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView"
+        android:layout_width="220dp"
+        android:layout_height="178dp"
+        android:layout_marginTop="399dp"
+        android:layout_marginBottom="154dp"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="47-gears.json"
+        app:lottie_loop="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:targetApi="ice_cream_sandwich" />
+        />
+
+    <!--<Button-->
+    <!--android:id="@+id/registerButton"-->
+    <!--android:layout_width="278dp"-->
+    <!--android:layout_height="55dp"-->
+    <!--android:layout_marginTop="514dp"-->
+    <!--android:layout_marginBottom="169dp"-->
+    <!--android:background="@drawable/oval_shape_white"-->
+    <!--android:text="SIGN UP"-->
+    <!--android:textColor="@color/colorPrimary"-->
+    <!--android:textSize="24sp"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintHorizontal_bias="0.5"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--tools:targetApi="ice_cream_sandwich" />-->
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

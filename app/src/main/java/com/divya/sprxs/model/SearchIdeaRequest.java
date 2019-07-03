@@ -14,19 +14,4 @@ public class SearchIdeaRequest {
         this.idea_description = idea_description;
     }
 
-    public Long getProfile_id() {
-        return profile_id;
-    }
-
-    public String getIdea_uniqueid() {
-        return idea_uniqueid;
-    }
-
-    public String getIdea_name() {
-        return idea_name;
-    }
-
-    public String getIdea_description() {
-        return idea_description;
-    }
 }

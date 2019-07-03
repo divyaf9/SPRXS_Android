@@ -123,7 +123,7 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
                             ideaName_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaName());
                             ideaId_IdeaDetails.setText("#" + myIdeasResponsedata.get(i).getIdeaUniqueID());
                             ideaDescriptionText_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaDescription());
-                            dateText_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaDateCreated());
+                            dateText_IdeaDetails.setText(myIdeasResponsedata.get(i).getAndroidDate());
 //                            attachmentStatus.setText(myIdeasResponsedata.get(i).getIdeaFilepath());
                             if(myIdeasResponsedata.get(i).isAllowSearch()==true){
                                 ideaStatus.setText("Public");

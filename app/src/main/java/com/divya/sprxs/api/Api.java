@@ -15,6 +15,8 @@ import com.divya.sprxs.model.MyIdeasResponse;
 import com.divya.sprxs.model.MyIdeasSummaryRequest;
 import com.divya.sprxs.model.MyIdeasSummaryResponse;
 import com.divya.sprxs.model.RefreshTokenResponse;
+import com.divya.sprxs.model.RequestWorkOnIdeaRequest;
+import com.divya.sprxs.model.RequestWorkOnIdeaResponse;
 import com.divya.sprxs.model.ResetPasswordRequest;
 import com.divya.sprxs.model.ResetPasswordResponse;
 import com.divya.sprxs.model.SearchIdeaRequest;
@@ -93,5 +95,11 @@ public interface Api {
             @Header("Authorization") String token,
             @Body SearchIdeaRequest searchIdeasRequest
     );
+
+    @POST("/requestWorkOnIdea")
+    Call<RequestWorkOnIdeaResponse> requestWorkOnIdea(
+            @Header("Authorization") String token,
+            @Body RequestWorkOnIdeaRequest requestWorkOnIdeaRequest
+            );
 
 }

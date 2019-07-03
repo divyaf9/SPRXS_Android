@@ -54,6 +54,7 @@ public class InboxFragment extends Fragment {
         getActivity().setTitle("Inbox");
         getActivity().findViewById(R.id.helpImageView).setVisibility(View.INVISIBLE);
         recyclerViewInbox = v.findViewById(R.id.recycler_view_inbox);
+        recyclerViewInbox.setNestedScrollingEnabled(false);
         viewEvent();
         return v;
     }

@@ -6,15 +6,21 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.transition.Scene;
 import android.view.View;
 import android.widget.Button;
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.divya.sprxs.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.Timer;
+import java.util.TimerTask;
 
-    private Button loginButton,registerButton;
+public class MainActivity extends AppCompatActivity  {
+
+    private LottieAnimationView lottieAnimationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,38 +32,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        loginButton= findViewById(R.id.loginButton);
-        registerButton= findViewById(R.id.registerButton);
-        loginButton.setOnClickListener(this);
-        registerButton.setOnClickListener(this);
+        lottieAnimationView = findViewById(R.id.lottieAnimationView);
 
-    }
 
-    public void onClick(View v){
-        switch (v.getId()){
-            case R.id.loginButton:
-                goToLoginActivity();
-                break;
-
-            case R.id.registerButton:
-                goToRegisterActivity();
-                break;
+        SharedPreferences sharedPreferences = getSharedPreferences("MyLogin.txt", Context.MODE_PRIVATE);
+        Boolean loginCheck = sharedPreferences.getBoolean("FirstLogin", false);
+        if (loginCheck) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
         }
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(MainActivity.this,IdeaActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        },5000);
+
+
     }
-
-    public void goToLoginActivity() {
-
-        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-        startActivity(intent);
-        super.onBackPressed();
-
-    }
-
-    public void goToRegisterActivity(){
-        Intent intent = new Intent(MainActivity.this,RegisterActivity.class);
-        startActivity(intent);
-        super.onBackPressed();
-    }
-
 
 }

@@ -87,7 +87,7 @@
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="590dp"
                 android:text="Make your idea searchable for the SPRXS community to provide you with feedback. You can edit the fields below to share as much or as little as you wish."
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textColor="#000000"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -9,9 +9,9 @@
     android:orientation="vertical"
     tools:context=".activity.HomeActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_main"
@@ -33,11 +33,10 @@
                 android:id="@+id/helpImageView"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginRight="20dp"
                 android:layout_gravity="end"
+                android:layout_marginRight="20dp"
                 android:visibility="invisible"
                 app:srcCompat="@drawable/ic_help_outline_black_24dp" />
-
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -56,6 +55,7 @@
             android:layout_height="@dimen/navigation_bar_height"
             android:layout_gravity="bottom"
             android:background="#F5F5F5"
+            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -63,7 +63,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
             app:menu="@menu/bottom_navigation" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view_home"

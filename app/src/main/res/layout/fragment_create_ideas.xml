@@ -12,13 +12,11 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
+    app:layout_constraintTop_toBottomOf="@+id/toolbar_main">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <Spinner
             android:id="@+id/textSpinner"
             style="@style/Widget.AppCompat.Spinner.DropDown"
@@ -34,8 +32,6 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-
         <EditText
             android:id="@+id/ideaNameTextView"
             android:layout_width="352dp"
@@ -54,7 +50,6 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <EditText
             android:id="@+id/ideaDescriptionTextView"
             android:layout_width="351dp"
@@ -66,7 +61,8 @@
             android:hint="Idea Description *"
             android:inputType="textMultiLine"
             android:paddingLeft="8dp"
-            android:paddingTop="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:paddingRight="8dp"
             android:scrollbars="vertical"
             android:textSize="18sp"
@@ -75,7 +71,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.424" />
-
         <EditText
             android:id="@+id/filenameTextView"
             android:layout_width="250dp"
@@ -96,7 +91,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
-
         <ImageView
             android:id="@+id/attachButton"
             android:layout_width="97dp"
@@ -113,7 +107,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_attach_file_black_24dp" />
-
         <Button
             android:id="@+id/submitButton"
             android:layout_width="278dp"
@@ -129,7 +122,6 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <Button
             android:id="@+id/dismissButton"
             android:layout_width="278dp"
@@ -144,7 +136,6 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <ProgressBar
             android:id="@+id/loadingPanel"
             android:layout_width="100dp"
@@ -155,9 +146,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>
-
