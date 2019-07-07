@@ -148,7 +148,7 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
                                 try {
                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
                                     final View successDialogView = LayoutInflater.from(IdeaDetailsActivity.this).inflate(R.layout.error_dialog, null);
-                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                    final Dialog dialog = new Dialog(IdeaDetailsActivity.this);
                                     dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
                                     textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -166,7 +166,7 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
                                 } catch (Exception e) {
 //                                    Toast.makeText(IdeaDetailsActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                                     final View successDialogView = LayoutInflater.from(IdeaDetailsActivity.this).inflate(R.layout.error_dialog, null);
-                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                    final Dialog dialog = new Dialog(IdeaDetailsActivity.this);
                                     dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
                                     textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -194,7 +194,7 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         final View successDialogView = LayoutInflater.from(IdeaDetailsActivity.this).inflate(R.layout.error_dialog, null);
-                        final Dialog dialog = new Dialog(getApplicationContext());
+                        final Dialog dialog = new Dialog(IdeaDetailsActivity.this);
                         dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
                         textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -211,7 +211,7 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
                         dialog.show();
                     } catch (Exception e) {
                         final View successDialogView = LayoutInflater.from(IdeaDetailsActivity.this).inflate(R.layout.error_dialog, null);
-                        final Dialog dialog = new Dialog(getApplicationContext());
+                        final Dialog dialog = new Dialog(IdeaDetailsActivity.this);
                         dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
                         textView = successDialogView.findViewById(R.id.dialogTextView);

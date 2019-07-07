@@ -45,6 +45,7 @@ public class SearchIdeaDetails extends AppCompatActivity implements View.OnClick
 
         ideaDescriptionSearchDetailsText.setMovementMethod(new ScrollingMovementMethod());
 
+        this.setTitle("Idea Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -69,6 +70,5 @@ public class SearchIdeaDetails extends AppCompatActivity implements View.OnClick
         Intent intent = new Intent(SearchIdeaDetails.this,RequestToCollaborate.class);
         intent.putExtra("myRequestList",ideaId);
         startActivity(intent);
-        finish();
     }
 }

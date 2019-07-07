@@ -163,7 +163,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
 
                                                     final View successDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
-                                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                                    final Dialog dialog = new Dialog(LoginActivity.this);
                                                     dialog.setContentView(R.layout.error_dialog);
                                                     TextView textView;
                                                     textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -181,7 +181,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                     progressBar.setVisibility(View.GONE);
                                                 } catch (Exception e) {
                                                     final View successDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
-                                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                                    final Dialog dialog = new Dialog(LoginActivity.this);
                                                     dialog.setContentView(R.layout.error_dialog);
                                                     TextView textView;
                                                     textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -211,7 +211,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             } else {
                                 Log.w("Message:", "signInWithEmail:failure", task.getException());
                                 final View successDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
-                                final Dialog dialog = new Dialog(getApplicationContext());
+                                final Dialog dialog = new Dialog(LoginActivity.this);
                                 dialog.setContentView(R.layout.error_dialog);
                                 TextView textView;
                                 textView = successDialogView.findViewById(R.id.dialogTextView);

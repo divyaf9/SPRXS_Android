@@ -59,7 +59,7 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
 
     private EditText ideaNameEditTextView, ideaDescriptionEditTextView, filenameEditTextView;
     private ImageView attachEditButton;
-    private Button confirmEditButton;
+    private Button confirmEditButton,cancelEditButton;
     private TextView ideaIdEditTextView;
     private ProgressBar progressBar;
     private int mySpinnerValue;
@@ -84,6 +84,8 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         attachEditButton.setOnClickListener(this);
         confirmEditButton = findViewById(R.id.confirmEditButton);
         confirmEditButton.setOnClickListener(this);
+        cancelEditButton = findViewById(R.id.cancelEditButton);
+        cancelEditButton.setOnClickListener(this);
 
         ideaDescriptionEditTextView.setMovementMethod(new ScrollingMovementMethod());
 
@@ -161,6 +163,9 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.confirmEditButton:
                 editIdea();
+                break;
+            case R.id.cancelEditButton:
+                onSupportNavigateUp();
                 break;
             case R.id.attachEditButton:
                 openActivity();
@@ -244,7 +249,7 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                 EditIdeaResponse editIdeaResponse = response.body();
                 if (response.code() == 200) {
                     final View successDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.success_dialog, null);
-                    final Dialog dialog = new Dialog(getApplicationContext());
+                    final Dialog dialog = new Dialog(EditIdeaActivity.this);
                     dialog.setContentView(R.layout.success_dialog);
                     TextView textView;
                     textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -278,7 +283,7 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                                 try {
                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
                                     final View successDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
-                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                    final Dialog dialog = new Dialog(EditIdeaActivity.this);
                                     dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
                                     textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -296,7 +301,7 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                                     progressBar.setVisibility(View.GONE);
                                 } catch (Exception e) {
                                     final View successDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
-                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                    final Dialog dialog = new Dialog(EditIdeaActivity.this);
                                     dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
                                     textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -325,7 +330,7 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         final View successDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
-                        final Dialog dialog = new Dialog(getApplicationContext());
+                        final Dialog dialog = new Dialog(EditIdeaActivity.this);
                         dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
                         textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -343,7 +348,7 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
                         progressBar.setVisibility(View.GONE);
                     } catch (Exception e) {
                         final View successDialogView = LayoutInflater.from(EditIdeaActivity.this).inflate(R.layout.error_dialog, null);
-                        final Dialog dialog = new Dialog(getApplicationContext());
+                        final Dialog dialog = new Dialog(EditIdeaActivity.this);
                         dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
                         textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -369,9 +374,5 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
-//    public void openIdeaDetails() {
-//        Intent intent = new Intent(EditIdeaActivity.this, IdeaDetailsActivity.class);
-//        startActivity(intent);
-//    }
 
 }

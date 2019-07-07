@@ -3,6 +3,7 @@ package com.divya.sprxs.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -40,7 +41,7 @@ public class RequestToCollaborate extends AppCompatActivity implements View.OnCl
 
     private TextView ideaIdRequestToCollaborateText;
     private EditText reasonText,valueText;
-    private Button requestToWorkOnButton;
+    private Button requestToWorkOnButton,cancelRequestButton;
     private ProgressBar progressBar;
     private Spinner spinner;
     private int mySpinnerValue;
@@ -59,6 +60,8 @@ public class RequestToCollaborate extends AppCompatActivity implements View.OnCl
         valueText = findViewById(R.id.valueText);
         requestToWorkOnButton = findViewById(R.id.requestToWorkOnButton);
         requestToWorkOnButton.setOnClickListener(this);
+        cancelRequestButton = findViewById(R.id.cancelRequestButton);
+        cancelRequestButton.setOnClickListener(this);
 
         final String IdeaId = getIntent().getStringExtra("myRequestList");
         ideaIdRequestToCollaborateText.setText("Idea #"+IdeaId);
@@ -109,6 +112,9 @@ public class RequestToCollaborate extends AppCompatActivity implements View.OnCl
      switch (v.getId()){
          case R.id.requestToWorkOnButton:
              requestWorkOnIdea();
+             break;
+         case R.id.cancelRequestButton:
+             onSupportNavigateUp();
              break;
      }
     }
@@ -171,7 +177,7 @@ public class RequestToCollaborate extends AppCompatActivity implements View.OnCl
                                 try {
                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
                                     final View successDialogView = LayoutInflater.from(RequestToCollaborate.this).inflate(R.layout.error_dialog, null);
-                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                    final Dialog dialog = new Dialog(RequestToCollaborate.this);
                                     dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
                                     textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -189,7 +195,7 @@ public class RequestToCollaborate extends AppCompatActivity implements View.OnCl
                                     progressBar.setVisibility(View.GONE);
                                 } catch (Exception e) {
                                     final View successDialogView = LayoutInflater.from(RequestToCollaborate.this).inflate(R.layout.error_dialog, null);
-                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                    final Dialog dialog = new Dialog(RequestToCollaborate.this);
                                     dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
                                     textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -219,7 +225,7 @@ public class RequestToCollaborate extends AppCompatActivity implements View.OnCl
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
 
                         final View successDialogView = LayoutInflater.from(RequestToCollaborate.this).inflate(R.layout.error_dialog, null);
-                        final Dialog dialog = new Dialog(getApplicationContext());
+                        final Dialog dialog = new Dialog(RequestToCollaborate.this);
                         dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
                         textView = successDialogView.findViewById(R.id.dialogTextView);

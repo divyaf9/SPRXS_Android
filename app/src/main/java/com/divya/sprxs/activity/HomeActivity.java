@@ -1,5 +1,6 @@
 package com.divya.sprxs.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,21 +57,22 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Boolean status = preferences.getBoolean("FirstSignup", false);
 
         if (status) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-            View successDialogView = LayoutInflater.from(HomeActivity.this).inflate(R.layout.success_dialog, null);
+            final View successDialogView = LayoutInflater.from(HomeActivity.this).inflate(R.layout.success_dialog, null);
+            final Dialog dialog = new Dialog(HomeActivity.this);
+            dialog.setContentView(R.layout.success_dialog);
             TextView textView;
             textView = successDialogView.findViewById(R.id.dialogTextView);
             textView.setText("Welcome to SPRXS");
-            String positiveText = getString(android.R.string.ok);
-            builder.setPositiveButton(positiveText,
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-            builder.setView(successDialogView);
-            builder.show();
+            Button button;
+            button = successDialogView.findViewById(R.id.okButton);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.setContentView(successDialogView);
+            dialog.show();
         }
 
 
@@ -195,7 +198,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         edit.clear();
         edit.commit();
         edit.apply();
-
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                 Intent.FLAG_ACTIVITY_CLEAR_TASK |

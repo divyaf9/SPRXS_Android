@@ -35,7 +35,7 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
 
     private EditText ideaNamePublishTextView,collabSkillsTextView,ideaSynopsisTextView;
     private TextView ideaIdPublish;
-    private Button publishButton;
+    private Button publishButton,cancelPublishButton;
     private ProgressBar progressBar;
 
     @Override
@@ -52,6 +52,8 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
         ideaIdPublish = findViewById(R.id.ideaIdPublish);
         publishButton = findViewById(R.id.publishButton);
         publishButton.setOnClickListener(this);
+        cancelPublishButton = findViewById(R.id.cancelPublishButton);
+        cancelPublishButton.setOnClickListener(this);
 
         final String IdeaId = getIntent().getStringExtra("myList");
         final String IdeaDesc = getIntent().getStringExtra("myListIdeaDesc");
@@ -76,6 +78,10 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
        switch (v.getId()){
            case R.id.publishButton:
                publishIdea();
+               break;
+           case R.id.cancelPublishButton:
+               onSupportNavigateUp();
+               break;
        }
     }
 
@@ -101,7 +107,7 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
                 ListIdeaForCollaborationResponse listIdeaForCollaborationResponse = response.body();
                 if (response.code() == 200) {
                     final View successDialogView = LayoutInflater.from(PublishIdea.this).inflate(R.layout.success_dialog, null);
-                    final Dialog dialog = new Dialog(getApplicationContext());
+                    final Dialog dialog = new Dialog(PublishIdea.this);
                     dialog.setContentView(R.layout.success_dialog);
                     TextView textView;
                     textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -134,7 +140,7 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
                                 try {
                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
                                     final View successDialogView = LayoutInflater.from(PublishIdea.this).inflate(R.layout.error_dialog, null);
-                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                    final Dialog dialog = new Dialog(PublishIdea.this);
                                     dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
                                     textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -152,7 +158,7 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
                                     progressBar.setVisibility(View.GONE);
                                 } catch (Exception e) {
                                     final View successDialogView = LayoutInflater.from(PublishIdea.this).inflate(R.layout.error_dialog, null);
-                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                    final Dialog dialog = new Dialog(PublishIdea.this);
                                     dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
                                     textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -182,7 +188,7 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
 
                         final View successDialogView = LayoutInflater.from(PublishIdea.this).inflate(R.layout.error_dialog, null);
-                        final Dialog dialog = new Dialog(getApplicationContext());
+                        final Dialog dialog = new Dialog(PublishIdea.this);
                         dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
                         textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -200,7 +206,7 @@ public class PublishIdea extends AppCompatActivity implements View.OnClickListen
                         progressBar.setVisibility(View.GONE);
                     } catch (Exception e) {
                         final View successDialogView = LayoutInflater.from(PublishIdea.this).inflate(R.layout.error_dialog, null);
-                        final Dialog dialog = new Dialog(getApplicationContext());
+                        final Dialog dialog = new Dialog(PublishIdea.this);
                         dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
                         textView = successDialogView.findViewById(R.id.dialogTextView);

@@ -56,14 +56,20 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
     }
 
     @Override
+    public boolean onSupportNavigateUp(){
+        onBackPressed();
+        return true;
+    }
+
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ResetPasswordbutton:
                 resetPasswordAPI();
                 break;
             case R.id.cancelButton:
-                Intent intent = new Intent(ResetPasswordActivity.this,LoginActivity.class);
-                startActivity(intent);
+                onSupportNavigateUp();
                 break;
         }
 
@@ -99,7 +105,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
                         ResetPasswordResponse resetPasswordResponse = response.body();
 
                         final View successDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.success_dialog, null);
-                        final Dialog dialog = new Dialog(getApplicationContext());
+                        final Dialog dialog = new Dialog(ResetPasswordActivity.this);
                         dialog.setContentView(R.layout.success_dialog);
                         TextView textView;
                         textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -120,7 +126,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
                         try {
                             JSONObject jObjError = new JSONObject(response.errorBody().string());
                             final View successDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.error_dialog, null);
-                            final Dialog dialog = new Dialog(getApplicationContext());
+                            final Dialog dialog = new Dialog(ResetPasswordActivity.this);
                             dialog.setContentView(R.layout.error_dialog);
                             TextView textView;
                             textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -138,7 +144,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
                             progressBar.setVisibility(View.GONE);
                         } catch (Exception e) {
                             final View successDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.error_dialog, null);
-                            final Dialog dialog = new Dialog(getApplicationContext());
+                            final Dialog dialog = new Dialog(ResetPasswordActivity.this);
                             dialog.setContentView(R.layout.error_dialog);
                             TextView textView;
                             textView = successDialogView.findViewById(R.id.dialogTextView);

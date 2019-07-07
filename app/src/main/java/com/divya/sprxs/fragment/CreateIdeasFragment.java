@@ -113,7 +113,7 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.GONE);
 
-        getActivity().setTitle("Create Ideas");
+        getActivity().setTitle("Create Idea");
         getActivity().findViewById(R.id.helpImageView).setVisibility(View.INVISIBLE);
 
         List<String> categories = new ArrayList<>();

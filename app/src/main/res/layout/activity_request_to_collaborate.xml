@@ -6,109 +6,144 @@
     android:layout_height="match_parent"
     tools:context=".activity.RequestToCollaborate">
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="352dp"
-        android:layout_height="117dp"
-        android:layout_marginTop="47dp"
-        android:layout_marginBottom="567dp"
-        android:text="If this idea is a project you would like to collaborate on, send the idea owner a request to collaborate, and should it get approved, you will become part of the project team."
-        android:textColor="#000000"
-        android:textSize="18sp"
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="352dp"
+                android:layout_height="117dp"
+                android:layout_marginTop="99dp"
+                android:layout_marginBottom="515dp"
+                android:text="If this idea is a project you would like to collaborate on, send the idea owner a request to collaborate, and should it get approved, you will become part of the project team."
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/ideaIdRequestToCollaborateText"
-        android:layout_width="247dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="183dp"
-        android:layout_marginEnd="134dp"
-        android:layout_marginRight="134dp"
-        android:layout_marginBottom="515dp"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/ideaIdRequestToCollaborateText"
+                android:layout_width="247dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="134dp"
+                android:layout_marginBottom="648dp"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/textCollaborateSpinner"
-        style="@style/Widget.AppCompat.Spinner.DropDown"
-        android:layout_width="352dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="236dp"
-        android:layout_marginBottom="434dp"
-        android:background="@drawable/state_spinnertextview"
-        android:spinnerMode="dropdown"
-        android:state_window_focused="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <Spinner
+                android:id="@+id/textCollaborateSpinner"
+                style="@style/Widget.AppCompat.Spinner.DropDown"
+                android:layout_width="352dp"
+                android:layout_height="61dp"
+                android:layout_marginTop="236dp"
+                android:layout_marginBottom="434dp"
+                android:background="@drawable/state_spinnertextview"
+                android:spinnerMode="dropdown"
+                android:state_window_focused="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/reasonText"
-        android:layout_width="352dp"
-        android:layout_height="104dp"
-        android:layout_marginTop="325dp"
-        android:layout_marginBottom="302dp"
-        android:background="@drawable/text_view_shape"
-        android:hint="Reason to join project"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                android:id="@+id/reasonText"
+                android:layout_width="352dp"
+                android:layout_height="104dp"
+                android:layout_marginTop="325dp"
+                android:layout_marginBottom="302dp"
+                android:background="@drawable/text_view_shape"
+                android:hint="Reason to join project"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/valueText"
-        android:layout_width="351dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="454dp"
-        android:layout_marginBottom="167dp"
-        android:background="@drawable/text_view_shape"
-        android:hint="Value that you will bring to the project"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                android:id="@+id/valueText"
+                android:layout_width="351dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="454dp"
+                android:layout_marginBottom="167dp"
+                android:background="@drawable/text_view_shape"
+                android:hint="Value that you will bring to the project"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.516"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/requestToWorkOnButton"
-        android:layout_width="289dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="584dp"
-        android:background="@drawable/oval_shape"
-        android:text="SUBMIT REQUEST"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.445"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <Button
+                android:id="@+id/requestToWorkOnButton"
+                android:layout_width="289dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="584dp"
+                android:background="@drawable/oval_shape"
+                android:text="SUBMIT REQUEST"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.445"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/loadingPanel"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:indeterminate="true"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/cancelRequestButton"
+                android:layout_width="289dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="654dp"
+                android:layout_marginBottom="27dp"
+                android:background="@drawable/oval_shape_white"
+                android:text="CANCEL"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ProgressBar
+                android:id="@+id/loadingPanel"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:indeterminate="true"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

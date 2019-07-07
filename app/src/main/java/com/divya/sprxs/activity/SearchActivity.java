@@ -162,7 +162,7 @@ public class SearchActivity extends AppCompatActivity {
                                 try {
                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
                                     final View successDialogView = LayoutInflater.from(SearchActivity.this).inflate(R.layout.error_dialog, null);
-                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                    final Dialog dialog = new Dialog(SearchActivity.this);
                                     dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
                                     textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -179,7 +179,7 @@ public class SearchActivity extends AppCompatActivity {
                                     dialog.show();
                                 } catch (Exception e) {
                                     final View successDialogView = LayoutInflater.from(SearchActivity.this).inflate(R.layout.error_dialog, null);
-                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                    final Dialog dialog = new Dialog(SearchActivity.this);
                                     dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
                                     textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -207,7 +207,7 @@ public class SearchActivity extends AppCompatActivity {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         final View successDialogView = LayoutInflater.from(SearchActivity.this).inflate(R.layout.error_dialog, null);
-                        final Dialog dialog = new Dialog(getApplicationContext());
+                        final Dialog dialog = new Dialog(SearchActivity.this);
                         dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
                         textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -224,7 +224,7 @@ public class SearchActivity extends AppCompatActivity {
                         dialog.show();
                     } catch (Exception e) {
                         final View successDialogView = LayoutInflater.from(SearchActivity.this).inflate(R.layout.error_dialog, null);
-                        final Dialog dialog = new Dialog(getApplicationContext());
+                        final Dialog dialog = new Dialog(SearchActivity.this);
                         dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
                         textView = successDialogView.findViewById(R.id.dialogTextView);

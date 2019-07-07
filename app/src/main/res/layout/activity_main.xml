@@ -59,7 +59,7 @@
         android:layout_marginTop="399dp"
         android:layout_marginBottom="154dp"
         app:lottie_autoPlay="true"
-        app:lottie_fileName="47-gears.json"
+        app:lottie_fileName="gear.json"
         app:lottie_loop="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

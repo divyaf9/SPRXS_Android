@@ -8,6 +8,11 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -20,6 +25,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.divya.sprxs.R;
 import com.divya.sprxs.api.RetrofitClient;
@@ -46,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText confirmEmailTextView;
     private EditText passwordTextView;
     private EditText confirmPasswordTextView;
+    private TextView termsTextView;
     private Button signupButton;
     private ProgressBar progressBar;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
@@ -64,12 +71,76 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         confirmEmailTextView = findViewById(R.id.confirmEmailTextView);
         confirmPasswordTextView = findViewById(R.id.confirmPasswordTextView);
         passwordTextView = findViewById(R.id.passwordTextView);
+        termsTextView = findViewById(R.id.termsTextView);
         signupButton = findViewById(R.id.signupButton);
         signupButton.setOnClickListener(this);
 
         progressBar = findViewById(R.id.loadingPanel);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.GONE);
+
+
+        String text = "Privacy Policy";
+        String text1 = "Terms and Conditions";
+        String text2 = "Tokens and Collaboration Policy";
+        SpannableString spannableString = new SpannableString(text);
+        SpannableString spannableString1 = new SpannableString(text1);
+        SpannableString spannableString2 = new SpannableString(text2);
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setUnderlineText(false);
+                ds.setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+            }
+        };
+
+        ClickableSpan clickableSpan1 = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setUnderlineText(false);
+                ds.setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+            }
+        };
+
+        ClickableSpan clickableSpan2 = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setUnderlineText(false);
+                ds.setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+            }
+        };
+
+        spannableString.setSpan(clickableSpan, 1, 14, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString1.setSpan(clickableSpan1,1,14,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString2.setSpan(clickableSpan2,1,20,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        termsTextView.setText(spannableString);
+        termsTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        termsTextView.setText(spannableString1);
+        termsTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        termsTextView.setText(spannableString2);
+        termsTextView.setMovementMethod(LinkMovementMethod.getInstance());
+
+
+
     }
 
     private void userSignup() {
@@ -161,7 +232,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                             } else {
                                                 try {
                                                     final View successDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
-                                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                                    final Dialog dialog = new Dialog(RegisterActivity.this);
                                                     dialog.setContentView(R.layout.error_dialog);
                                                     TextView textView;
                                                     textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -179,7 +250,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                                     progressBar.setVisibility(View.GONE);
                                                 } catch (Exception e) {
                                                     final View successDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
-                                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                                    final Dialog dialog = new Dialog(RegisterActivity.this);
                                                     dialog.setContentView(R.layout.error_dialog);
                                                     TextView textView;
                                                     textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -209,7 +280,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 String message = "The email address is already in use by another account.";
                                 if (task.getException().getMessage().equals(message)) {
                                     final View successDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
-                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                    final Dialog dialog = new Dialog(RegisterActivity.this);
                                     dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
                                     textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -228,7 +299,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 } else {
                                     Log.w("error", "createUserWithEmail:failure", task.getException());
                                     final View successDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
-                                    final Dialog dialog = new Dialog(getApplicationContext());
+                                    final Dialog dialog = new Dialog(RegisterActivity.this);
                                     dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
                                     textView = successDialogView.findViewById(R.id.dialogTextView);
@@ -278,7 +349,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

@@ -9,37 +9,52 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="-36dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="304dp"
-                android:layout_height="200dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="24dp"
+                android:layout_width="200dp"
+                android:layout_height="117dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="780dp"
                 android:adjustViewBounds="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/orange_sprxs_logo" />
 
+            <TextView
+                android:layout_width="261dp"
+                android:layout_height="57dp"
+                android:layout_marginTop="133dp"
+                android:layout_marginBottom="723dp"
+                android:gravity="center"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="Sign up to SPRXS and start innovating..."
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <EditText
                 android:id="@+id/firstNameTextView"
-                android:layout_width="278dp"
+                android:layout_width="308dp"
                 android:layout_height="55dp"
-                android:layout_marginStart="60dp"
-                android:layout_marginLeft="55dp"
-                android:layout_marginTop="45dp"
-                android:layout_marginEnd="60dp"
-                android:layout_marginRight="66.5dp"
+                android:layout_marginTop="205dp"
+                android:layout_marginBottom="653dp"
                 android:background="@drawable/text_view_shape"
                 android:ems="10"
                 android:hint="FirstName"
@@ -48,18 +63,16 @@
                 android:paddingRight="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/lastNameText"
-                android:layout_width="278dp"
+                android:layout_width="308dp"
                 android:layout_height="55dp"
-                android:layout_marginStart="60dp"
-                android:layout_marginLeft="55dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginTop="279dp"
+                android:layout_marginBottom="579dp"
                 android:background="@drawable/text_view_shape"
                 android:ems="10"
                 android:hint="LastName"
@@ -68,38 +81,34 @@
                 android:paddingRight="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
             <EditText
                 android:id="@+id/emailTextView"
-                android:layout_width="278dp"
+                android:layout_width="308dp"
                 android:layout_height="55dp"
-                android:layout_marginStart="60dp"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginTop="352dp"
                 android:background="@drawable/text_view_shape"
                 android:ems="10"
                 android:hint="Email Address"
                 android:inputType="textEmailAddress"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
             <EditText
                 android:id="@+id/confirmEmailTextView"
-                android:layout_width="278dp"
+                android:layout_width="308dp"
                 android:layout_height="55dp"
-                android:layout_marginStart="60dp"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginTop="429dp"
+                android:layout_marginBottom="429dp"
                 android:background="@drawable/text_view_shape"
                 android:ems="10"
                 android:hint="Confirm Email Address"
@@ -108,18 +117,17 @@
                 android:paddingRight="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
             <EditText
                 android:id="@+id/passwordTextView"
-                android:layout_width="278dp"
+                android:layout_width="308dp"
                 android:layout_height="55dp"
-                android:layout_marginStart="60dp"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginTop="504dp"
+                android:layout_marginBottom="354dp"
                 android:background="@drawable/text_view_shape"
                 android:ems="10"
                 android:hint="Password"
@@ -128,18 +136,17 @@
                 android:paddingRight="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
             <EditText
                 android:id="@+id/confirmPasswordTextView"
-                android:layout_width="278dp"
+                android:layout_width="308dp"
                 android:layout_height="55dp"
-                android:layout_marginStart="60dp"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginTop="577dp"
+                android:layout_marginBottom="281dp"
                 android:background="@drawable/text_view_shape"
                 android:ems="10"
                 android:hint="Confirm Password"
@@ -148,28 +155,44 @@
                 android:paddingRight="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
             <Button
                 android:id="@+id/signupButton"
-                android:layout_width="278dp"
+                android:layout_width="308dp"
                 android:layout_height="55dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="45dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="760dp"
+                android:layout_marginBottom="98dp"
                 android:background="@drawable/oval_shape"
                 android:text="SIGN UP"
                 android:textColor="@android:color/white"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.458"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/termsTextView"
+                android:layout_width="312dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="650dp"
+                android:layout_marginBottom="183dp"
+                android:gravity="center"
+                android:text="I have read and accepted the Privacy Policy, Terms and Conditions and Tokens and Collaboration Policy"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 

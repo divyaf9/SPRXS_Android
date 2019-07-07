@@ -54,14 +54,13 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 //        holder.ideaIdText.setText("#"+myIdeasSummaryResponse.get(position).getIdea_id());
         holder.collaboratorText.setText(myIdeasSummaryResponse.get(position).getNo_of_collaborators());
         holder.dateText.setText(myIdeasSummaryResponse.get(position).getDate_created_android());
-//        holder.equityText.setText(myIdeasSummaryResponse.get(position).getTokens_owned());
-//        if(myIdeasSummaryResponse.get(position).isIdea_status()==true) {
-//            holder.publicImageView.setVisibility(View.VISIBLE);
-//            holder.privateImageView.setVisibility(View.INVISIBLE);
-//        }else {
-//            holder.publicImageView.setVisibility(View.INVISIBLE);
-//            holder.privateImageView.setVisibility(View.VISIBLE);
-//        }
+        holder.equityText.setText(myIdeasSummaryResponse.get(position).getTokens_owned());
+        if(myIdeasSummaryResponse.get(position).isIdea_status()==true) {
+            holder.statusImageView.setBackgroundResource(R.drawable.ic_public_black_24dp);
+        }else
+        {
+            holder.statusImageView.setBackgroundResource(R.drawable.ic_vpn_lock_black_24dp);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,7 +157,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView ideaNameText, ideaIdText, collaboratorText, equityText,dateText;
-        private ImageView collaboratorImage, equityimage,privateImageView,publicImageView;
+        private ImageView statusImageView;
         public SwipeLayout swipeLayout;
         public TextView Edit;
         public TextView Share;
@@ -169,7 +168,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 ////            ideaIdText = view.findViewById(R.id.ideaIdText);
             collaboratorText = view.findViewById(R.id.collaboratorText);
             dateText = view.findViewById(R.id.dateText);
-//            equityText = view.findViewById(R.id.equityText);
+            statusImageView = view.findViewById(R.id.statusImageView);
+            equityText = view.findViewById(R.id.equityText);
 //            collaboratorImage = view.findViewById(R.id.collaboratorImage);
 //            equityimage = view.findViewById(R.id.equityImage);
 //            privateImageView = view.findViewById(R.id.privateImageView);

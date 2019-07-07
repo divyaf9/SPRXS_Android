@@ -24,9 +24,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activity.MarketPlaceActivity"></activity>
         <activity
             android:name=".activity.IdeaActivity"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".activity.SecureActivity"
             android:theme="@style/NoActionBar" />
@@ -50,14 +51,14 @@
         <activity
             android:name=".activity.LoginActivity"
             android:noHistory="true"
-            android:theme="@style/NoActionBar" />
-        <!--android:windowSoftInputMode="stateHidden|adjustResize"-->
+            android:theme="@style/NoActionBar" /> <!-- android:windowSoftInputMode="stateHidden|adjustResize" -->
         <activity
             android:name=".activity.MainActivity"
             android:noHistory="true"
             android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
