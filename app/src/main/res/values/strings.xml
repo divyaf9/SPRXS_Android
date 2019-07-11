@@ -19,4 +19,13 @@
     <string name="menu_search">Search Ideas</string>
     <string name="menu_logout">Logout</string>
 
+    <string name="linktocompetition">
+        <a href="https://www.sprxs.io/Competition.Rules.html">I want to enter the SPRXS competition for a chance to win £9,250 and have read and accepted the competition rules.</a>
+    </string>
+    <string name="linktoprivacy">
+        <a href="https://www.sprxs.io/Privacy.html">Privacy policy and Terms and Condition.</a>
+    </string>
+
+
+
 </resources>

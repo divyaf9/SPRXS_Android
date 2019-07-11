@@ -2,11 +2,11 @@ package com.divya.sprxs.activity;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -18,12 +18,13 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -37,13 +38,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import org.json.JSONObject;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private FirebaseAuth mAuth;
     private EditText firstNameTextView;
@@ -52,9 +51,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText confirmEmailTextView;
     private EditText passwordTextView;
     private EditText confirmPasswordTextView;
-    private TextView termsTextView;
+    private TextView competitionTextView, loopTextView, termsTextView;
+    private Switch competitionSwitch, loopSwitch;
     private Button signupButton;
     private ProgressBar progressBar;
+    private Boolean competition;
+    private Boolean loop;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
     public final String firebasePassword = "ljsdlgkj&fefsd$%SDFsdf123£";
 
@@ -71,7 +73,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         confirmEmailTextView = findViewById(R.id.confirmEmailTextView);
         confirmPasswordTextView = findViewById(R.id.confirmPasswordTextView);
         passwordTextView = findViewById(R.id.passwordTextView);
+        competitionTextView = findViewById(R.id.competitionTextView);
+        loopTextView = findViewById(R.id.loopTextView);
         termsTextView = findViewById(R.id.termsTextView);
+        competitionSwitch = findViewById(R.id.competitionSwitch);
+        competitionSwitch.setOnCheckedChangeListener(this);
+        loopSwitch = findViewById(R.id.loopSwitch);
+        loopSwitch.setOnCheckedChangeListener(this);
         signupButton = findViewById(R.id.signupButton);
         signupButton.setOnClickListener(this);
 
@@ -79,67 +87,44 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.GONE);
 
-
-        String text = "Privacy Policy";
-        String text1 = "Terms and Conditions";
-        String text2 = "Tokens and Collaboration Policy";
+        String text = "I want to enter the SPRXS competition for a chance to win £9,250 and have read and accepted the competition rules.";
         SpannableString spannableString = new SpannableString(text);
-        SpannableString spannableString1 = new SpannableString(text1);
-        SpannableString spannableString2 = new SpannableString(text2);
-
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.sprxs.io/Competition.Rules.html")));
             }
 
             @Override
             public void updateDrawState(@NonNull TextPaint ds) {
                 super.updateDrawState(ds);
-                ds.setUnderlineText(false);
+                ds.setUnderlineText(true);
                 ds.setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
             }
+
         };
 
+        String text1 = "Privacy policy and Terms and Condition.";
+        SpannableString spannableString1 = new SpannableString(text1);
         ClickableSpan clickableSpan1 = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.sprxs.io/Privacy.html")));
             }
 
             @Override
             public void updateDrawState(@NonNull TextPaint ds) {
                 super.updateDrawState(ds);
-                ds.setUnderlineText(false);
+                ds.setUnderlineText(true);
                 ds.setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
             }
         };
-
-        ClickableSpan clickableSpan2 = new ClickableSpan() {
-            @Override
-            public void onClick(@NonNull View widget) {
-
-            }
-
-            @Override
-            public void updateDrawState(@NonNull TextPaint ds) {
-                super.updateDrawState(ds);
-                ds.setUnderlineText(false);
-                ds.setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-            }
-        };
-
-        spannableString.setSpan(clickableSpan, 1, 14, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString1.setSpan(clickableSpan1,1,14,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString2.setSpan(clickableSpan2,1,20,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        termsTextView.setText(spannableString);
-        termsTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        spannableString.setSpan(clickableSpan, 96, 114, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        competitionTextView.setText(spannableString);
+        competitionTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        spannableString1.setSpan(clickableSpan1, 0, 39, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         termsTextView.setText(spannableString1);
         termsTextView.setMovementMethod(LinkMovementMethod.getInstance());
-        termsTextView.setText(spannableString2);
-        termsTextView.setMovementMethod(LinkMovementMethod.getInstance());
-
-
 
     }
 
@@ -210,7 +195,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     Call<CreateProfileResponse> call;
                                     progressBar.setVisibility(View.VISIBLE);
 
-                                    call = RetrofitClient.getInstance().getApi().userSignup(new CreateProfileRequest(1, firstName, lastName, 0, 0, "0", email_add_firebase, password, confirmPassword, Boolean.TRUE, Boolean.FALSE, UserUid));
+                                    call = RetrofitClient.getInstance().getApi().userSignup(new CreateProfileRequest(1, firstName, lastName, 0, 0, "0", email_add_firebase, password, confirmPassword,competitionSwitch.isChecked() , loopSwitch.isChecked(), UserUid));
                                     call.enqueue(new Callback<CreateProfileResponse>() {
                                         @Override
                                         public void onResponse(Call<CreateProfileResponse> call, Response<CreateProfileResponse> response) {
@@ -220,7 +205,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                                 editor.putString("token", createProfileResponseResponse.getToken());
                                                 editor.putString("refresh_token", createProfileResponseResponse.getRefresh_token());
                                                 editor.putString("email", email_add);
-                                                editor.putString("firstname",firstName);
+                                                editor.putString("firstname", firstName);
                                                 editor.putString("surname", lastName);
                                                 editor.apply();
                                                 SharedPreferences sharedPreferences = getSharedPreferences("MySignup", Context.MODE_PRIVATE);
@@ -341,7 +326,28 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.signupButton:
-                userSignup();
+                final View privacyView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.privacy_policy, null);
+                final Dialog dialog = new Dialog(RegisterActivity.this);
+                dialog.setContentView(R.layout.privacy_policy);
+                Button button,button1;
+                button = privacyView.findViewById(R.id.privacyAcceptButton);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        userSignup();
+                        dialog.dismiss();
+                    }
+                });
+                dialog.setContentView(privacyView);
+                dialog.show();
+                button1 = privacyView.findViewById(R.id.privacyCancelButton);
+                button1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+//                userSignup();
                 break;
         }
     }
@@ -352,5 +358,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
     }
 }

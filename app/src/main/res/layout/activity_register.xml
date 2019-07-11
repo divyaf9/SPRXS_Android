@@ -51,7 +51,7 @@
 
             <EditText
                 android:id="@+id/firstNameTextView"
-                android:layout_width="308dp"
+                android:layout_width="348dp"
                 android:layout_height="55dp"
                 android:layout_marginTop="205dp"
                 android:layout_marginBottom="653dp"
@@ -69,10 +69,10 @@
 
             <EditText
                 android:id="@+id/lastNameText"
-                android:layout_width="308dp"
+                android:layout_width="348dp"
                 android:layout_height="55dp"
-                android:layout_marginTop="279dp"
-                android:layout_marginBottom="579dp"
+                android:layout_marginTop="273dp"
+                android:layout_marginBottom="585dp"
                 android:background="@drawable/text_view_shape"
                 android:ems="10"
                 android:hint="LastName"
@@ -88,15 +88,17 @@
 
             <EditText
                 android:id="@+id/emailTextView"
-                android:layout_width="308dp"
+                android:layout_width="348dp"
                 android:layout_height="55dp"
-                android:layout_marginTop="352dp"
+                android:layout_marginTop="341dp"
+                android:layout_marginBottom="517dp"
                 android:background="@drawable/text_view_shape"
                 android:ems="10"
                 android:hint="Email Address"
                 android:inputType="textEmailAddress"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -105,10 +107,10 @@
 
             <EditText
                 android:id="@+id/confirmEmailTextView"
-                android:layout_width="308dp"
+                android:layout_width="348dp"
                 android:layout_height="55dp"
-                android:layout_marginTop="429dp"
-                android:layout_marginBottom="429dp"
+                android:layout_marginTop="409dp"
+                android:layout_marginBottom="449dp"
                 android:background="@drawable/text_view_shape"
                 android:ems="10"
                 android:hint="Confirm Email Address"
@@ -124,10 +126,10 @@
 
             <EditText
                 android:id="@+id/passwordTextView"
-                android:layout_width="308dp"
+                android:layout_width="348dp"
                 android:layout_height="55dp"
-                android:layout_marginTop="504dp"
-                android:layout_marginBottom="354dp"
+                android:layout_marginTop="479dp"
+                android:layout_marginBottom="379dp"
                 android:background="@drawable/text_view_shape"
                 android:ems="10"
                 android:hint="Password"
@@ -143,10 +145,10 @@
 
             <EditText
                 android:id="@+id/confirmPasswordTextView"
-                android:layout_width="308dp"
+                android:layout_width="348dp"
                 android:layout_height="55dp"
-                android:layout_marginTop="577dp"
-                android:layout_marginBottom="281dp"
+                android:layout_marginTop="548dp"
+                android:layout_marginBottom="310dp"
                 android:background="@drawable/text_view_shape"
                 android:ems="10"
                 android:hint="Confirm Password"
@@ -159,32 +161,93 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/competitionTextView"
+                android:layout_width="306dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="624dp"
+                android:layout_marginEnd="75dp"
+                android:layout_marginBottom="219dp"
+                android:gravity="start"
+                android:text="@string/linktocompetition"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/signupButton"
-                android:layout_width="308dp"
-                android:layout_height="55dp"
-                android:layout_marginTop="760dp"
-                android:layout_marginBottom="98dp"
-                android:background="@drawable/oval_shape"
-                android:text="SIGN UP"
-                android:textColor="@android:color/white"
-                android:textSize="24sp"
+            <Switch
+                android:id="@+id/competitionSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:theme="@style/SwitchTheme"
+                android:layout_marginStart="342dp"
+                android:layout_marginTop="638dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="248dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/loopTextView"
+                android:layout_width="306dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="708dp"
+                android:layout_marginEnd="75dp"
+                android:layout_marginBottom="165dp"
+                android:gravity="start"
+                android:text="I want to stay in loop for information on SPRXS."
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Switch
+                android:id="@+id/loopSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:theme="@style/SwitchTheme"
+                android:layout_marginStart="342dp"
+                android:layout_marginTop="712dp"
+                android:layout_marginEnd="31dp"
+                android:layout_marginBottom="178dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/termsTextView"
+                android:layout_width="306dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="766dp"
+                android:layout_marginBottom="127dp"
+                android:text="@string/linktoprivacy"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/termsTextView"
-                android:layout_width="312dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="650dp"
-                android:layout_marginBottom="183dp"
-                android:gravity="center"
-                android:text="I have read and accepted the Privacy Policy, Terms and Conditions and Tokens and Collaboration Policy"
-                android:textSize="16sp"
+
+            <Button
+                android:id="@+id/signupButton"
+                android:layout_width="308dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="820dp"
+                android:layout_marginBottom="42dp"
+                android:background="@drawable/oval_shape"
+                android:text="SIGN UP"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -200,12 +263,13 @@
         android:id="@+id/loadingPanel"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:visibility="visible"
         android:indeterminate="true"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

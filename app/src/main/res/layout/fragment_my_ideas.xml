@@ -2,8 +2,9 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/myIdeasFragment"
+    android:layout_below="@+id/toolbar_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="660dp"
     android:background="@color/colorAccent">
 
     <androidx.core.widget.NestedScrollView
@@ -22,6 +23,7 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="60dp"
                 android:animateLayoutChanges="false"
                 android:clipToPadding="false"
                 android:dividerHeight="1dp"
@@ -41,10 +43,10 @@
         android:id="@+id/loadingPanel"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:visibility="visible"
-        android:indeterminate="true"
-        android:layout_marginTop="300dp"
         android:layout_marginLeft="150dp"
+        android:layout_marginTop="300dp"
+        android:indeterminate="true"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

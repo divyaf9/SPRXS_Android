@@ -8,7 +8,7 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/passwordTextView"
-        android:layout_width="278dp"
+        android:layout_width="348dp"
         android:layout_height="55dp"
         android:layout_marginTop="365dp"
         android:layout_marginBottom="311dp"
@@ -42,7 +42,7 @@
 
     <EditText
         android:id="@+id/emailTextView"
-        android:layout_width="278dp"
+        android:layout_width="348dp"
         android:layout_height="55dp"
         android:layout_marginTop="299dp"
         android:layout_marginBottom="377dp"
@@ -94,7 +94,7 @@
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="278dp"
+        android:layout_width="308dp"
         android:layout_height="55dp"
         android:layout_marginTop="445dp"
         android:layout_marginBottom="231dp"

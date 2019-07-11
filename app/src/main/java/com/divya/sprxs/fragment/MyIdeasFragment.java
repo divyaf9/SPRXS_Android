@@ -49,6 +49,7 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
 
     private RecyclerView recyclerView;
     private DataAdapter dataAdapter;
+    private BottomNavigationView bottomNavigationView;
     private List<MyIdeasSummaryResponse> myIdeasSummaryResponsedata;
     private SwipeController swipeController = null;
     private ProgressBar progressBar;
@@ -73,7 +74,6 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
         progressBar.setVisibility(View.GONE);
 
         recyclerView = v.findViewById(R.id.recycler_view);
-        recyclerView.setNestedScrollingEnabled(false);
         ideasSummary();
 
         return v;
@@ -110,9 +110,12 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener{
                         fragTransaction.addToBackStack(null);
                         fragTransaction.commit();
                     } else {
+                        recyclerView.setHasFixedSize(false);
+
                         recyclerView.setNestedScrollingEnabled(false);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
                         recyclerView.setLayoutManager(layoutManager);
+
                         dataAdapter = new DataAdapter(getActivity(), myIdeasSummaryResponsedata, getContext());
                         recyclerView.setAdapter(dataAdapter);
                         dataAdapter.notifyDataSetChanged();

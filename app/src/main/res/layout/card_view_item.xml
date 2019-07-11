@@ -7,7 +7,7 @@
     android:orientation="vertical"
     app:leftEdgeSwipeOffset="0dp"
     app:rightEdgeSwipeOffset="0dp"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="2dp"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp">
 

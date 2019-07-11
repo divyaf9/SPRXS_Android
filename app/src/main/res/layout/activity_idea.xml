@@ -16,13 +16,13 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/secure" />
+        app:srcCompat="@drawable/ic_ideaicon" />
 
     <TextView
         android:layout_width="129dp"
         android:layout_height="38dp"
-        android:layout_marginTop="378dp"
-        android:layout_marginBottom="315dp"
+        android:layout_marginTop="385dp"
+        android:layout_marginBottom="308dp"
         android:gravity="center"
         android:text="IDEA"
         android:textColor="@color/colorPrimary"
@@ -30,13 +30,13 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="361dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="432dp"
         android:layout_marginBottom="250dp"
         android:gravity="center"

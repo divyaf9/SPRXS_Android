@@ -37,21 +37,22 @@ public class MainActivity extends AppCompatActivity  {
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyLogin.txt", Context.MODE_PRIVATE);
         Boolean loginCheck = sharedPreferences.getBoolean("FirstLogin", false);
-        if (loginCheck) {
-            Intent intent = new Intent(this, HomeActivity.class);
+        if (loginCheck.equals(true)) {
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
             startActivity(intent);
+        }else{
+
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(MainActivity.this,IdeaActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            },5000);
+
         }
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(MainActivity.this,IdeaActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        },5000);
-
 
     }
 

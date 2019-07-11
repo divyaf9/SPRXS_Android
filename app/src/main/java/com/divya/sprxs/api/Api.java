@@ -10,6 +10,7 @@ import com.divya.sprxs.model.ListIdeaForCollaborationRequest;
 import com.divya.sprxs.model.ListIdeaForCollaborationResponse;
 import com.divya.sprxs.model.LoginRequest;
 import com.divya.sprxs.model.LoginResponse;
+import com.divya.sprxs.model.MarketPlaceResponse;
 import com.divya.sprxs.model.MyIdeasRequest;
 import com.divya.sprxs.model.MyIdeasResponse;
 import com.divya.sprxs.model.MyIdeasSummaryRequest;
@@ -100,6 +101,9 @@ public interface Api {
     Call<RequestWorkOnIdeaResponse> requestWorkOnIdea(
             @Header("Authorization") String token,
             @Body RequestWorkOnIdeaRequest requestWorkOnIdeaRequest
-            );
+    );
 
+    @GET("/collaborator")
+    Call<List<MarketPlaceResponse>> marketPlace(
+            @Header("Authorization") String token);
 }

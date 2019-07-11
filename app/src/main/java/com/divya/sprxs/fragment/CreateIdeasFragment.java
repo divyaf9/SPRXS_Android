@@ -204,7 +204,7 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
 
         final String ideaName = ideaNameTextView.getText().toString().trim();
         final String ideaDescription = ideaDescriptionTextView.getText().toString().trim();
-        String fileName = fileNameTextView.getText().toString().trim();
+        final String fileName = fileNameTextView.getText().toString().trim();
 
         if (ideaName.isEmpty()) {
             ideaNameTextView.setError("This Field is required");
@@ -285,6 +285,8 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
                         progressBar.setVisibility(View.GONE);
                         ideaNameTextView.getText().clear();
                         ideaDescriptionTextView.getText().clear();
+                        fileNameTextView.setText("");
+                         spinner.setSelection(0);
 
 
                 } else if (response.code() == 401) {

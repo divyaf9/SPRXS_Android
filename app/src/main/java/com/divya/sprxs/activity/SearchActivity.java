@@ -2,6 +2,7 @@ package com.divya.sprxs.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -76,7 +77,7 @@ public class SearchActivity extends AppCompatActivity {
         ((EditText) searchView.findViewById(
                 R.id.search_src_text)).setHint("Search Idea Name");
         ((EditText) searchView.findViewById(
-                R.id.search_src_text)).setHintTextColor(getResources().getColor(R.color.colorWhite));
+                R.id.search_src_text)).setHintTextColor(ContextCompat.getColor(this,R.color.colorWhite));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override            public boolean onQueryTextSubmit(String query) {
                 if (!searchView.isIconified()) {
