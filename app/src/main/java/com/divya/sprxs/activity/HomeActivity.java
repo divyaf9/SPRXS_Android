@@ -173,11 +173,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             openLogin();
         } else if(id == R.id.nav_search){
             openSearch();
+        }else if(id == R.id.nav_marketplace){
+            openMarketPlace();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void openMarketPlace() {
+        Intent intent = new Intent(HomeActivity.this, MarketPlaceActivity.class);
+        startActivity(intent);
     }
 
     private void setFragment(Fragment fragment) {

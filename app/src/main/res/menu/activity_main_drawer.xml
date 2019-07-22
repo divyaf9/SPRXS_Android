@@ -26,10 +26,10 @@
             <!--android:icon="@drawable/ic_icons8_speech"-->
             <!--android:title="@string/menu_chat" />-->
 
-        <!--<item-->
-            <!--android:id="@+id/nav_marketplace"-->
-            <!--android:icon="@drawable/ic_icons8_search_client"-->
-            <!--android:title="@string/menu_marketplace" />-->
+        <item
+            android:id="@+id/nav_marketplace"
+            android:icon="@drawable/ic_icons8_search_client"
+            android:title="@string/menu_marketplace" />
 
         <item
             android:id="@+id/nav_search"

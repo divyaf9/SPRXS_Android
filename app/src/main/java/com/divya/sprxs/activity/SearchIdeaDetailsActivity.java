@@ -5,15 +5,13 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.divya.sprxs.R;
 
-public class SearchIdeaDetails extends AppCompatActivity implements View.OnClickListener {
+public class SearchIdeaDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView ideaNameSearchDetailsText, ideaIdSearchDetailsText, ideaDescriptionSearchDetailsText, categorySearchDetailsText;
     private Button requestToCollaborateButton;
@@ -67,7 +65,7 @@ public class SearchIdeaDetails extends AppCompatActivity implements View.OnClick
     }
 
     private void openRequestToCollaborate() {
-        Intent intent = new Intent(SearchIdeaDetails.this,RequestToCollaborate.class);
+        Intent intent = new Intent(SearchIdeaDetailsActivity.this, RequestToCollaborateActivity.class);
         intent.putExtra("myRequestList",ideaId);
         startActivity(intent);
     }

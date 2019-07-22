@@ -9,15 +9,29 @@
     tools:context=".fragment.NoIdeasFragment">
 
     <!--<FrameLayout-->
-        <!--android:id="@+id/noIdea"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:background="@color/colorAccent"-->
-        <!--android:scrollbars="vertical"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="1.0"-->
-        <!--app:layout_constraintStart_toStartOf="parent"></FrameLayout>-->
+    <!--android:id="@+id/noIdea"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@color/colorAccent"-->
+    <!--android:scrollbars="vertical"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintHorizontal_bias="1.0"-->
+    <!--app:layout_constraintStart_toStartOf="parent"></FrameLayout>-->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/noIdeaLottieAnimationView"
+        android:layout_width="220dp"
+        android:layout_height="178dp"
+        android:layout_marginTop="188dp"
+        android:layout_marginBottom="420dp"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="whale.json"
+        app:lottie_loop="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView6"

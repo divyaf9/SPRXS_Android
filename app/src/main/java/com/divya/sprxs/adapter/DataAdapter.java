@@ -17,9 +17,10 @@ import com.daimajia.swipe.SwipeLayout;
 import com.divya.sprxs.R;
 import com.divya.sprxs.activity.EditIdeaActivity;
 import com.divya.sprxs.activity.IdeaDetailsActivity;
-import com.divya.sprxs.activity.PublishIdea;
+import com.divya.sprxs.activity.PublishIdeaActivity;
 import com.divya.sprxs.model.MyIdeasSummaryResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
@@ -28,12 +29,10 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     private CardView cardView;
     private Context context;
 
-
     public DataAdapter(FragmentActivity fragmentActivity, List<MyIdeasSummaryResponse> myIdeasSummaryResponse, Context context) {
         this.myIdeasSummaryResponse = myIdeasSummaryResponse;
         this.context = context;
     }
-
 
     @NonNull
     @Override
@@ -42,7 +41,6 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         cardView = v.findViewById(R.id.card_view);
         return new ViewHolder(v);
     }
-
 
     @Override
     public void onBindViewHolder(@NonNull final DataAdapter.ViewHolder holder, final int position) {
@@ -122,7 +120,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 holder.swipeLayout.close();
-                Intent intent = new Intent(view.getContext(), PublishIdea.class);
+                Intent intent = new Intent(view.getContext(), PublishIdeaActivity.class);
                 intent.putExtra("myList",IdeaId);
                 intent.putExtra("myListIdeaName",IdeaName);
                 intent.putExtra("myListIdeaDesc",IdeaDescription);
@@ -153,7 +151,6 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         return (myIdeasSummaryResponse == null) ? 0 : myIdeasSummaryResponse.size();
     }
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView ideaNameText, ideaIdText, collaboratorText, equityText,dateText;
@@ -161,7 +158,6 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         public SwipeLayout swipeLayout;
         public TextView Edit;
         public TextView Share;
-
         public ViewHolder(View view) {
             super(view);
             ideaNameText = view.findViewById(R.id.ideaNameText);

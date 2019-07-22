@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/inboxFragment"
     android:layout_width="match_parent"
-    android:layout_height="660dp"
+    android:layout_height="match_parent"
+    android:layout_above="@+id/bottomNavBar"
     android:background="@color/colorAccent">
 
     <androidx.core.widget.NestedScrollView
@@ -23,6 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="60dp"
+                android:layout_marginBottom="70dp"
                 android:animateLayoutChanges="false"
                 android:clipToPadding="false"
                 android:dividerHeight="1dp"

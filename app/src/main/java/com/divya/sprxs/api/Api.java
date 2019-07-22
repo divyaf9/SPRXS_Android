@@ -6,6 +6,8 @@ import com.divya.sprxs.model.CreateProfileRequest;
 import com.divya.sprxs.model.CreateProfileResponse;
 import com.divya.sprxs.model.EditIdeaRequest;
 import com.divya.sprxs.model.EditIdeaResponse;
+import com.divya.sprxs.model.InviteToCollaborateRequest;
+import com.divya.sprxs.model.InviteToCollaborateResponse;
 import com.divya.sprxs.model.ListIdeaForCollaborationRequest;
 import com.divya.sprxs.model.ListIdeaForCollaborationResponse;
 import com.divya.sprxs.model.LoginRequest;
@@ -106,4 +108,10 @@ public interface Api {
     @GET("/collaborator")
     Call<List<MarketPlaceResponse>> marketPlace(
             @Header("Authorization") String token);
+
+    @POST("/collaborations/invitation")
+    Call<InviteToCollaborateResponse> inviteToCollaborate(
+            @Header("Authorization") String token,
+            @Body InviteToCollaborateRequest inviteToCollaborateRequest
+    );
 }

@@ -13,8 +13,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.divya.sprxs.R;
-import com.divya.sprxs.activity.IdeaDetailsActivity;
-import com.divya.sprxs.activity.SearchIdeaDetails;
+import com.divya.sprxs.activity.SearchIdeaDetailsActivity;
 import com.divya.sprxs.model.SearchIdeaResponse;
 
 import java.util.ArrayList;
@@ -74,12 +73,11 @@ public class DataAdapterSearchIdea extends RecyclerView.Adapter<DataAdapterSearc
         }else if(searchIdeaResponse.get(position).getLkpIdeaCat1().contentEquals("11")){
             Category="Other";
         }
-
         final String finalCategory = Category;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(), SearchIdeaDetails.class);
+            Intent intent = new Intent(v.getContext(), SearchIdeaDetailsActivity.class);
              intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
              intent.putExtra("mySearchList",IdeaId);
              intent.putExtra("mySearchListIdea",IdeaName);

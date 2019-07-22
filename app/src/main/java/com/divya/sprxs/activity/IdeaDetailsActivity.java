@@ -1,11 +1,11 @@
 package com.divya.sprxs.activity;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+
 import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.divya.sprxs.R;
@@ -26,6 +25,7 @@ import com.divya.sprxs.model.MyIdeasResponse;
 import com.divya.sprxs.model.RefreshTokenResponse;
 
 import org.json.JSONObject;
+
 
 import java.util.List;
 
@@ -37,17 +37,15 @@ import static com.divya.sprxs.activity.LoginActivity.MY_PREFS_NAME;
 
 public class IdeaDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView blockchainStatus, attachmentStatus,ideaStatus;
+    private TextView blockchainStatus, attachmentStatus, ideaStatus;
     private TextView ideaName_IdeaDetails, ideaId_IdeaDetails, dateText_IdeaDetails, ideaDescriptionText_IdeaDetails;
     private List<MyIdeasResponse> myIdeasResponsedata = null;
-    private  String IdeaId,IdeaName,IdeaDescription;
-
+    private String IdeaId, IdeaName, IdeaDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_idea_details);
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayOptions(actionBar.getDisplayOptions() | ActionBar.DISPLAY_SHOW_CUSTOM);
         ImageView imageView = new ImageView(actionBar.getThemedContext());
@@ -64,7 +62,6 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         blockchainStatus = findViewById(R.id.blockchainStatus);
-//        attachmentStatus = findViewById(R.id.attachmentStatus);
         ideaStatus = findViewById(R.id.ideaStatus);
         ideaName_IdeaDetails = findViewById(R.id.ideaName_IdeaDetails);
         ideaId_IdeaDetails = findViewById(R.id.ideaId_IdeaDetails);
@@ -76,7 +73,7 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
     }
 
     @Override
-    public boolean onSupportNavigateUp(){
+    public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
@@ -88,8 +85,6 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
                 break;
         }
     }
-
-
 
     public void myIdeas() {
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
@@ -107,30 +102,27 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
             public void onResponse(Call<List<MyIdeasResponse>> call, Response<List<MyIdeasResponse>> response) {
 
                 if (response.code() == 200) {
-
                     myIdeasResponsedata = response.body();
 
                     final String ideaId = getIntent().getStringExtra("myList");
 
-                    for (int i = 0; i < myIdeasResponsedata.size(); i++)
+                    for (int i = 0; i < myIdeasResponsedata.size(); i++) {
                         if (ideaId.contentEquals(myIdeasResponsedata.get(i).getIdeaUniqueID())) {
-
-                             IdeaId = myIdeasResponsedata.get(i).getIdeaUniqueID();
-                             IdeaName= myIdeasResponsedata.get(i).getIdeaName();
-                             IdeaDescription= myIdeasResponsedata.get(i).getIdeaDescription();
-
+                            IdeaId = myIdeasResponsedata.get(i).getIdeaUniqueID();
+                            IdeaName = myIdeasResponsedata.get(i).getIdeaName();
+                            IdeaDescription = myIdeasResponsedata.get(i).getIdeaDescription();
                             blockchainStatus.setText(myIdeasResponsedata.get(i).getTokenId());
                             ideaName_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaName());
                             ideaId_IdeaDetails.setText("#" + myIdeasResponsedata.get(i).getIdeaUniqueID());
                             ideaDescriptionText_IdeaDetails.setText(myIdeasResponsedata.get(i).getIdeaDescription());
                             dateText_IdeaDetails.setText(myIdeasResponsedata.get(i).getAndroidDate());
-//                            attachmentStatus.setText(myIdeasResponsedata.get(i).getIdeaFilepath());
-                            if(myIdeasResponsedata.get(i).isAllowSearch()==true){
+                            if (myIdeasResponsedata.get(i).isAllowSearch() == true) {
                                 ideaStatus.setText("Public");
-                            } else{
+                            } else {
                                 ideaStatus.setText("Private");
                             }
                         }
+                    }
                 } else if (response.code() == 401) {
                     Call<RefreshTokenResponse> callrefresh;
                     callrefresh = RetrofitClient.getInstance().getApi().refreshToken(
@@ -164,7 +156,6 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
                                     dialog.setContentView(successDialogView);
                                     dialog.show();
                                 } catch (Exception e) {
-//                                    Toast.makeText(IdeaDetailsActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                                     final View successDialogView = LayoutInflater.from(IdeaDetailsActivity.this).inflate(R.layout.error_dialog, null);
                                     final Dialog dialog = new Dialog(IdeaDetailsActivity.this);
                                     dialog.setContentView(R.layout.error_dialog);
@@ -237,13 +228,13 @@ public class IdeaDetailsActivity extends AppCompatActivity implements View.OnCli
         });
 
     }
+
     private void goToEditIdea() {
         Intent intent = new Intent(IdeaDetailsActivity.this, EditIdeaActivity.class);
-        intent.putExtra("myList",IdeaId);
-        intent.putExtra("myListIdeaName",IdeaName);
-        intent.putExtra("myListIdeaDesc",IdeaDescription);
+        intent.putExtra("myList", IdeaId);
+        intent.putExtra("myListIdeaName", IdeaName);
+        intent.putExtra("myListIdeaDesc", IdeaDescription);
         startActivity(intent);
     }
-
 
 }

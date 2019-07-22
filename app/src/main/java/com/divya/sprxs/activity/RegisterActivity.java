@@ -329,9 +329,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 final View privacyView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.privacy_policy, null);
                 final Dialog dialog = new Dialog(RegisterActivity.this);
                 dialog.setContentView(R.layout.privacy_policy);
-                Button button,button1;
-                button = privacyView.findViewById(R.id.privacyAcceptButton);
-                button.setOnClickListener(new View.OnClickListener() {
+                Button accept,cancel;
+                accept = privacyView.findViewById(R.id.privacyAcceptButton);
+                accept.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         userSignup();
@@ -340,14 +340,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 });
                 dialog.setContentView(privacyView);
                 dialog.show();
-                button1 = privacyView.findViewById(R.id.privacyCancelButton);
-                button1.setOnClickListener(new View.OnClickListener() {
+                cancel = privacyView.findViewById(R.id.privacyCancelButton);
+                cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
                     }
                 });
-//                userSignup();
                 break;
         }
     }

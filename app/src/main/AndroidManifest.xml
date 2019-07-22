@@ -24,17 +24,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.MarketPlaceActivity"></activity>
+        <activity android:name=".activity.MarketPlaceUserDetailsActivity" />
+        <activity android:name=".activity.SearchMarketPlaceActivity" />
+        <activity android:name=".activity.MarketPlaceActivity" />
         <activity
             android:name=".activity.IdeaActivity"
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".activity.SecureActivity"
             android:theme="@style/NoActionBar" />
-        <activity android:name=".activity.RequestToCollaborate" />
-        <activity android:name=".activity.SearchIdeaDetails" />
+        <activity android:name=".activity.RequestToCollaborateActivity" />
+        <activity android:name=".activity.SearchIdeaDetailsActivity" />
         <activity android:name=".activity.SearchActivity" />
-        <activity android:name=".activity.PublishIdea" />
+        <activity android:name=".activity.PublishIdeaActivity" />
         <activity android:name=".activity.HelpActivity" />
         <activity android:name=".activity.EditIdeaActivity" />
         <activity android:name=".activity.IdeaDetailsActivity" />

@@ -1,5 +1,8 @@
 package com.divya.sprxs.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 public class MyIdeasResponse {
 
     private String ideaName;
@@ -41,6 +44,28 @@ public class MyIdeasResponse {
         this.collabSkillsRequired = collabSkillsRequired;
         this.error = error;
     }
+
+    protected MyIdeasResponse(Parcel in) {
+        ideaName = in.readString();
+        ideaDescription = in.readString();
+        ideaFilepath = in.readString();
+        ideaUniqueID = in.readString();
+        ideaDateCreated = in.readString();
+        androidDate = in.readString();
+        lkpIdeaCat1 = in.readInt();
+        lkpIdeaCat2 = in.readInt();
+        lkpIdeaCat3 = in.readInt();
+        lkpIdeaStatus = in.readInt();
+        tokenId = in.readString();
+        allowCollaborate = in.readByte() != 0;
+        allowSearch = in.readByte() != 0;
+        allowSale = in.readByte() != 0;
+        allowPublic = in.readByte() != 0;
+        collabSynopsis = in.readByte() != 0;
+        collabSkillsRequired = in.readByte() != 0;
+        error = in.readString();
+    }
+
 
     public String getIdeaName() {
         return ideaName;
@@ -113,4 +138,6 @@ public class MyIdeasResponse {
     public String getError() {
         return error;
     }
+
+
 }
