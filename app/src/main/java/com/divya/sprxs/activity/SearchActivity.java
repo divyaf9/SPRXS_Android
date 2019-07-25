@@ -1,27 +1,23 @@
 package com.divya.sprxs.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Dialog;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.divya.sprxs.R;
 import com.divya.sprxs.adapter.DataAdapterSearchIdea;
@@ -63,7 +59,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onSupportNavigateUp(){
+    public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
@@ -77,51 +73,53 @@ public class SearchActivity extends AppCompatActivity {
         ((EditText) searchView.findViewById(
                 R.id.search_src_text)).setHint("Search Idea Name");
         ((EditText) searchView.findViewById(
-                R.id.search_src_text)).setHintTextColor(ContextCompat.getColor(this,R.color.colorWhite));
+                R.id.search_src_text)).setHintTextColor(ContextCompat.getColor(this, R.color.colorWhite));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override            public boolean onQueryTextSubmit(String query) {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
                 if (!searchView.isIconified()) {
                     searchView.setIconified(true);
                 }
                 myActionMenuItem.collapseActionView();
                 return false;
             }
-            @Override            public boolean onQueryTextChange(String newText) {
-                final  List<SearchIdeaResponse> filtermodelist=filter(searchIdeasResponsesData,newText);
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                final List<SearchIdeaResponse> filtermodelist = filter(searchIdeasResponsesData, newText);
                 dataAdapterSearchIdea.setfilter(filtermodelist);
                 return true;
             }
         });
         return true;
     }
-    private List<SearchIdeaResponse> filter(List<SearchIdeaResponse> pl,String query)
-    {
-        query=query.toLowerCase();
-        final List<SearchIdeaResponse> filteredModeList=new ArrayList<>();
-        for (SearchIdeaResponse model:pl)
-        {
-            final String text=model.getIdeaName().toLowerCase();
-            if (text.startsWith(query))
-            {
+
+    private List<SearchIdeaResponse> filter(List<SearchIdeaResponse> pl, String query) {
+        query = query.toLowerCase();
+        final List<SearchIdeaResponse> filteredModeList = new ArrayList<>();
+        for (SearchIdeaResponse model : pl) {
+            final String text = model.getIdeaName().toLowerCase();
+            if (text.startsWith(query)) {
                 filteredModeList.add(model);
             }
         }
         return filteredModeList;
     }
+
     //for changing the text color of searchview
     private void changeSearchViewTextColor(View view) {
         if (view != null) {
-        if (view instanceof TextView) {
-            ((TextView) view).setTextColor(Color.WHITE);
-            return;
-        } else if (view instanceof ViewGroup) {
-            ViewGroup viewGroup = (ViewGroup) view;
-            for (int i = 0; i < viewGroup.getChildCount(); i++) {
-                changeSearchViewTextColor(viewGroup.getChildAt(i));
+            if (view instanceof TextView) {
+                ((TextView) view).setTextColor(Color.WHITE);
+                return;
+            } else if (view instanceof ViewGroup) {
+                ViewGroup viewGroup = (ViewGroup) view;
+                for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                    changeSearchViewTextColor(viewGroup.getChildAt(i));
+                }
             }
         }
     }
-}
 
 
     private void searchIdea() {
@@ -133,7 +131,7 @@ public class SearchActivity extends AppCompatActivity {
         Call<List<SearchIdeaResponse>> call;
         call = RetrofitClient.getInstance().getApi().searchIdea(
                 "Bearer " + token,
-                new SearchIdeaRequest( 0L, "", "", ""));
+                new SearchIdeaRequest(0L, "", "", ""));
         call.enqueue(new Callback<List<SearchIdeaResponse>>() {
             @Override
             public void onResponse(Call<List<SearchIdeaResponse>> call, Response<List<SearchIdeaResponse>> response) {
@@ -160,42 +158,42 @@ public class SearchActivity extends AppCompatActivity {
                                 editor.apply();
                                 searchIdea();
                             } else {
-                                try {
-                                    JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                    final View successDialogView = LayoutInflater.from(SearchActivity.this).inflate(R.layout.error_dialog, null);
-                                    final Dialog dialog = new Dialog(SearchActivity.this);
-                                    dialog.setContentView(R.layout.error_dialog);
-                                    TextView textView;
-                                    textView = successDialogView.findViewById(R.id.dialogTextView);
-                                    textView.setText("Technical Error\nPlease try again later");
-                                    Button button;
-                                    button = successDialogView.findViewById(R.id.okButton);
-                                    button.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-                                    dialog.setContentView(successDialogView);
-                                    dialog.show();
-                                } catch (Exception e) {
-                                    final View successDialogView = LayoutInflater.from(SearchActivity.this).inflate(R.layout.error_dialog, null);
-                                    final Dialog dialog = new Dialog(SearchActivity.this);
-                                    dialog.setContentView(R.layout.error_dialog);
-                                    TextView textView;
-                                    textView = successDialogView.findViewById(R.id.dialogTextView);
-                                    textView.setText("Technical Error\nPlease try again later");
-                                    Button button;
-                                    button = successDialogView.findViewById(R.id.okButton);
-                                    button.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-                                    dialog.setContentView(successDialogView);
-                                    dialog.show();
-                                }
+//                                try {
+//                                    JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                final View errorDialogView = LayoutInflater.from(SearchActivity.this).inflate(R.layout.error_dialog, null);
+                                final Dialog dialog = new Dialog(SearchActivity.this);
+                                dialog.setContentView(R.layout.error_dialog);
+                                TextView textView;
+                                textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                textView.setText("Technical Error.Please try again later");
+                                Button button;
+                                button = errorDialogView.findViewById(R.id.okButton);
+                                button.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                                dialog.setContentView(errorDialogView);
+                                dialog.show();
+//                                } catch (Exception e) {
+//                                    final View successDialogView = LayoutInflater.from(SearchActivity.this).inflate(R.layout.error_dialog, null);
+//                                    final Dialog dialog = new Dialog(SearchActivity.this);
+//                                    dialog.setContentView(R.layout.error_dialog);
+//                                    TextView textView;
+//                                    textView = successDialogView.findViewById(R.id.dialogTextView);
+//                                    textView.setText("Technical Error\nPlease try again later");
+//                                    Button button;
+//                                    button = successDialogView.findViewById(R.id.okButton);
+//                                    button.setOnClickListener(new View.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(View v) {
+//                                            dialog.dismiss();
+//                                        }
+//                                    });
+//                                    dialog.setContentView(successDialogView);
+//                                    dialog.show();
+//                                }
                             }
                         }
 
@@ -207,38 +205,38 @@ public class SearchActivity extends AppCompatActivity {
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        final View successDialogView = LayoutInflater.from(SearchActivity.this).inflate(R.layout.error_dialog, null);
+                        final View errorDialogView = LayoutInflater.from(SearchActivity.this).inflate(R.layout.error_dialog, null);
                         final Dialog dialog = new Dialog(SearchActivity.this);
                         dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
-                        textView = successDialogView.findViewById(R.id.dialogTextView);
-                        textView.setText("Technical Error\nPlease try again later");
+                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView.setText(jObjError.getString("error"));
                         Button button;
-                        button = successDialogView.findViewById(R.id.okButton);
+                        button = errorDialogView.findViewById(R.id.okButton);
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 dialog.dismiss();
                             }
                         });
-                        dialog.setContentView(successDialogView);
+                        dialog.setContentView(errorDialogView);
                         dialog.show();
                     } catch (Exception e) {
-                        final View successDialogView = LayoutInflater.from(SearchActivity.this).inflate(R.layout.error_dialog, null);
+                        final View errorDialogView = LayoutInflater.from(SearchActivity.this).inflate(R.layout.error_dialog, null);
                         final Dialog dialog = new Dialog(SearchActivity.this);
                         dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
-                        textView = successDialogView.findViewById(R.id.dialogTextView);
-                        textView.setText("Technical Error\nPlease try again later");
+                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView.setText("Technical Error.Please try again later");
                         Button button;
-                        button = successDialogView.findViewById(R.id.okButton);
+                        button = errorDialogView.findViewById(R.id.okButton);
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 dialog.dismiss();
                             }
                         });
-                        dialog.setContentView(successDialogView);
+                        dialog.setContentView(errorDialogView);
                         dialog.show();
                     }
                 }
@@ -249,5 +247,5 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
     }
-    }
+}
 

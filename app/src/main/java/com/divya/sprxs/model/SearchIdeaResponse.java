@@ -21,8 +21,9 @@ public class SearchIdeaResponse {
             private String collabSynopsis;
             private String collabSkillsRequired;
             private Boolean pendingApproval;
+            private String error;
 
-    public SearchIdeaResponse(String ideaName, String ideaDescription, String ideaFilepath, String ideaUniqueID, String ideaDatCreated, String androidDate, String lkpIdeaCat1, String lkpIdeaCat2, String lkpIdeaCat3, String tokenId, Boolean allowCollaborate, Boolean allowSearch, Boolean allowSale, Boolean allowPublic, String collabSynopsis, String collabSkillsRequired, Boolean pendingApproval) {
+    public SearchIdeaResponse(String ideaName, String ideaDescription, String ideaFilepath, String ideaUniqueID, String ideaDatCreated, String androidDate, String lkpIdeaCat1, String lkpIdeaCat2, String lkpIdeaCat3, String tokenId, Boolean allowCollaborate, Boolean allowSearch, Boolean allowSale, Boolean allowPublic, String collabSynopsis, String collabSkillsRequired, Boolean pendingApproval, String error) {
         this.ideaName = ideaName;
         this.ideaDescription = ideaDescription;
         this.ideaFilepath = ideaFilepath;
@@ -40,6 +41,7 @@ public class SearchIdeaResponse {
         this.collabSynopsis = collabSynopsis;
         this.collabSkillsRequired = collabSkillsRequired;
         this.pendingApproval = pendingApproval;
+        this.error = error;
     }
 
     public String getIdeaName() {
@@ -108,5 +110,9 @@ public class SearchIdeaResponse {
 
     public Boolean getPendingApproval() {
         return pendingApproval;
+    }
+
+    public String getError() {
+        return error;
     }
 }

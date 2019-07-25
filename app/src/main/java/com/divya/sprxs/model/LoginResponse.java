@@ -1,8 +1,11 @@
 package com.divya.sprxs.model;
 
+import android.util.Log;
+
 public class LoginResponse {
 
     private String token;
+    private Long id;
     private String profile_type;
     private String login_response;
     private String login_message;
@@ -12,8 +15,9 @@ public class LoginResponse {
     private String login_firstname;
     private String error;
 
-    public LoginResponse(String token, String profile_type, String login_response, String login_message, String login_email, String refresh_token, String login_surname, String login_firstname, String error) {
+    public LoginResponse(String token, Long id, String profile_type, String login_response, String login_message, String login_email, String refresh_token, String login_surname, String login_firstname, String error) {
         this.token = token;
+        this.id = id;
         this.profile_type = profile_type;
         this.login_response = login_response;
         this.login_message = login_message;
@@ -26,6 +30,10 @@ public class LoginResponse {
 
     public String getToken() {
         return token;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getProfile_type() {

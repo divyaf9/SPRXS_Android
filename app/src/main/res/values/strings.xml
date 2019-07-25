@@ -10,6 +10,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <string name="menu_my_profile">My Profile</string>
     <string name="menu_home">Home</string>
     <string name="menu_my_ideas">My Ideas</string>
     <string name="menu_create_ideas">Create Idea</string>
@@ -17,6 +18,7 @@
     <string name="menu_inbox">Inbox</string>
     <string name="menu_marketplace">Marketplace</string>
     <string name="menu_search">Search Ideas</string>
+    <string name="menu_contact_us">Contact Us</string>
     <string name="menu_logout">Logout</string>
 
     <string name="linktocompetition">

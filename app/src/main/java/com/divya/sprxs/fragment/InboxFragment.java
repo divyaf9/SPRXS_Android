@@ -99,42 +99,42 @@ public class InboxFragment extends Fragment {
                                 editor.apply();
                                 viewEvent();
                             } else {
-                                try {
-                                    JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                    final View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+//                                try {
+//                                    JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                    final View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
                                     final Dialog dialog = new Dialog(getContext());
                                     dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
-                                    textView = successDialogView.findViewById(R.id.dialogTextView);
-                                    textView.setText("Technical Error\nPlease try again later");
+                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                    textView.setText("Technical Error.Please try again later");
                                     Button button;
-                                    button = successDialogView.findViewById(R.id.okButton);
+                                    button = errorDialogView.findViewById(R.id.okButton);
                                     button.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             dialog.dismiss();
                                         }
                                     });
-                                    dialog.setContentView(successDialogView);
+                                    dialog.setContentView(errorDialogView);
                                     dialog.show();
-                                } catch (Exception e) {
-                                    final View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
-                                    final Dialog dialog = new Dialog(getContext());
-                                    dialog.setContentView(R.layout.error_dialog);
-                                    TextView textView;
-                                    textView = successDialogView.findViewById(R.id.dialogTextView);
-                                    textView.setText("Technical Error\nPlease try again later");
-                                    Button button;
-                                    button = successDialogView.findViewById(R.id.okButton);
-                                    button.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-                                    dialog.setContentView(successDialogView);
-                                    dialog.show();
-                                }
+//                                } catch (Exception e) {
+//                                    final View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+//                                    final Dialog dialog = new Dialog(getContext());
+//                                    dialog.setContentView(R.layout.error_dialog);
+//                                    TextView textView;
+//                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+//                                    textView.setText("Technical Error\nPlease try again later");
+//                                    Button button;
+//                                    button = errorDialogView.findViewById(R.id.okButton);
+//                                    button.setOnClickListener(new View.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(View v) {
+//                                            dialog.dismiss();
+//                                        }
+//                                    });
+//                                    dialog.setContentView(errorDialogView);
+//                                    dialog.show();
+//                                }
                             }
                         }
 
@@ -146,38 +146,38 @@ public class InboxFragment extends Fragment {
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        final View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                        final View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
                         final Dialog dialog = new Dialog(getContext());
                         dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
-                        textView = successDialogView.findViewById(R.id.dialogTextView);
-                        textView.setText("Technical Error\nPlease try again later");
+                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView.setText(jObjError.getString("error"));
                         Button button;
-                        button = successDialogView.findViewById(R.id.okButton);
+                        button = errorDialogView.findViewById(R.id.okButton);
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 dialog.dismiss();
                             }
                         });
-                        dialog.setContentView(successDialogView);
+                        dialog.setContentView(errorDialogView);
                         dialog.show();
                     } catch (Exception e) {
-                        final View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                        final View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
                         final Dialog dialog = new Dialog(getContext());
                         dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
-                        textView = successDialogView.findViewById(R.id.dialogTextView);
-                        textView.setText("Technical Error\nPlease try again later");
+                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView.setText("Technical Error.Please try again later");
                         Button button;
-                        button = successDialogView.findViewById(R.id.okButton);
+                        button = errorDialogView.findViewById(R.id.okButton);
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 dialog.dismiss();
                             }
                         });
-                        dialog.setContentView(successDialogView);
+                        dialog.setContentView(errorDialogView);
                         dialog.show();
                     }
                 }

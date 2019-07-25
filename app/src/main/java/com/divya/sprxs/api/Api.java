@@ -1,5 +1,7 @@
 package com.divya.sprxs.api;
 
+import com.divya.sprxs.model.ContactUsRequest;
+import com.divya.sprxs.model.ContactUsResponse;
 import com.divya.sprxs.model.CreateIdeasRequest;
 import com.divya.sprxs.model.CreateIdeasResponse;
 import com.divya.sprxs.model.CreateProfileRequest;
@@ -113,5 +115,10 @@ public interface Api {
     Call<InviteToCollaborateResponse> inviteToCollaborate(
             @Header("Authorization") String token,
             @Body InviteToCollaborateRequest inviteToCollaborateRequest
+    );
+
+    @POST("/contactus")
+    Call<ContactUsResponse> contactUs(
+            @Body ContactUsRequest contactUsRequest
     );
 }

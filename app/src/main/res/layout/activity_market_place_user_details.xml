@@ -17,7 +17,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:layout_width="80dp"
@@ -25,7 +25,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="315dp"
-                android:layout_marginBottom="619dp"
+                android:layout_marginBottom="717dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,12 +39,14 @@
                 android:layout_marginStart="114dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="42dp"
+                android:layout_marginBottom="759dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -56,7 +58,7 @@
                 android:layout_marginStart="114dp"
                 android:layout_marginTop="68dp"
                 android:layout_marginEnd="60dp"
-                android:layout_marginBottom="628dp"
+                android:layout_marginBottom="726dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
@@ -71,14 +73,16 @@
                 android:id="@+id/descUserDetailsTextView"
                 android:layout_width="377dp"
                 android:layout_height="83dp"
-                android:gravity="center_vertical"
+                android:layout_marginStart="17dp"
                 android:layout_marginTop="115dp"
+                android:layout_marginBottom="629dp"
+                android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:scrollbars="vertical"
                 android:singleLine="false"
                 android:textColor="#000000"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -87,7 +91,7 @@
                 android:layout_width="364dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="205dp"
-                android:layout_marginBottom="484dp"
+                android:layout_marginBottom="582dp"
                 android:background="@drawable/oval_shape"
                 android:text="INVITE TO COLLABORATE"
                 android:textColor="@color/colorWhite"
@@ -177,7 +181,8 @@
                 android:id="@+id/expandableListView"
                 android:layout_width="match_parent"
                 android:layout_height="450dp"
-                android:layout_marginTop="279dp"
+                android:layout_marginTop="263dp"
+                android:layout_marginBottom="114dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

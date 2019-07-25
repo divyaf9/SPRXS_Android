@@ -5,11 +5,13 @@ public class RequestWorkOnIdeaResponse {
     private String tokenID;
     private String mintedBy;
     private String ideaID;
+    private String error;
 
-    public RequestWorkOnIdeaResponse(String tokenID, String mintedBy, String ideaID) {
+    public RequestWorkOnIdeaResponse(String tokenID, String mintedBy, String ideaID, String error) {
         this.tokenID = tokenID;
         this.mintedBy = mintedBy;
         this.ideaID = ideaID;
+        this.error = error;
     }
 
     public String getTokenID() {
@@ -22,5 +24,9 @@ public class RequestWorkOnIdeaResponse {
 
     public String getIdeaID() {
         return ideaID;
+    }
+
+    public String getError() {
+        return error;
     }
 }

@@ -22,9 +22,10 @@ public class MyIdeasResponse {
     private boolean allowPublic;
     private boolean collabSynopsis;
     private boolean collabSkillsRequired;
+    private String coverPhoto;
     private String error;
 
-    public MyIdeasResponse(String ideaName, String ideaDescription, String ideaFilepath, String ideaUniqueID, String ideaDateCreated, String androidDate, int lkpIdeaCat1, int lkpIdeaCat2, int lkpIdeaCat3, int lkpIdeaStatus, String tokenId, boolean allowCollaborate, boolean allowSearch, boolean allowSale, boolean allowPublic, boolean collabSynopsis, boolean collabSkillsRequired, String error) {
+    public MyIdeasResponse(String ideaName, String ideaDescription, String ideaFilepath, String ideaUniqueID, String ideaDateCreated, String androidDate, int lkpIdeaCat1, int lkpIdeaCat2, int lkpIdeaCat3, int lkpIdeaStatus, String tokenId, boolean allowCollaborate, boolean allowSearch, boolean allowSale, boolean allowPublic, boolean collabSynopsis, boolean collabSkillsRequired, String coverPhoto, String error) {
         this.ideaName = ideaName;
         this.ideaDescription = ideaDescription;
         this.ideaFilepath = ideaFilepath;
@@ -42,30 +43,9 @@ public class MyIdeasResponse {
         this.allowPublic = allowPublic;
         this.collabSynopsis = collabSynopsis;
         this.collabSkillsRequired = collabSkillsRequired;
+        this.coverPhoto = coverPhoto;
         this.error = error;
     }
-
-    protected MyIdeasResponse(Parcel in) {
-        ideaName = in.readString();
-        ideaDescription = in.readString();
-        ideaFilepath = in.readString();
-        ideaUniqueID = in.readString();
-        ideaDateCreated = in.readString();
-        androidDate = in.readString();
-        lkpIdeaCat1 = in.readInt();
-        lkpIdeaCat2 = in.readInt();
-        lkpIdeaCat3 = in.readInt();
-        lkpIdeaStatus = in.readInt();
-        tokenId = in.readString();
-        allowCollaborate = in.readByte() != 0;
-        allowSearch = in.readByte() != 0;
-        allowSale = in.readByte() != 0;
-        allowPublic = in.readByte() != 0;
-        collabSynopsis = in.readByte() != 0;
-        collabSkillsRequired = in.readByte() != 0;
-        error = in.readString();
-    }
-
 
     public String getIdeaName() {
         return ideaName;
@@ -135,9 +115,11 @@ public class MyIdeasResponse {
         return collabSkillsRequired;
     }
 
+    public String getCoverPhoto() {
+        return coverPhoto;
+    }
+
     public String getError() {
         return error;
     }
-
-
 }

@@ -19,5 +19,6 @@
 
     <item
         android:drawable="@drawable/ic_arrow_drop_down_black_24dp"
-        android:gravity="right" />
+        android:gravity="right"
+        android:paddingRight="10dp"/>
 </layer-list>

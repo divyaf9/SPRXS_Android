@@ -24,8 +24,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activity.MyProfileActivity"></activity>
+        <activity android:name=".activity.ContactUsActivity" />
         <activity android:name=".activity.MarketPlaceUserDetailsActivity" />
-        <activity android:name=".activity.SearchMarketPlaceActivity" />
         <activity android:name=".activity.MarketPlaceActivity" />
         <activity
             android:name=".activity.IdeaActivity"

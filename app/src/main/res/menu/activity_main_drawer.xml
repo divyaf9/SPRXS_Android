@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_my_profile"
+            android:icon="@drawable/ic_icons8_profile"
+            android:title="@string/menu_my_profile" />
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_icons8_home"
@@ -35,11 +40,16 @@
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_icons8_search"
             android:title="@string/menu_search" />
-
         <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_icons8_sign_out"
-            android:title="@string/menu_logout" />
+            android:id="@+id/nav_contact_us"
+            android:icon="@drawable/ic_icons8_contact_us"
+            android:title="@string/menu_contact_us"/>
+
+
+        <!--<item-->
+            <!--android:id="@+id/nav_logout"-->
+            <!--android:icon="@drawable/ic_icons8_sign_out"-->
+            <!--android:title="@string/menu_logout" />-->
     </group>
 
     <group android:checkableBehavior="single">

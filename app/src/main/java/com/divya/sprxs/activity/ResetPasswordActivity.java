@@ -99,11 +99,8 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
                 @Override
                 public void onResponse(Call<ResetPasswordResponse> call, Response<ResetPasswordResponse> response) {
 
-
-
                     if (response.code() == 201) {
                         ResetPasswordResponse resetPasswordResponse = response.body();
-
                         final View successDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.success_dialog, null);
                         final Dialog dialog = new Dialog(ResetPasswordActivity.this);
                         dialog.setContentView(R.layout.success_dialog);
@@ -125,39 +122,39 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
                     } else {
                         try {
                             JSONObject jObjError = new JSONObject(response.errorBody().string());
-                            final View successDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.error_dialog, null);
+                            final View errorDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.error_dialog, null);
                             final Dialog dialog = new Dialog(ResetPasswordActivity.this);
                             dialog.setContentView(R.layout.error_dialog);
                             TextView textView;
-                            textView = successDialogView.findViewById(R.id.dialogTextView);
-                            textView.setText("Technical Error\nPlease try again later");
+                            textView = errorDialogView.findViewById(R.id.dialogTextView);
+                            textView.setText("Technical Error.Please try again later");
                             Button button;
-                            button = successDialogView.findViewById(R.id.okButton);
+                            button = errorDialogView.findViewById(R.id.okButton);
                             button.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     dialog.dismiss();
                                 }
                             });
-                            dialog.setContentView(successDialogView);
+                            dialog.setContentView(errorDialogView);
                             dialog.show();
                             progressBar.setVisibility(View.GONE);
                         } catch (Exception e) {
-                            final View successDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.error_dialog, null);
+                            final View errorDialogView = LayoutInflater.from(ResetPasswordActivity.this).inflate(R.layout.error_dialog, null);
                             final Dialog dialog = new Dialog(ResetPasswordActivity.this);
                             dialog.setContentView(R.layout.error_dialog);
                             TextView textView;
-                            textView = successDialogView.findViewById(R.id.dialogTextView);
-                            textView.setText("Technical Error\nPlease try again later");
+                            textView = errorDialogView.findViewById(R.id.dialogTextView);
+                            textView.setText("Technical Error.Please try again later");
                             Button button;
-                            button = successDialogView.findViewById(R.id.okButton);
+                            button = errorDialogView.findViewById(R.id.okButton);
                             button.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     dialog.dismiss();
                                 }
                             });
-                            dialog.setContentView(successDialogView);
+                            dialog.setContentView(errorDialogView);
                             dialog.show();
                             progressBar.setVisibility(View.GONE);
                         }

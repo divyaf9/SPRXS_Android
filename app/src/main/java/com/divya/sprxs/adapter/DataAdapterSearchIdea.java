@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,29 +50,70 @@ public class DataAdapterSearchIdea extends RecyclerView.Adapter<DataAdapterSearc
         holder.ideaNameSearchText.setText(searchIdeaResponse.get(position).getIdeaName());
         holder.ideaIdSearchText.setText("#"+searchIdeaResponse.get(position).getIdeaUniqueID());
         holder.dateSearchText.setText(searchIdeaResponse.get(position).getAndroidDate());
+        if(searchIdeaResponse.get(position).getIdeaDescription().length()>=80) {
+            holder.descSearchIdeaTextView.setText((searchIdeaResponse.get(position).getIdeaDescription()).substring(0, Math.min(searchIdeaResponse.get(position).getIdeaDescription().length(), 80))+"...");
+        }else{
+            holder.descSearchIdeaTextView.setText((searchIdeaResponse.get(position).getIdeaDescription()));
+        }
 
         if (searchIdeaResponse.get(position).getLkpIdeaCat1().contentEquals("1")) {
             Category = "Technology idea";
+            holder.categorySearchTextView.setText(Category);
+            holder.searchIdeaImageView.setImageResource(R.drawable.technology);
+            holder.searchIdeaImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         }else if(searchIdeaResponse.get(position).getLkpIdeaCat1().contentEquals("2")){
             Category="Lifestyle & Wellbeing idea";
+            holder.categorySearchTextView.setText(Category);
+            holder.searchIdeaImageView.setImageResource(R.drawable.lifestyle);
+            holder.searchIdeaImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         }else if (searchIdeaResponse.get(position).getLkpIdeaCat1().contentEquals("3")) {
             Category = "Food & Drink idea";
+            holder.categorySearchTextView.setText(Category);
+            holder.searchIdeaImageView.setImageResource(R.drawable.collaborate);
+            holder.searchIdeaImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         }else if(searchIdeaResponse.get(position).getLkpIdeaCat1().contentEquals("4")){
             Category="Gaming idea";
+            holder.categorySearchTextView.setText(Category);
+            holder.searchIdeaImageView.setImageResource(R.drawable.gaming);
+            holder.searchIdeaImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         }else if (searchIdeaResponse.get(position).getLkpIdeaCat1().contentEquals("5")) {
             Category = "Business & Finance idea";
+            holder.categorySearchTextView.setText(Category);
+            holder.searchIdeaImageView.setImageResource(R.drawable.business);
+            holder.searchIdeaImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         }else if(searchIdeaResponse.get(position).getLkpIdeaCat1().contentEquals("6")){
             Category="Art and Fashion idea";
+            holder.categorySearchTextView.setText(Category);
+            holder.searchIdeaImageView.setImageResource(R.drawable.fashionart);
+            holder.searchIdeaImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         }else if (searchIdeaResponse.get(position).getLkpIdeaCat1().contentEquals("7")) {
             Category = "Film idea";
+            holder.categorySearchTextView.setText(Category);
+            holder.searchIdeaImageView.setImageResource(R.drawable.film);
+            holder.searchIdeaImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         }else if(searchIdeaResponse.get(position).getLkpIdeaCat1().contentEquals("8")){
             Category="Media & Journalism idea";
+            holder.categorySearchTextView.setText(Category);
+            holder.searchIdeaImageView.setImageResource(R.drawable.media);
+            holder.searchIdeaImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         }else if (searchIdeaResponse.get(position).getLkpIdeaCat1().contentEquals("9")) {
             Category = "Theatre Idea";
+            holder.categorySearchTextView.setText(Category);
+            holder.searchIdeaImageView.setImageResource(R.drawable.media);
+            holder.searchIdeaImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         }else if(searchIdeaResponse.get(position).getLkpIdeaCat1().contentEquals("10")){
             Category="Music Idea";
+            holder.categorySearchTextView.setText(Category);
+            holder.searchIdeaImageView.setImageResource(R.drawable.media);
+            holder.searchIdeaImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         }else if(searchIdeaResponse.get(position).getLkpIdeaCat1().contentEquals("11")){
             Category="Other";
+            holder.categorySearchTextView.setText(Category);
+            holder.searchIdeaImageView.setImageResource(R.drawable.other);
+            holder.searchIdeaImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        }else {
+            holder.searchIdeaImageView.setImageResource(R.drawable.other);
+            holder.searchIdeaImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         }
         final String finalCategory = Category;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +144,8 @@ public class DataAdapterSearchIdea extends RecyclerView.Adapter<DataAdapterSearc
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView ideaNameSearchText,ideaIdSearchText,dateSearchText;
+        private TextView ideaNameSearchText,ideaIdSearchText,dateSearchText,categorySearchTextView,descSearchIdeaTextView;
+        private ImageView searchIdeaImageView;
 
 
         public ViewHolder(View view) {
@@ -110,6 +153,9 @@ public class DataAdapterSearchIdea extends RecyclerView.Adapter<DataAdapterSearc
             ideaNameSearchText = view.findViewById(R.id.ideaNameSearchText);
             ideaIdSearchText = view.findViewById(R.id.ideaIdSearchText);
             dateSearchText = view.findViewById(R.id.dateSearchText);
+            searchIdeaImageView = view.findViewById(R.id.searchIdeaImageView);
+            categorySearchTextView = view.findViewById(R.id.categorySearchTextView);
+            descSearchIdeaTextView = view.findViewById(R.id.descSearchIdeaTextView);
 
         }
     }

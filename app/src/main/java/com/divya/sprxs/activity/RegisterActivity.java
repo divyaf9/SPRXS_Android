@@ -38,6 +38,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -216,39 +218,40 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                                 openHome();
                                             } else {
                                                 try {
-                                                    final View successDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
+                                                    JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                                    final View errorDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
                                                     final Dialog dialog = new Dialog(RegisterActivity.this);
                                                     dialog.setContentView(R.layout.error_dialog);
                                                     TextView textView;
-                                                    textView = successDialogView.findViewById(R.id.dialogTextView);
-                                                    textView.setText("Technical Error\nPlease try again later");
+                                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                                    textView.setText(jObjError.getString("error"));
                                                     Button button;
-                                                    button = successDialogView.findViewById(R.id.okButton);
+                                                    button = errorDialogView.findViewById(R.id.okButton);
                                                     button.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
                                                             dialog.dismiss();
                                                         }
                                                     });
-                                                    dialog.setContentView(successDialogView);
+                                                    dialog.setContentView(errorDialogView);
                                                     dialog.show();
                                                     progressBar.setVisibility(View.GONE);
                                                 } catch (Exception e) {
-                                                    final View successDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
+                                                    final View errorDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
                                                     final Dialog dialog = new Dialog(RegisterActivity.this);
                                                     dialog.setContentView(R.layout.error_dialog);
                                                     TextView textView;
-                                                    textView = successDialogView.findViewById(R.id.dialogTextView);
-                                                    textView.setText("Technical Error\nPlease try again later");
+                                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                                    textView.setText("Technical Error.Please try again later");
                                                     Button button;
-                                                    button = successDialogView.findViewById(R.id.okButton);
+                                                    button = errorDialogView.findViewById(R.id.okButton);
                                                     button.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
                                                             dialog.dismiss();
                                                         }
                                                     });
-                                                    dialog.setContentView(successDialogView);
+                                                    dialog.setContentView(errorDialogView);
                                                     dialog.show();
                                                     progressBar.setVisibility(View.GONE);
                                                 }
@@ -264,40 +267,39 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             } else {
                                 String message = "The email address is already in use by another account.";
                                 if (task.getException().getMessage().equals(message)) {
-                                    final View successDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
+                                    final View errorDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
                                     final Dialog dialog = new Dialog(RegisterActivity.this);
                                     dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
-                                    textView = successDialogView.findViewById(R.id.dialogTextView);
-                                    textView.setText(message);
+                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                    textView.setText(task.getException().getMessage());
                                     Button button;
-                                    button = successDialogView.findViewById(R.id.okButton);
+                                    button = errorDialogView.findViewById(R.id.okButton);
                                     button.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             dialog.dismiss();
                                         }
                                     });
-                                    dialog.setContentView(successDialogView);
+                                    dialog.setContentView(errorDialogView);
                                     dialog.show();
                                     progressBar.setVisibility(View.GONE);
                                 } else {
-                                    Log.w("error", "createUserWithEmail:failure", task.getException());
-                                    final View successDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
+                                    final View errorDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.error_dialog, null);
                                     final Dialog dialog = new Dialog(RegisterActivity.this);
                                     dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
-                                    textView = successDialogView.findViewById(R.id.dialogTextView);
-                                    textView.setText("Authentication Failed\nPlease enter a correct credentials");
+                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                    textView.setText(task.getException().getMessage());
                                     Button button;
-                                    button = successDialogView.findViewById(R.id.okButton);
+                                    button = errorDialogView.findViewById(R.id.okButton);
                                     button.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             dialog.dismiss();
                                         }
                                     });
-                                    dialog.setContentView(successDialogView);
+                                    dialog.setContentView(errorDialogView);
                                     dialog.show();
                                     progressBar.setVisibility(View.GONE);
                                     updateUI(null);

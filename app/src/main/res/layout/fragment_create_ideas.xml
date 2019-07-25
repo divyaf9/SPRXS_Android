@@ -1,156 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/thumbnails"
     android:layout_width="match_parent"
-    android:layout_height="600dp"
-    android:layout_gravity="start"
-    android:layout_marginBottom="120dp"
-    android:layout_weight="0.3"
-    android:layout_below="@+id/toolbar_main"
+    android:layout_height="match_parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/toolbar_main"
     app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <Spinner
-            android:id="@+id/textSpinner"
-            style="@style/Widget.AppCompat.Spinner.DropDown"
-            android:layout_width="352dp"
-            android:layout_height="61dp"
-            android:layout_marginTop="95dp"
-            android:layout_marginBottom="603dp"
-            android:background="@drawable/state_spinnertextview"
-            android:spinnerMode="dropdown"
-            android:state_window_focused="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.508"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/ideaNameTextView"
-            android:layout_width="352dp"
-            android:layout_height="61dp"
-            android:layout_marginTop="174dp"
-            android:layout_marginBottom="524dp"
-            android:background="@drawable/text_view_shape"
-            android:ems="10"
-            android:hint="Idea Name*"
-            android:inputType="textPersonName"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:state_window_focused="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/ideaDescriptionTextView"
-            android:layout_width="351dp"
-            android:layout_height="110dp"
-            android:layout_marginTop="253dp"
-            android:layout_marginBottom="396dp"
-            android:background="@drawable/text_view_shape"
-            android:gravity="start"
-            android:hint="Idea Description *"
-            android:inputType="textMultiLine"
-            android:paddingLeft="8dp"
-            android:paddingTop="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="8dp"
-            android:scrollbars="vertical"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="75dp"
+                android:layout_marginBottom="547dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/sprxs" />
 
-        <EditText
-            android:id="@+id/filenameTextView"
-            android:layout_width="250dp"
-            android:layout_height="61dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="383dp"
-            android:layout_marginEnd="131dp"
-            android:layout_marginBottom="315dp"
-            android:background="@drawable/text_view_shape"
-            android:hint="Attach File(Optional)"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/attachButton"
-            android:layout_width="97dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="284dp"
-            android:layout_marginTop="390dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="329dp"
-            android:noHistory="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_attach_file_black_24dp" />
+            <Spinner
+                android:id="@+id/textSpinner"
+                style="@style/Widget.AppCompat.Spinner.DropDown"
+                android:layout_width="352dp"
+                android:layout_height="61dp"
+                android:layout_marginTop="175dp"
+                android:layout_marginBottom="466dp"
+                android:background="@drawable/state_spinnertextview"
+                android:spinnerMode="dropdown"
+                android:state_window_focused="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/submitButton"
-            android:layout_width="278dp"
-            android:layout_height="55dp"
-            android:layout_marginTop="466dp"
-            android:layout_marginBottom="238dp"
-            android:background="@drawable/oval_shape"
-            android:noHistory="true"
-            android:text="SUBMIT"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                android:id="@+id/ideaNameTextView"
+                android:layout_width="352dp"
+                android:layout_height="61dp"
+                android:layout_marginTop="246dp"
+                android:layout_marginBottom="391dp"
+                android:background="@drawable/text_view_shape"
+                android:ems="10"
+                android:hint="Idea Name*"
+                android:inputType="textPersonName"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:state_window_focused="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/dismissButton"
-            android:layout_width="278dp"
-            android:layout_height="55dp"
-            android:layout_marginTop="536dp"
-            android:layout_marginBottom="168dp"
-            android:background="@drawable/oval_shape_white"
-            android:text="CANCEL"
-            android:textColor="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                android:id="@+id/ideaDescriptionTextView"
+                android:layout_width="351dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="322dp"
+                android:layout_marginBottom="270dp"
+                android:background="@drawable/text_view_shape"
+                android:gravity="start"
+                android:hint="Idea Description *"
+                android:inputType="textMultiLine"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="8dp"
+                android:scrollbars="vertical"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ProgressBar
-            android:id="@+id/loadingPanel"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:indeterminate="true"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                android:id="@+id/filenameTextView"
+                android:layout_width="292dp"
+                android:layout_height="61dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="444dp"
+                android:layout_marginEnd="89dp"
+                android:layout_marginBottom="197dp"
+                android:background="@drawable/text_view_shape"
+                android:hint="Attach a file(Optional)"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/attachButton"
+                android:layout_width="61dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="322dp"
+                android:layout_marginTop="444dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="202dp"
+                android:noHistory="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_attach_file_black_24dp" />
 
-</ScrollView>
+            <Button
+                android:id="@+id/submitButton"
+                android:layout_width="278dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="528dp"
+                android:layout_marginBottom="119dp"
+                android:background="@drawable/oval_shape"
+                android:noHistory="true"
+                android:text="SUBMIT"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/dismissButton"
+                android:layout_width="278dp"
+                android:layout_height="55dp"
+                android:layout_marginBottom="45dp"
+                android:background="@drawable/oval_shape_white"
+                android:text="CANCEL"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/loadingPanel"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:indeterminate="true"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

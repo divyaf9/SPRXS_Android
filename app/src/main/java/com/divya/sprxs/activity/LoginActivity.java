@@ -2,7 +2,6 @@ package com.divya.sprxs.activity;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -13,7 +12,6 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +21,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -95,8 +92,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         signupTextView.setMovementMethod(LinkMovementMethod.getInstance());
 
 
-
-
     }
 
     private void userLogin() {
@@ -137,64 +132,64 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     call.enqueue(new Callback<LoginResponse>() {
                                         @Override
                                         public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-
+                                            LoginResponse loginResponse = response.body();
                                             if (response.code() == 200) {
-                                                LoginResponse loginResponse = response.body();
-                                                    if (loginResponse.getProfile_type().contentEquals("1")) {
-                                                        editor.putString("token", loginResponse.getToken());
-                                                        editor.putString("refresh_token", loginResponse.getRefresh_token());
-                                                        editor.putString("email", loginResponse.getLogin_email());
-                                                        editor.putString("firstname", loginResponse.getLogin_firstname());
-                                                        editor.putString("surname", loginResponse.getLogin_surname());
-                                                        editor.apply();
-                                                        SharedPreferences sharedPreferences = getSharedPreferences("MyLogin.txt", Context.MODE_PRIVATE);
-                                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                                        editor.putBoolean("FirstLogin", true);
-                                                        editor.commit();
-                                                        editor.apply();
-                                                        myHome();
-                                                    } else if (loginResponse.getProfile_type().contentEquals("2")) {
-                                                        editor.putString("token", loginResponse.getToken());
-                                                        editor.apply();
-                                                        loggedIn();
-                                                    }
+                                                if (loginResponse.getProfile_type().contentEquals("1")) {
+                                                    editor.putString("token", loginResponse.getToken());
+                                                    editor.putString("refresh_token", loginResponse.getRefresh_token());
+                                                    editor.putString("email", loginResponse.getLogin_email());
+                                                    editor.putString("firstname", loginResponse.getLogin_firstname());
+                                                    editor.putString("surname", loginResponse.getLogin_surname());
+                                                    editor.putLong("id",loginResponse.getId());
+                                                    editor.commit();
+                                                    editor.apply();
+                                                    SharedPreferences sharedPreferences = getSharedPreferences("MyLogin.txt", Context.MODE_PRIVATE);
+                                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                    editor.putBoolean("FirstLogin", true);
+                                                    editor.commit();
+                                                    editor.apply();
+                                                    myHome();
+                                                } else if (loginResponse.getProfile_type().contentEquals("2")) {
+                                                    editor.putString("token", loginResponse.getToken());
+                                                    editor.apply();
+                                                    loggedIn();
+                                                }
                                             } else {
                                                 try {
                                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-
-                                                    final View successDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
+                                                    final View errorDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
                                                     final Dialog dialog = new Dialog(LoginActivity.this);
                                                     dialog.setContentView(R.layout.error_dialog);
                                                     TextView textView;
-                                                    textView = successDialogView.findViewById(R.id.dialogTextView);
-                                                    textView.setText("Invalid login, please check your credentials and try again");
+                                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                                    textView.setText(jObjError.getString("login_message"));
                                                     Button button;
-                                                    button = successDialogView.findViewById(R.id.okButton);
+                                                    button = errorDialogView.findViewById(R.id.okButton);
                                                     button.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
                                                             dialog.dismiss();
                                                         }
                                                     });
-                                                    dialog.setContentView(successDialogView);
+                                                    dialog.setContentView(errorDialogView);
                                                     dialog.show();
                                                     progressBar.setVisibility(View.GONE);
                                                 } catch (Exception e) {
-                                                    final View successDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
+                                                    final View errorDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
                                                     final Dialog dialog = new Dialog(LoginActivity.this);
                                                     dialog.setContentView(R.layout.error_dialog);
                                                     TextView textView;
-                                                    textView = successDialogView.findViewById(R.id.dialogTextView);
-                                                    textView.setText("Technical Error\nPlease try again later");
+                                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                                    textView.setText("Technical Error.Please try again later");
                                                     Button button;
-                                                    button = successDialogView.findViewById(R.id.okButton);
+                                                    button = errorDialogView.findViewById(R.id.okButton);
                                                     button.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
                                                             dialog.dismiss();
                                                         }
                                                     });
-                                                    dialog.setContentView(successDialogView);
+                                                    dialog.setContentView(errorDialogView);
                                                     dialog.show();
                                                     progressBar.setVisibility(View.GONE);
                                                 }
@@ -209,22 +204,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
                             } else {
-                                Log.w("Message:", "signInWithEmail:failure", task.getException());
-                                final View successDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
+                                final View errorDialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.error_dialog, null);
                                 final Dialog dialog = new Dialog(LoginActivity.this);
                                 dialog.setContentView(R.layout.error_dialog);
                                 TextView textView;
-                                textView = successDialogView.findViewById(R.id.dialogTextView);
-                                textView.setText("Technical Error\nPlease try again later");
+                                textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                textView.setText(task.getException().getMessage());
                                 Button button;
-                                button = successDialogView.findViewById(R.id.okButton);
+                                button = errorDialogView.findViewById(R.id.okButton);
                                 button.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         dialog.dismiss();
                                     }
                                 });
-                                dialog.setContentView(successDialogView);
+                                dialog.setContentView(errorDialogView);
                                 dialog.show();
                                 progressBar.setVisibility(View.GONE);
                                 updateUI(null);

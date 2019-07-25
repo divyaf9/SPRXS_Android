@@ -2,7 +2,6 @@ package com.divya.sprxs.activity;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -51,7 +49,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_home);
         SharedPreferences preferences = getSharedPreferences("MySignup", MODE_PRIVATE);
         Boolean status = preferences.getBoolean("FirstSignup", false);
@@ -74,8 +71,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             dialog.setContentView(successDialogView);
             dialog.show();
         }
-
-
 
         this.setTitle("Home");
         bottomNavigationView = findViewById(R.id.bottomNavBar);
@@ -107,7 +102,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         drawerMailTextView.setText(email);
         navigationView.setNavigationItemSelectedListener(this);
 
-
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -118,32 +112,22 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.Home_icon:
                         setFragment(homeFragment);
                         return true;
-
                     case R.id.My_Ideas_icon:
                         setFragment(myIdeasFragment);
                         return true;
-
                     case R.id.Create_Ideas_icon:
                         setFragment(createIdeasFragment);
                         return true;
 //                    case R.id.Chat_icon:
 //                        setFragment(chatFragment);
 //                        return true;
-
                     case R.id.Inbox_icon:
                         setFragment(inboxFragment);
                         return true;
-
                 }
                 return false;
             }
         });
-
-    }
-
-    public void openSearch(){
-        Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
-        startActivity(intent);
     }
 
     @Override
@@ -159,7 +143,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
+        if (id == R.id.nav_my_profile) {
+            openMyProfile();
+        } else if (id == R.id.nav_home) {
             setFragment(homeFragment);
         } else if (id == R.id.nav_my_ideas) {
             setFragment(myIdeasFragment);
@@ -169,12 +155,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             setFragment(inboxFragment);
 //        } else if (id == R.id.nav_chat) {
 //            setFragment(chatFragment);
-        } else if (id == R.id.nav_logout) {
-            openLogin();
-        } else if(id == R.id.nav_search){
-            openSearch();
-        }else if(id == R.id.nav_marketplace){
+        } else if (id == R.id.nav_marketplace) {
             openMarketPlace();
+        } else if (id == R.id.nav_search) {
+            openSearch();
+        } else if (id == R.id.nav_contact_us) {
+            openContact();
+//        } else if (id == R.id.nav_logout) {
+//            openLogin();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -182,8 +170,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-    private void openMarketPlace() {
-        Intent intent = new Intent(HomeActivity.this, MarketPlaceActivity.class);
+    private void openMyProfile() {
+        Intent intent = new Intent(HomeActivity.this, MyProfileActivity.class);
         startActivity(intent);
     }
 
@@ -194,27 +182,42 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         fragmentTransaction.commit();
     }
 
-    private void openLogin() {
-        SharedPreferences preferences = this.getSharedPreferences("MyLogin.txt", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear();
-        editor.commit();
-        editor.apply();
-        SharedPreferences sharedPreferences = this.getSharedPreferences("MySignup", Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = sharedPreferences.edit();
-        edit.clear();
-        edit.commit();
-        edit.apply();
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                Intent.FLAG_ACTIVITY_NEW_TASK);
+    private void openMarketPlace() {
+        Intent intent = new Intent(HomeActivity.this, MarketPlaceActivity.class);
         startActivity(intent);
     }
 
+    private void openSearch() {
+        Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+        startActivity(intent);
+    }
+
+    private void openContact() {
+        Intent intent = new Intent(HomeActivity.this, ContactUsActivity.class);
+        startActivity(intent);
+    }
+
+//    private void openLogin() {
+//        SharedPreferences preferences = this.getSharedPreferences("MyLogin.txt", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = preferences.edit();
+//        editor.clear();
+//        editor.commit();
+//        editor.apply();
+//        SharedPreferences sharedPreferences = this.getSharedPreferences("MySignup", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor edit = sharedPreferences.edit();
+//        edit.clear();
+//        edit.commit();
+//        edit.apply();
+//        Intent intent = new Intent(this, LoginActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+//                Intent.FLAG_ACTIVITY_CLEAR_TASK |
+//                Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent);
+//    }
+
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.helpImageView:
                 openHelp();
         }
@@ -222,7 +225,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void openHelp() {
-        Intent intent = new Intent(HomeActivity.this,HelpActivity.class);
+        Intent intent = new Intent(HomeActivity.this, HelpActivity.class);
         startActivity(intent);
     }
 

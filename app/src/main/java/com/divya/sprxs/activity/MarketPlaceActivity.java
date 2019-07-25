@@ -81,7 +81,7 @@ public class MarketPlaceActivity extends AppCompatActivity {
         searchView = (SearchView) myActionMenuItem.getActionView();
         changeSearchViewTextColor(searchView);
         ((EditText) searchView.findViewById(
-                R.id.search_src_text)).setHint("Search skills");
+                R.id.search_src_text)).setHint("Search Skills");
         ((EditText) searchView.findViewById(
                 R.id.search_src_text)).setHintTextColor(ContextCompat.getColor(this, R.color.colorWhite));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -171,42 +171,42 @@ public class MarketPlaceActivity extends AppCompatActivity {
                                 editor.apply();
                                 marketPlace();
                             } else {
-                                try {
-                                    JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                    final View successDialogView = LayoutInflater.from(MarketPlaceActivity.this).inflate(R.layout.error_dialog, null);
+//                                try {
+//                                    JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                    final View errorDialogView = LayoutInflater.from(MarketPlaceActivity.this).inflate(R.layout.error_dialog, null);
                                     final Dialog dialog = new Dialog(MarketPlaceActivity.this);
                                     dialog.setContentView(R.layout.error_dialog);
                                     TextView textView;
-                                    textView = successDialogView.findViewById(R.id.dialogTextView);
-                                    textView.setText("Technical Error\nPlease try again later");
+                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                    textView.setText("Technical Error.Please try again later");
                                     Button button;
-                                    button = successDialogView.findViewById(R.id.okButton);
+                                    button = errorDialogView.findViewById(R.id.okButton);
                                     button.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             dialog.dismiss();
                                         }
                                     });
-                                    dialog.setContentView(successDialogView);
+                                    dialog.setContentView(errorDialogView);
                                     dialog.show();
-                                } catch (Exception e) {
-                                    final View successDialogView = LayoutInflater.from(MarketPlaceActivity.this).inflate(R.layout.error_dialog, null);
-                                    final Dialog dialog = new Dialog(MarketPlaceActivity.this);
-                                    dialog.setContentView(R.layout.error_dialog);
-                                    TextView textView;
-                                    textView = successDialogView.findViewById(R.id.dialogTextView);
-                                    textView.setText("Technical Error\nPlease try again later");
-                                    Button button;
-                                    button = successDialogView.findViewById(R.id.okButton);
-                                    button.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-                                    dialog.setContentView(successDialogView);
-                                    dialog.show();
-                                }
+//                                } catch (Exception e) {
+//                                    final View errorDialogView = LayoutInflater.from(MarketPlaceActivity.this).inflate(R.layout.error_dialog, null);
+//                                    final Dialog dialog = new Dialog(MarketPlaceActivity.this);
+//                                    dialog.setContentView(R.layout.error_dialog);
+//                                    TextView textView;
+//                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+//                                    textView.setText("Technical Error\nPlease try again later");
+//                                    Button button;
+//                                    button = errorDialogView.findViewById(R.id.okButton);
+//                                    button.setOnClickListener(new View.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(View v) {
+//                                            dialog.dismiss();
+//                                        }
+//                                    });
+//                                    dialog.setContentView(errorDialogView);
+//                                    dialog.show();
+//                                }
                             }
                         }
 
@@ -218,38 +218,38 @@ public class MarketPlaceActivity extends AppCompatActivity {
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        final View successDialogView = LayoutInflater.from(MarketPlaceActivity.this).inflate(R.layout.error_dialog, null);
+                        final View errorDialogView = LayoutInflater.from(MarketPlaceActivity.this).inflate(R.layout.error_dialog, null);
                         final Dialog dialog = new Dialog(MarketPlaceActivity.this);
                         dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
-                        textView = successDialogView.findViewById(R.id.dialogTextView);
-                        textView.setText("Technical Error\nPlease try again later");
+                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView.setText(jObjError.getString("error"));
                         Button button;
-                        button = successDialogView.findViewById(R.id.okButton);
+                        button = errorDialogView.findViewById(R.id.okButton);
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 dialog.dismiss();
                             }
                         });
-                        dialog.setContentView(successDialogView);
+                        dialog.setContentView(errorDialogView);
                         dialog.show();
                     } catch (Exception e) {
-                        final View successDialogView = LayoutInflater.from(MarketPlaceActivity.this).inflate(R.layout.error_dialog, null);
+                        final View errorDialogView = LayoutInflater.from(MarketPlaceActivity.this).inflate(R.layout.error_dialog, null);
                         final Dialog dialog = new Dialog(MarketPlaceActivity.this);
                         dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
-                        textView = successDialogView.findViewById(R.id.dialogTextView);
-                        textView.setText("Technical Error\nPlease try again later");
+                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView.setText("Technical Error.Please try again later");
                         Button button;
-                        button = successDialogView.findViewById(R.id.okButton);
+                        button = errorDialogView.findViewById(R.id.okButton);
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 dialog.dismiss();
                             }
                         });
-                        dialog.setContentView(successDialogView);
+                        dialog.setContentView(errorDialogView);
                         dialog.show();
                     }
                 }

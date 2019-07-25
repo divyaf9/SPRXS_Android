@@ -1,28 +1,20 @@
 package com.divya.sprxs.fragment;
 
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -33,10 +25,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.divya.sprxs.R;
@@ -63,12 +51,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
 public class CreateIdeasFragment extends Fragment implements View.OnClickListener {
-
 
 
     private ProgressBar progressBar;
@@ -109,7 +95,7 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
 
         ideaDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
 
-        progressBar=v.findViewById(R.id.loadingPanel);
+        progressBar = v.findViewById(R.id.loadingPanel);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.GONE);
 
@@ -126,9 +112,9 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
         categories.add(6, "Art and Fashion Idea");
         categories.add(7, "Film Idea");
         categories.add(8, "Media & Journalism Idea");
-        categories.add(9,"Theatre Idea");
-        categories.add(10,"Music Idea");
-        categories.add(11,"Other");
+        categories.add(9, "Theatre Idea");
+        categories.add(10, "Music Idea");
+        categories.add(11, "Other");
 
         spinner = v.findViewById(R.id.textSpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, categories);
@@ -160,7 +146,7 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
 //                    ContentResolver cR = getActivity().getApplicationContext().getContentResolver();
 //                    MimeTypeMap mime = MimeTypeMap.getSingleton();
 //                     type = mime.getExtensionFromMimeType(cR.getType(uri));
-                    Cursor cursor = getActivity().getApplicationContext().getContentResolver().query(uri,null,null,null);
+                    Cursor cursor = getActivity().getApplicationContext().getContentResolver().query(uri, null, null, null);
                     int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
                     cursor.moveToFirst();
                     fileNameTextView.setText(cursor.getString(nameIndex));
@@ -265,30 +251,27 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
                 CreateIdeasResponse createIdeasResponse = response.body();
 
                 if (response.code() == 201) {
-
-                        final View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.success_dialog, null);
-                        final Dialog dialog = new Dialog(getContext());
-                        dialog.setContentView(R.layout.success_dialog);
-                        TextView textView;
-                        textView = successDialogView.findViewById(R.id.dialogTextView);
-                        textView.setText("Idea successfully minted on blockchain with ID " + createIdeasResponse.getIdea_ID());
-                        Button button;
-                        button = successDialogView.findViewById(R.id.okButton);
-                        button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                              dialog.dismiss();
-                            }
-                        });
-                        dialog.setContentView(successDialogView);
-                        dialog.show();
-                        progressBar.setVisibility(View.GONE);
-                        ideaNameTextView.getText().clear();
-                        ideaDescriptionTextView.getText().clear();
-                        fileNameTextView.setText("");
-                         spinner.setSelection(0);
-
-
+                    final View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.success_dialog, null);
+                    final Dialog dialog = new Dialog(getContext());
+                    dialog.setContentView(R.layout.success_dialog);
+                    TextView textView;
+                    textView = successDialogView.findViewById(R.id.dialogTextView);
+                    textView.setText("Idea successfully minted on blockchain with ID " + createIdeasResponse.getIdea_ID());
+                    Button button;
+                    button = successDialogView.findViewById(R.id.okButton);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.setContentView(successDialogView);
+                    dialog.show();
+                    progressBar.setVisibility(View.GONE);
+                    ideaNameTextView.getText().clear();
+                    ideaDescriptionTextView.getText().clear();
+                    fileNameTextView.setText("");
+                    spinner.setSelection(0);
                 } else if (response.code() == 401) {
                     Call<RefreshTokenResponse> callrefresh;
                     callrefresh = RetrofitClient.getInstance().getApi().refreshToken(
@@ -303,49 +286,44 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
                                 editor.apply();
                                 createIdea();
                             } else {
-                                try {
-                                    JSONObject jObjError = new JSONObject(response.errorBody().string());
+//                                try {
+                                final View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                                final Dialog dialog = new Dialog(getContext());
+                                dialog.setContentView(R.layout.error_dialog);
+                                TextView textView;
+                                textView = errorDialogView.findViewById(R.id.dialogTextView);
+                                textView.setText("Technical Error.Please try again later");
+                                Button button;
+                                button = errorDialogView.findViewById(R.id.okButton);
+                                button.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                                dialog.setContentView(errorDialogView);
+                                dialog.show();
+                                progressBar.setVisibility(View.GONE);
 
-                                    final View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
-                                    final Dialog dialog = new Dialog(getContext());
-                                    dialog.setContentView(R.layout.error_dialog);
-                                    TextView textView;
-                                    textView = successDialogView.findViewById(R.id.dialogTextView);
-                                    textView.setText("Technical Error\nPlease try again later");
-                                    Button button;
-                                    button = successDialogView.findViewById(R.id.okButton);
-                                    button.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-                                    dialog.setContentView(successDialogView);
-                                    dialog.show();
-                                    progressBar.setVisibility(View.GONE);
-
-
-                                } catch (Exception e) {
-                                    final View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
-                                    final Dialog dialog = new Dialog(getContext());
-                                    dialog.setContentView(R.layout.error_dialog);
-                                    TextView textView;
-                                    textView = successDialogView.findViewById(R.id.dialogTextView);
-                                    textView.setText("Technical Error\nPlease try again later");
-                                    Button button;
-                                    button = successDialogView.findViewById(R.id.okButton);
-                                    button.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-                                    dialog.setContentView(successDialogView);
-                                    dialog.show();
-                                    progressBar.setVisibility(View.GONE);
-
-
-                                }
+//                                } catch (Exception e) {
+//                                    final View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+//                                    final Dialog dialog = new Dialog(getContext());
+//                                    dialog.setContentView(R.layout.error_dialog);
+//                                    TextView textView;
+//                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
+//                                    textView.setText("Technical Error\nPlease try again later");
+//                                    Button button;
+//                                    button = errorDialogView.findViewById(R.id.okButton);
+//                                    button.setOnClickListener(new View.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(View v) {
+//                                            dialog.dismiss();
+//                                        }
+//                                    });
+//                                    dialog.setContentView(errorDialogView);
+//                                    dialog.show();
+//                                    progressBar.setVisibility(View.GONE);
+//                                }
                             }
                         }
 
@@ -356,41 +334,39 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        final View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                        final View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
                         final Dialog dialog = new Dialog(getContext());
                         dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
-                        textView = successDialogView.findViewById(R.id.dialogTextView);
-                        textView.setText("Please complete all the fields");
+                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView.setText(jObjError.getString("error"));
                         Button button;
-                        button = successDialogView.findViewById(R.id.okButton);
+                        button = errorDialogView.findViewById(R.id.okButton);
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 dialog.dismiss();
                             }
                         });
-                        dialog.setContentView(successDialogView);
+                        dialog.setContentView(errorDialogView);
                         dialog.show();
                         progressBar.setVisibility(View.GONE);
-
-
                     } catch (Exception e) {
-                        final View successDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                        final View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
                         final Dialog dialog = new Dialog(getContext());
                         dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
-                        textView = successDialogView.findViewById(R.id.dialogTextView);
-                        textView.setText("Technical Error\nPlease try again later");
+                        textView = errorDialogView.findViewById(R.id.dialogTextView);
+                        textView.setText("Technical Error.Please try again later");
                         Button button;
-                        button = successDialogView.findViewById(R.id.okButton);
+                        button = errorDialogView.findViewById(R.id.okButton);
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 dialog.dismiss();
                             }
                         });
-                        dialog.setContentView(successDialogView);
+                        dialog.setContentView(errorDialogView);
                         dialog.show();
                         progressBar.setVisibility(View.GONE);
 

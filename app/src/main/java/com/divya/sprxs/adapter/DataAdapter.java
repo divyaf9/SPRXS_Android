@@ -2,6 +2,7 @@ package com.divya.sprxs.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.swipe.SwipeLayout;
@@ -18,6 +22,7 @@ import com.divya.sprxs.R;
 import com.divya.sprxs.activity.EditIdeaActivity;
 import com.divya.sprxs.activity.IdeaDetailsActivity;
 import com.divya.sprxs.activity.PublishIdeaActivity;
+import com.divya.sprxs.fragment.IdeaDetailsFragment;
 import com.divya.sprxs.model.MyIdeasSummaryResponse;
 
 import java.util.ArrayList;
@@ -64,8 +69,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), IdeaDetailsActivity.class);
                 intent.putExtra("myList",IdeaId);
-                intent.putExtra("myListIdeaName",IdeaName);
-                intent.putExtra("myListIdeaDesc",IdeaDescription);
+//                intent.putExtra("myListIdeaName",IdeaName);
+//                intent.putExtra("myListIdeaDesc",IdeaDescription);
                 context.startActivity(intent);
             }
         });

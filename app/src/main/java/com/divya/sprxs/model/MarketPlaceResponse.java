@@ -22,12 +22,13 @@ private int orgId;
 private int lkpCountry;
 private int mobileCc;
 private String mobileNo;
+private String error;
 
 public List<Education> educations = new ArrayList<Education>();
 public List<Weblink> weblinks = new ArrayList<Weblink>();
 public  List<Skills>  skills = new ArrayList<Skills>();
 
-    public MarketPlaceResponse(Long id, String firstname, String surname, Boolean optInComp, Boolean optInNotif, int profileType, String firebaseUid, Boolean desktopNotif, String profileDesc, int primaryExpertise, int secondaryExpertise, String primaryOther, String secondaryOther, Boolean hidden, int orgId, int lkpCountry, int mobileCc, String mobileNo, List<Education> educations, List<Weblink> weblinks, List<Skills> skills) {
+    public MarketPlaceResponse(Long id, String firstname, String surname, Boolean optInComp, Boolean optInNotif, int profileType, String firebaseUid, Boolean desktopNotif, String profileDesc, int primaryExpertise, int secondaryExpertise, String primaryOther, String secondaryOther, Boolean hidden, int orgId, int lkpCountry, int mobileCc, String mobileNo, String error, List<Education> educations, List<Weblink> weblinks, List<Skills> skills) {
         this.id = id;
         this.firstname = firstname;
         this.surname = surname;
@@ -46,13 +47,10 @@ public  List<Skills>  skills = new ArrayList<Skills>();
         this.lkpCountry = lkpCountry;
         this.mobileCc = mobileCc;
         this.mobileNo = mobileNo;
+        this.error = error;
         this.educations = educations;
         this.weblinks = weblinks;
         this.skills = skills;
-    }
-
-    public MarketPlaceResponse() {
-
     }
 
     public Long getId() {
@@ -125,6 +123,10 @@ public  List<Skills>  skills = new ArrayList<Skills>();
 
     public String getMobileNo() {
         return mobileNo;
+    }
+
+    public String getError() {
+        return error;
     }
 
     public List<Education> getEducations() {
