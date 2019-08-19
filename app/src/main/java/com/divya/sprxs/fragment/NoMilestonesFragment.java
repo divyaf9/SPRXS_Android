@@ -4,39 +4,35 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.divya.sprxs.R;
 
+public class NoMilestonesFragment extends Fragment {
 
-public class CollaboratorFragment extends Fragment {
-
+    private LottieAnimationView lottieAnimationView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_collaborator, container, false);
+        View v = inflater.inflate(R.layout.fragment_no_milestones, container, false);
 
-        getActivity().setTitle("Collaborators");
+        getActivity().setTitle("Milestones");
+
+        lottieAnimationView = v.findViewById(R.id.noMilestoneLottieFiles);
 
         return v;
     }
-
-
-
 
 }

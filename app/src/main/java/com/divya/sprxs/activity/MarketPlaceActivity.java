@@ -1,6 +1,7 @@
 package com.divya.sprxs.activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -72,6 +73,14 @@ public class MarketPlaceActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(MarketPlaceActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

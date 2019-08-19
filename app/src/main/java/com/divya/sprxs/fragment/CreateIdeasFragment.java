@@ -215,7 +215,7 @@ public class CreateIdeasFragment extends Fragment implements View.OnClickListene
 
             mStorageRef = FirebaseStorage.getInstance().getReference();
 
-            StorageReference riversRef = mStorageRef.child(AllUserFiles).child(UID).child(ideasFolder).child(attachmentFile);
+            StorageReference riversRef = mStorageRef.child(AllUserFiles).child(UID).child(ideasFolder).child(fileName);
 
             riversRef.putFile(uri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

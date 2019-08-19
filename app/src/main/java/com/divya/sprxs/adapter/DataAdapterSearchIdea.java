@@ -48,7 +48,7 @@ public class DataAdapterSearchIdea extends RecyclerView.Adapter<DataAdapterSearc
 //        final String Category = searchIdeaResponse.get(position).getLkpIdeaCat1();
         String Category= null;
         holder.ideaNameSearchText.setText(searchIdeaResponse.get(position).getIdeaName());
-        holder.ideaIdSearchText.setText("#"+searchIdeaResponse.get(position).getIdeaUniqueID());
+        holder.ideaIdSearchText.setText(searchIdeaResponse.get(position).getIdeaUniqueID());
         holder.dateSearchText.setText(searchIdeaResponse.get(position).getAndroidDate());
         if(searchIdeaResponse.get(position).getIdeaDescription().length()>=80) {
             holder.descSearchIdeaTextView.setText((searchIdeaResponse.get(position).getIdeaDescription()).substring(0, Math.min(searchIdeaResponse.get(position).getIdeaDescription().length(), 80))+"...");

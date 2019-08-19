@@ -11,10 +11,15 @@
         android:icon="@drawable/ic_icons8_staff"
         android:title="Collaborators"/>
 
-    <!--<item-->
-        <!--android:id="@+id/Milestone_icon"-->
-        <!--android:icon="@drawable/ic_icons8_create"-->
-        <!--android:title="Create Idea" />-->
+    <item
+        android:id="@+id/Milestone_icon"
+        android:icon="@drawable/ic_icons8_milestone"
+        android:title="Milestone" />
+
+    <item
+        android:id="@+id/Attachments_icon"
+        android:icon="@drawable/ic_icons8_attach"
+        android:title="Attachments"/>
 
 
 </menu>

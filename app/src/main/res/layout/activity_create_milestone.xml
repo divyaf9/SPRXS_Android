@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.CreateMilestonesActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteY="299dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="343dp"
+                android:text="Title:"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/titleMilestone"
+                android:layout_width="350dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="55dp"
+                android:background="@drawable/text_view_shape"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="110dp"
+                android:layout_marginEnd="287dp"
+                android:text="Description:"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/descMilestone"
+                android:layout_width="350dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="145dp"
+                android:background="@drawable/text_view_shape"
+                android:gravity="start"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                android:paddingRight="8dp"
+                android:scrollbars="vertical"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="260dp"
+                android:layout_marginEnd="306dp"
+                android:text="Due date:"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/dateMilestone"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="295dp"
+                android:layout_marginEnd="81dp"
+                android:background="@drawable/text_view_shape"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/datePickerImageButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="341dp"
+                android:layout_marginTop="295dp"
+                android:layout_marginEnd="30dp"
+                android:background="@null"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_icons8_calendar_12" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="355dp"
+                android:layout_marginEnd="144dp"
+                android:text="Assign Coins To Collaborator:"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="395dp"
+                android:layout_marginEnd="171dp"
+                android:text="Available Tokens To Offer:"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/availableTokenMilestone"
+                android:layout_width="100dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="240dp"
+                android:layout_marginTop="395dp"
+                android:layout_marginEnd="71dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="435dp"
+                android:layout_marginEnd="273dp"
+                android:text="Coin Amount:"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/coinsMilestone"
+                android:layout_width="100dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="140dp"
+                android:layout_marginTop="435dp"
+                android:layout_marginEnd="171dp"
+                android:background="@drawable/text_view_shape"
+                android:gravity="center|center_vertical"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="0"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/increaseCoinMilestone"
+                android:layout_width="50dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="282dp"
+                android:layout_marginTop="435dp"
+                android:layout_marginEnd="80dp"
+                android:background="@drawable/text_view_shape"
+                android:text="+"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/decreaseCoinMilestone"
+                android:layout_width="50dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="331dp"
+                android:layout_marginTop="435dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/text_view_shape"
+                android:gravity="center|center_vertical"
+                android:text="-"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <Spinner
+                android:id="@+id/spinnerMilestone"
+                style="@style/Widget.AppCompat.Spinner.DropDown"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="475dp"
+                android:background="@drawable/state_spinnertextview"
+                android:spinnerMode="dropdown"
+                android:state_window_focused="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="30dp"-->
+            <!--android:layout_marginTop="550dp"-->
+            <!--android:layout_marginEnd="223dp"-->
+            <!--android:text="Mark as completed:"-->
+            <!--android:textColor="#000000"-->
+            <!--android:textSize="18sp"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+
+            <!--<Switch-->
+            <!--android:id="@+id/completeMilestoneSwitch"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="342dp"-->
+            <!--android:layout_marginTop="550dp"-->
+            <!--android:layout_marginEnd="30dp"-->
+            <!--android:layout_marginBottom="196dp"-->
+            <!--android:checked="true"-->
+            <!--android:theme="@style/SwitchTheme"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+            <Button
+                android:id="@+id/createMilestone"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="545dp"
+                android:layout_marginBottom="94dp"
+                android:background="@drawable/oval_shape"
+                android:text="CREATE"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <Button
+                android:id="@+id/cancelMilestone"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="615dp"
+                android:layout_marginBottom="27dp"
+                android:background="@drawable/oval_shape_white"
+                android:text="CANCEL"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

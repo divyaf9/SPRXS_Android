@@ -70,7 +70,7 @@ public class InboxFragment extends Fragment {
         final SharedPreferences.Editor editor = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
         final String token = prefs.getString("token", null);
         final String refresh_token = prefs.getString("refresh_token", null);
-        Call<List<ViewEventsResponse>> call, call1;
+        Call<List<ViewEventsResponse>> call;
         call = RetrofitClient.getInstance().getApi().viewEvent(
                 "Bearer " + token,
                 new ViewEventsRequest(0, "Both", "", "", "", ""));

@@ -57,10 +57,13 @@ public class MyProfileActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.logoutTextView:
                 openLogout();
+                break;
             case R.id.privacyProfileTextView:
                 openPrivacyPolicy();
+                break;
             case R.id.competitionTextView:
                 openCompetitionRules();
+                break;
         }
     }
 

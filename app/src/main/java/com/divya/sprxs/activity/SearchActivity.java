@@ -1,6 +1,7 @@
 package com.divya.sprxs.activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -53,6 +54,7 @@ public class SearchActivity extends AppCompatActivity {
         this.setTitle("Search Ideas");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         recyclerViewSearchIdea = findViewById(R.id.recycler_view_search_idea);
         recyclerViewSearchIdea.setNestedScrollingEnabled(false);
         searchIdea();
@@ -62,6 +64,14 @@ public class SearchActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(SearchActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

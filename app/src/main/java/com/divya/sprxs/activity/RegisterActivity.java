@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -61,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Boolean loop;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
     public final String firebasePassword = "ljsdlgkj&fefsd$%SDFsdf123£";
+    private static int SPLASH_TIME_OUT=4000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -319,9 +321,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void openHome() {
-        Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
-        startActivity(intent);
-        finish();
+
+                Intent intent = new Intent(RegisterActivity.this, SplashActivity.class);
+                startActivity(intent);
+                finish();
+
+
     }
 
     @Override

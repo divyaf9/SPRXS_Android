@@ -24,7 +24,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.MyProfileActivity"></activity>
+        <activity android:name=".activity.EditMilestonesActivity"></activity>
+        <activity android:name=".activity.CreateMilestonesActivity" />
+        <activity android:name=".activity.MyCollaborationsDetailsActivity" />
+        <activity android:name=".activity.NoCollaboratorRequestActivity" />
+        <activity android:name=".activity.CollaboratorRequestsActivity" />
+        <activity android:name=".activity.MyCollaborationsActivity" />
+        <activity
+            android:name=".activity.SplashActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".activity.MyProfileActivity" />
         <activity android:name=".activity.ContactUsActivity" />
         <activity android:name=".activity.MarketPlaceUserDetailsActivity" />
         <activity android:name=".activity.MarketPlaceActivity" />

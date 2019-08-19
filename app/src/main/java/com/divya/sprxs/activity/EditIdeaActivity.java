@@ -70,7 +70,6 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
     private static final int PICK_FROM_GALLERY = 1;
     private static final int PICK = 2;
 
-    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +78,7 @@ public class EditIdeaActivity extends AppCompatActivity implements View.OnClickL
         this.setTitle("Edit Idea");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         image = findViewById(R.id.image);
         ideaNameEditTextView = findViewById(R.id.ideaNameEditTextView);
         ideaDescriptionEditTextView = findViewById(R.id.ideaDescriptionEditTextView);

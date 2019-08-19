@@ -134,7 +134,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                                             LoginResponse loginResponse = response.body();
                                             if (response.code() == 200) {
-                                                if (loginResponse.getProfile_type().contentEquals("1")) {
+//                                                if (loginResponse.getProfile_type().contentEquals("1")) {
                                                     editor.putString("token", loginResponse.getToken());
                                                     editor.putString("refresh_token", loginResponse.getRefresh_token());
                                                     editor.putString("email", loginResponse.getLogin_email());
@@ -149,11 +149,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                     editor.commit();
                                                     editor.apply();
                                                     myHome();
-                                                } else if (loginResponse.getProfile_type().contentEquals("2")) {
-                                                    editor.putString("token", loginResponse.getToken());
-                                                    editor.apply();
-                                                    loggedIn();
-                                                }
+//                                                } else if (loginResponse.getProfile_type().contentEquals("2")) {
+//                                                    editor.putString("token", loginResponse.getToken());
+//                                                    editor.apply();
+//                                                    loggedIn();
+//                                                }
                                             } else {
                                                 try {
                                                     JSONObject jObjError = new JSONObject(response.errorBody().string());

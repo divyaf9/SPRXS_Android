@@ -18,8 +18,11 @@
     <string name="menu_inbox">Inbox</string>
     <string name="menu_marketplace">Marketplace</string>
     <string name="menu_search">Search Ideas</string>
+    <string name="menu_collaborator_requests">Collaborator Requests</string>
+    <string name="menu_my_collaborations">My Collaborations</string>
     <string name="menu_contact_us">Contact Us</string>
     <string name="menu_logout">Logout</string>
+
 
     <string name="linktocompetition">
         <a href="https://www.sprxs.io/Competition.Rules.html">I want to enter the SPRXS competition for a chance to win £9,250 and have read and accepted the competition rules.</a>

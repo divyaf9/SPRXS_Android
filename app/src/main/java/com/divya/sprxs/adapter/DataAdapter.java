@@ -117,6 +117,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
                 holder.swipeLayout.close();
                 Intent intent = new Intent(v.getContext(), IdeaDetailsActivity.class);
                 intent.putExtra("myList",IdeaId);
+                intent.putExtra("myListIdeaName",IdeaName);
                 context.startActivity(intent);
             }
         });

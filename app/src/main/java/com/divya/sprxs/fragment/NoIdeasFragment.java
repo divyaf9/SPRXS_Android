@@ -27,6 +27,7 @@ public class NoIdeasFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         getActivity().setTitle("My Ideas");
         getActivity().findViewById(R.id.helpImageView).setVisibility(View.INVISIBLE);
 

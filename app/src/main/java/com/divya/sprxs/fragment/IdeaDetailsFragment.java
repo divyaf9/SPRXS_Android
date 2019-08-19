@@ -2,6 +2,7 @@ package com.divya.sprxs.fragment;
 
 import android.app.Dialog;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
@@ -10,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -18,11 +21,14 @@ import androidx.fragment.app.Fragment;
 //import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideContext;
+import com.bumptech.glide.request.RequestOptions;
 import com.divya.sprxs.R;
 import com.divya.sprxs.api.RetrofitClient;
 import com.divya.sprxs.model.MyIdeasRequest;
 import com.divya.sprxs.model.MyIdeasResponse;
 import com.divya.sprxs.model.RefreshTokenResponse;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
@@ -73,8 +79,8 @@ public class IdeaDetailsFragment extends Fragment  {
 //        imageView.setOnClickListener(this);
 //
         getActivity().setTitle("Idea Details");
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 //        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_idea);
 //
@@ -100,14 +106,11 @@ public class IdeaDetailsFragment extends Fragment  {
 
     public void myIdeas() {
 
-
-
-
-
         SharedPreferences prefs = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         String token = prefs.getString("token", null);
         final String refresh_token = prefs.getString("refresh_token", null);
         final SharedPreferences.Editor editor = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+
         Call<List<MyIdeasResponse>> call;
         call = RetrofitClient.getInstance().getApi().myIdeas(
                 "Bearer " + token,
@@ -135,19 +138,35 @@ public class IdeaDetailsFragment extends Fragment  {
                                 ideaStatus.setText("Private");
                             }
 
+                            if(myIdeasResponsedata.get(i).getCoverPhoto()== (null)){
+                                coverPhotoImageView.setImageResource(R.drawable.other);
+                                coverPhotoImageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
+                            }else if ((myIdeasResponsedata.get(i).getCoverPhoto()).equals("")){
+                                coverPhotoImageView.setImageResource(R.drawable.other);
+                                coverPhotoImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                            } else{
+                                final String AllUserFiles = "AllUsersFileData";
+                                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                String UID = user.getUid();
+                                StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+                                final StorageReference pathReference = storageReference.child(AllUserFiles).child(UID).child("coverPhoto").child(coverPhoto);
+                                pathReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> task) {
+                                        if (task.isSuccessful()) {
+                                            GlideApp.with(getContext())
+                                                    .load(task.getResult())
+                                                    .into(coverPhotoImageView);
+                                            coverPhotoImageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
-                            final String AllUserFiles = "AllUsersFileData";
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            String UID = user.getUid();
+                                        } else {
+                                            Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
 
-
-                            StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-                            StorageReference pathReference = storageReference.child(AllUserFiles).child(UID).child("coverPhoto").child(coverPhoto);
-
-                            GlideApp.with(getActivity())
-                                    .load(String.valueOf(pathReference))
-                                    .into(coverPhotoImageView);
+                                    }
+                                });
+                            }
 
                         }
                     }
@@ -215,7 +234,6 @@ public class IdeaDetailsFragment extends Fragment  {
                         dialog.setContentView(R.layout.error_dialog);
                         TextView textView;
                         textView = errorDialogView.findViewById(R.id.dialogTextView);
-//                        textView.setText("Technical Error\nPlease try again later");
                         textView.setText(jObjError.getString("error"));
                         Button button;
                         button = errorDialogView.findViewById(R.id.okButton);

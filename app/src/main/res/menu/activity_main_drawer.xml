@@ -40,6 +40,17 @@
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_icons8_search"
             android:title="@string/menu_search" />
+
+        <item
+            android:id="@+id/nav_collaborator_requests"
+            android:icon="@drawable/ic_icons8_invite"
+            android:title="@string/menu_collaborator_requests" />
+
+        <item
+            android:id="@+id/nav_my_collaborations"
+            android:icon="@drawable/ic_icons8_collaboration"
+            android:title="@string/menu_my_collaborations" />
+
         <item
             android:id="@+id/nav_contact_us"
             android:icon="@drawable/ic_icons8_contact_us"

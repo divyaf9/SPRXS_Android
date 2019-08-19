@@ -3,6 +3,7 @@ package com.divya.sprxs.activity;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -74,6 +75,7 @@ public class MarketPlaceUserDetailsActivity extends AppCompatActivity implements
         nameUserDetailsTextView = findViewById(R.id.nameUserDetailsTextView);
         roleUserDetailsTextView = findViewById(R.id.roleUserDetailsTextView);
         descUserDetailsTextView = findViewById(R.id.descUserDetailsTextView);
+        descUserDetailsTextView.setMovementMethod(new ScrollingMovementMethod());
         inviteToCollaborateButton = findViewById(R.id.inviteToCollaborateButton);
         inviteToCollaborateButton.setOnClickListener(this);
         expandableListView = findViewById(R.id.expandableListView);

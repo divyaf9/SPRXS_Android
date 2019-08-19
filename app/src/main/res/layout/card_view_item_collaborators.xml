@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view_collaborator"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="125dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="8dp"
+    app:cardMaxElevation="1dp"
+    app:cardElevation="1dp">
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:srcCompat="@drawable/collab_avatar" />
+
+    <TextView
+        android:id="@+id/nameCollaboratorTextView"
+        android:layout_width="235dp"
+        android:layout_height="30dp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:gravity="center_vertical"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="205dp"
+        android:layout_marginBottom="495dp"
+        android:text="Equity:"
+        android:textColor="#6F7179"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/equityCollaboratorTextView"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="166dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="493dp"
+        android:paddingBottom="3dp"
+        android:gravity="center_vertical"
+        android:textColor="#6F7179"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/identityCollaboratorTextView"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:background="@drawable/oval_shape"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="85dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="493dp"
+        android:paddingBottom="3dp"
+        android:gravity="center|center_vertical"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp" />
+
+</androidx.cardview.widget.CardView>

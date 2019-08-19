@@ -31,4 +31,8 @@
         <item name="colorControlActivated">#148E13</item>
     </style>
 
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="color">@color/colorBlue</item>
+    </style>
+
 </resources>

@@ -66,6 +66,7 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener {
         progressBar.setVisibility(View.GONE);
 
         recyclerView = v.findViewById(R.id.recycler_view);
+
         ideasSummary();
 
         return v;
@@ -103,11 +104,9 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener {
                         fragTransaction.commit();
                     } else {
                         recyclerView.setHasFixedSize(false);
-
                         recyclerView.setNestedScrollingEnabled(false);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
                         recyclerView.setLayoutManager(layoutManager);
-
                         dataAdapter = new DataAdapter(getActivity(), myIdeasSummaryResponsedata, getContext());
                         recyclerView.setAdapter(dataAdapter);
                         dataAdapter.notifyDataSetChanged();
@@ -129,8 +128,6 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener {
                                 editor.apply();
                                 ideasSummary();
                             } else {
-//                                try {
-//                                    JSONObject jObjError = new JSONObject(response.errorBody().string());
                                 final View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
                                 final Dialog dialog = new Dialog(getContext());
                                 dialog.setContentView(R.layout.error_dialog);
@@ -147,24 +144,7 @@ public class MyIdeasFragment extends Fragment implements View.OnClickListener {
                                 });
                                 dialog.setContentView(errorDialogView);
                                 dialog.show();
-//                                } catch (Exception e) {
-//                                    final View errorDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
-//                                    final Dialog dialog = new Dialog(getContext());
-//                                    dialog.setContentView(R.layout.error_dialog);
-//                                    TextView textView;
-//                                    textView = errorDialogView.findViewById(R.id.dialogTextView);
-//                                    textView.setText("Technical Error\nPlease try again later");
-//                                    Button button;
-//                                    button = errorDialogView.findViewById(R.id.okButton);
-//                                    button.setOnClickListener(new View.OnClickListener() {
-//                                        @Override
-//                                        public void onClick(View v) {
-//                                            dialog.dismiss();
-//                                        }
-//                                    });
-//                                    dialog.setContentView(errorDialogView);
-//                                    dialog.show();
-//                                }
+
                             }
                         }
 

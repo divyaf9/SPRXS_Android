@@ -34,10 +34,11 @@ public class MainActivity extends AppCompatActivity  {
 
         lottieAnimationView = findViewById(R.id.lottieAnimationView);
 
-
         SharedPreferences sharedPreferences = getSharedPreferences("MyLogin.txt", Context.MODE_PRIVATE);
         Boolean loginCheck = sharedPreferences.getBoolean("FirstLogin", false);
-        if (loginCheck.equals(true)) {
+        final SharedPreferences preferences = getSharedPreferences("MySignup", MODE_PRIVATE);
+        Boolean signupCheck = preferences.getBoolean("FirstSignup", false);
+        if ((loginCheck.equals(true)) || ((signupCheck.equals(true)))) {
             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
             startActivity(intent);
         }else{

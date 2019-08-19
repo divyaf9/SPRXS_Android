@@ -1,136 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.CollaboratorFragment">
+    tools:context=".fragment.CollaboratorsFragment">
 
-    <TextView
-        android:layout_width="350dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginBottom="575dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:layout_width="245dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="69dp"
-        android:layout_marginEnd="126dp"
-        android:layout_marginBottom="628dp"
-        android:text="Available Coins To Offer:"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="292dp"
-        android:layout_marginTop="69dp"
-        android:layout_marginEnd="39dp"
-        android:layout_marginBottom="582dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="350dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="177dp"
-        android:layout_marginBottom="454dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="186dp"
-        android:layout_marginEnd="291dp"
-        android:layout_marginBottom="465dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="235dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="138dp"
-        android:layout_marginTop="186dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="525dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="50dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="219dp"
-        android:layout_marginEnd="213dp"
-        android:layout_marginBottom="492dp"
-        android:text="Equity:"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="219dp"
-        android:layout_marginBottom="492dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="150dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="138dp"
-        android:layout_marginTop="246dp"
-        android:layout_marginEnd="123dp"
-        android:layout_marginBottom="465dp"
-        android:background="@drawable/oval_shape"
-        android:gravity="center"
-        android:text="IDEA OWNER"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginTop="300dp"
-        android:layout_marginBottom="181dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tokenTextView"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/text_view_shape"
+                android:backgroundTint="@color/colorWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/ideaNameCollaboratorTextView"
+                android:layout_width="350dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="47dp"
+                android:layout_marginEnd="45dp"
+                android:gravity="center_vertical"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/equityAvailable"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="124dp"
+                android:layout_marginEnd="295dp"
+                android:layout_marginBottom="569dp"
+                android:gravity="center"
+                android:text="100"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="210dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="87dp"
+                android:layout_marginEnd="185dp"
+                android:layout_marginBottom="612dp"
+                android:text="Available Coins To Offer:"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/coinImage"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="87dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="556dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/imgpsh_mobile_save" />
+
+            <!--<TextView-->
+            <!--android:id="@+id/ownerTextView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="115dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:layout_marginTop="205dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:layout_marginBottom="411dp"-->
+            <!--android:background="@drawable/text_view_shape"-->
+            <!--android:backgroundTint="@color/colorWhite"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent"-->
+            <!--tools:layout_editor_absoluteX="8dp" />-->
+
+            <!--<ImageView-->
+            <!--android:layout_width="80dp"-->
+            <!--android:layout_height="80dp"-->
+            <!--android:layout_marginStart="16dp"-->
+            <!--android:layout_marginTop="215dp"-->
+            <!--android:layout_marginBottom="436dp"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent"-->
+            <!--app:srcCompat="@drawable/collab_avatar" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/ownerNameTextView"-->
+            <!--android:layout_width="275dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_marginStart="104dp"-->
+            <!--android:layout_marginTop="215dp"-->
+            <!--android:layout_marginEnd="32dp"-->
+            <!--android:layout_marginBottom="486dp"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="22dp"-->
+            <!--android:layout_marginStart="104dp"-->
+            <!--android:layout_marginTop="250dp"-->
+            <!--android:text="Equity:"-->
+            <!--android:textColor="#6F7179"-->
+            <!--android:textSize="18sp"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/ownerEquityTextView"-->
+            <!--android:layout_width="51dp"-->
+            <!--android:layout_height="24dp"-->
+            <!--android:layout_marginStart="157dp"-->
+            <!--android:layout_marginTop="250dp"-->
+            <!--android:layout_marginEnd="203dp"-->
+            <!--android:layout_marginBottom="457dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:paddingLeft="8dp"-->
+            <!--android:paddingRight="8dp"-->
+            <!--android:text="100"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--<TextView-->
+            <!--android:layout_width="150dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_marginStart="104dp"-->
+            <!--android:layout_marginTop="282dp"-->
+            <!--android:layout_marginEnd="157dp"-->
+            <!--android:layout_marginBottom="419dp"-->
+            <!--android:background="@drawable/oval_shape"-->
+            <!--android:gravity="center"-->
+            <!--android:text="IDEA OWNER"-->
+            <!--android:textColor="@color/colorWhite"-->
+            <!--android:textSize="16sp"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--<androidx.core.widget.NestedScrollView-->
+            <!--android:id="@+id/nestedScroll"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginTop="317dp"-->
+            <!--android:layout_marginBottom="214dp"-->
+            <!--android:fillViewport="true"-->
+            <!--android:scrollbars="vertical">-->
+
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_collaborator"
+                android:layout_width="match_parent"
+                android:layout_height="438dp"
+                android:layout_below="@id/tokenTextView"
+                android:layout_marginTop="195dp"
+                android:layout_marginBottom="90dp"
+                android:animateLayoutChanges="false"
+                android:clipToPadding="false"
+                android:dividerHeight="1dp"
+                android:fitsSystemWindows="false"
+                android:layerType="hardware"
+                android:orientation="vertical"
+                android:paddingBottom="90dp"
+                android:scrollbars="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            " />
+
+            <!--</LinearLayout>-->
+
+            <!--</androidx.core.widget.NestedScrollView>-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
