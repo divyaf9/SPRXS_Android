@@ -59,6 +59,8 @@ public class CreateMilestonesActivity extends AppCompatActivity implements View.
     private Calendar calendar;
     private DatePickerDialog datePickerDialog;
     private int day, month, year, availableToken, mySpinnerValue;
+    private List<Long> collabId = new ArrayList<>();
+    private Long spinnerId;
 
 
     @Override
@@ -92,9 +94,9 @@ public class CreateMilestonesActivity extends AppCompatActivity implements View.
         decreaseCoinMilestone.setOnClickListener(this);
 
         availableTokens();
-        getCollaboratorsByIdeaForMilestone();
 
         collaboratorName.add(0,"Collaborators");
+        collabId.add(0,0L);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateMilestonesActivity.this, android.R.layout.simple_spinner_item, collaboratorName);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinnerMilestone.setAdapter(adapter);
@@ -102,16 +104,16 @@ public class CreateMilestonesActivity extends AppCompatActivity implements View.
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mySpinnerValue = spinnerMilestone.getSelectedItemPosition();
-                spinnerMilestone.setSelection(mySpinnerValue);
+                spinnerId = collabId.get(mySpinnerValue);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 mySpinnerValue = 0;
-
             }
         });
 
+        getCollaboratorsByIdeaForMilestone();
 
     }
 
@@ -169,7 +171,7 @@ public class CreateMilestonesActivity extends AppCompatActivity implements View.
             Call<CreateMilestonesResponse> call;
             call = RetrofitClient.getInstance().getApi().createMilestones(
                     "Bearer " + token,
-                    new CreateMilestonesRequest(0L, ideaId, title, desc, outputDate, milestoneCoin, false));
+                    new CreateMilestonesRequest(spinnerId, ideaId, title, desc, outputDate, milestoneCoin, false));
             call.enqueue(new Callback<CreateMilestonesResponse>() {
                 @Override
                 public void onResponse(Call<CreateMilestonesResponse> call, Response<CreateMilestonesResponse> response) {
@@ -180,7 +182,7 @@ public class CreateMilestonesActivity extends AppCompatActivity implements View.
                         dialog.setContentView(R.layout.success_dialog);
                         TextView textView;
                         textView = successDialogView.findViewById(R.id.dialogTextView);
-                        textView.setText("You have created a new Milestone for Idea " + ideaId);
+                        textView.setText("Milestone successfully created");
                         Button button;
                         button = successDialogView.findViewById(R.id.okButton);
                         button.setOnClickListener(new View.OnClickListener() {
@@ -407,7 +409,9 @@ public class CreateMilestonesActivity extends AppCompatActivity implements View.
                     collaboratorsByIdeaForMilestoneResponses = response.body();
                     for (int i = 0; i < collaboratorsByIdeaForMilestoneResponses.size(); i++) {
                         collaboratorName.add(collaboratorsByIdeaForMilestoneResponses.get(i).getFirstname() + " " + collaboratorsByIdeaForMilestoneResponses.get(i).getSurname());
+                        collabId.add(collaboratorsByIdeaForMilestoneResponses.get(i).getId());
                     }
+
 
                 } else if (response.code() == 401) {
                     Call<RefreshTokenResponse> callrefresh;
@@ -536,7 +540,6 @@ public class CreateMilestonesActivity extends AppCompatActivity implements View.
                 calendar.set(year, month, dayOfMonth);
                 SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy");
                 String dateString = format.format(calendar.getTime());
-
                 dateMilestone.setText(dateString);
             }
         }, year,month,day);

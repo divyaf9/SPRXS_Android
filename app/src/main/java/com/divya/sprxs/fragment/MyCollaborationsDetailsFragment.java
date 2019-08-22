@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.divya.sprxs.R;
+import com.divya.sprxs.activity.HomeActivity;
 import com.divya.sprxs.activity.MyCollaborationsActivity;
 import com.divya.sprxs.activity.MyCollaborationsDetailsActivity;
 
@@ -58,8 +59,6 @@ public class MyCollaborationsDetailsFragment extends Fragment {
 
         return v;
     }
-
-
 
 
 }

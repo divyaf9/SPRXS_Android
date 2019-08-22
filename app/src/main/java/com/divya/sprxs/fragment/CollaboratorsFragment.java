@@ -41,7 +41,6 @@ public class CollaboratorsFragment extends Fragment {
 
     private TextView ideaNameCollaboratorTextView, equityAvailable;
     private ImageView coinImage;
-
     private RecyclerView recyclerViewCollaborator;
     private DataAdapterCollaborators dataAdapterCollaborators;
     private List<ShowEquityForIdeaResponse> showEquityForIdeaResponses;

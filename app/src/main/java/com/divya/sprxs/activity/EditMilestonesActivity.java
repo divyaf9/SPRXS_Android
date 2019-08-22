@@ -64,6 +64,8 @@ private List<String> collaboratorName = new ArrayList<>();
 private Calendar calendar;
 private DatePickerDialog datePickerDialog;
 private int day, month, year, availableToken, mySpinnerValue,approval;
+private List<Long> collabId = new ArrayList<>();
+private Long spinnerId;
 
 
     @Override
@@ -120,14 +122,21 @@ private int day, month, year, availableToken, mySpinnerValue,approval;
         final String title = getIntent().getStringExtra("titleMilestoneAdapter");
         final String desc = getIntent().getStringExtra("DescMilestoneAdapter");
         final String date = getIntent().getStringExtra("DateMilestoneAdapter");
+        final int tokens = getIntent().getIntExtra("TokensMilestoneAdapter",0);
+        final String coins = String.valueOf(tokens);
+        final String name = getIntent().getStringExtra("CollabMilestoneAdapter");
+        approval = getIntent().getIntExtra("approvalMilestoneAdapter",0);
+
         titleEditMilestone.setText(title);
         descEditMilestone.setText(desc);
         dateEditMilestone.setText(date);
+        coinsEditMilestone.setText(coins);
 
         availableTokens();
         getCollaboratorsByIdeaForMilestone();
 
         collaboratorName.add(0,"Collaborators");
+        collabId.add(0,0L);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(EditMilestonesActivity.this, android.R.layout.simple_spinner_item, collaboratorName);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinnerEditMilestone.setAdapter(adapter);
@@ -135,7 +144,7 @@ private int day, month, year, availableToken, mySpinnerValue,approval;
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mySpinnerValue = spinnerEditMilestone.getSelectedItemPosition();
-                spinnerEditMilestone.setSelection(mySpinnerValue);
+                spinnerId = collabId.get(mySpinnerValue);
             }
 
             @Override
@@ -182,7 +191,7 @@ private int day, month, year, availableToken, mySpinnerValue,approval;
 
     private void completeMilestone(){
 
-        if(completeEditMilestoneSwitch.isChecked()) {
+        if (completeEditMilestoneSwitch.isChecked()) {
 
             final View completeMilestoneDialogView = LayoutInflater.from(EditMilestonesActivity.this).inflate(R.layout.complete_milestone, null);
             final Dialog dialog = new Dialog(EditMilestonesActivity.this);
@@ -207,9 +216,10 @@ private int day, month, year, availableToken, mySpinnerValue,approval;
             });
             dialog.setContentView(completeMilestoneDialogView);
             dialog.show();
-        } else{
-            approval = getIntent().getIntExtra("approvalMilestoneAdapter",0);
+        } else {
+            approval = getIntent().getIntExtra("approvalMilestoneAdapter", 0);
         }
+
     }
 
     private void editMilestones() {
@@ -234,6 +244,8 @@ private int day, month, year, availableToken, mySpinnerValue,approval;
             final String ideaId = getIntent().getStringExtra("ideaIdMilestoneAdapter");
             final int id = getIntent().getIntExtra("idMilestoneAdapter",0);
 
+
+
             Call<EditMilestonesResponse> call;
             call = RetrofitClient.getInstance().getApi().editMilestones(
                     "Bearer " + token,
@@ -248,7 +260,7 @@ private int day, month, year, availableToken, mySpinnerValue,approval;
                             dialog.setContentView(R.layout.success_dialog);
                             TextView textView;
                             textView = successDialogView.findViewById(R.id.dialogTextView);
-                            textView.setText("You have edited a Milestone for Idea " + ideaId);
+                            textView.setText("Milestone successfully edited");
                             Button button;
                             button = successDialogView.findViewById(R.id.okButton);
                             button.setOnClickListener(new View.OnClickListener() {
@@ -470,6 +482,7 @@ private int day, month, year, availableToken, mySpinnerValue,approval;
                     collaboratorsByIdeaForMilestoneResponses = response.body();
                     for (int i = 0; i < collaboratorsByIdeaForMilestoneResponses.size(); i++) {
                         collaboratorName.add(collaboratorsByIdeaForMilestoneResponses.get(i).getFirstname() + " " + collaboratorsByIdeaForMilestoneResponses.get(i).getSurname());
+                        collabId.add(collaboratorsByIdeaForMilestoneResponses.get(i).getId());
                     }
 
                 } else if (response.code() == 401) {

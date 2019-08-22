@@ -24,7 +24,7 @@
                 android:id="@+id/recycler_view_milestones_requests"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="70dp"
+                android:layout_marginBottom="120dp"
                 android:animateLayoutChanges="false"
                 android:clipToPadding="false"
                 android:dividerHeight="1dp"

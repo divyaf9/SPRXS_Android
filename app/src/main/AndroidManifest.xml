@@ -24,7 +24,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.EditMilestonesActivity"></activity>
+        <activity android:name=".activity.TransferEquityActivity"></activity>
+        <activity android:name=".activity.EditMilestonesActivity" />
         <activity android:name=".activity.CreateMilestonesActivity" />
         <activity android:name=".activity.MyCollaborationsDetailsActivity" />
         <activity android:name=".activity.NoCollaboratorRequestActivity" />

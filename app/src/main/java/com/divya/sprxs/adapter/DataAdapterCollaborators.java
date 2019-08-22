@@ -1,6 +1,7 @@
 package com.divya.sprxs.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.divya.sprxs.R;
+import com.divya.sprxs.activity.TransferEquityActivity;
 import com.divya.sprxs.model.ShowEquityForIdeaResponse;
 
 import java.util.List;
@@ -47,13 +49,25 @@ public class DataAdapterCollaborators extends RecyclerView.Adapter<DataAdapterCo
 
     @Override
     public void onBindViewHolder(@NonNull final DataAdapterCollaborators.ViewHolder holder, final int position) {
+
         holder.nameCollaboratorTextView.setText(showEquityForIdeaResponses.get(position).getFirstname()+" "+showEquityForIdeaResponses.get(position).getLastname());
         holder.equityCollaboratorTextView.setText(String.valueOf(showEquityForIdeaResponses.get(position).getTokensOwned()));
         if(id.equals(showEquityForIdeaResponses.get(position).getProfileId())) {
             holder.identityCollaboratorTextView.setText("IDEA OWNER");
         }
         else{
-            holder.identityCollaboratorTextView.setText("COLLABORATOR");
+            holder.identityCollaboratorTextView.setText("TRANSFER EQUITY");
+            holder.identityCollaboratorTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(context, TransferEquityActivity.class);
+                    intent.putExtra("CollabNameEquityTransfer",showEquityForIdeaResponses.get(position).getFirstname()+" "+showEquityForIdeaResponses.get(position).getLastname());
+                    intent.putExtra("profileIdEquityTransfer",showEquityForIdeaResponses.get(position).getProfileId());
+                    intent.putExtra("ideaIdEquityTransfer",showEquityForIdeaResponses.get(position).getIdeaUniqueId());
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 

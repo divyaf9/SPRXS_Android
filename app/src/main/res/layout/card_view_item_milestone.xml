@@ -76,18 +76,14 @@
 
         <TextView
             android:id="@+id/statusMilestone"
-            android:layout_width="100dp"
+            android:layout_width="200dp"
             android:layout_height="24dp"
             android:layout_marginStart="70dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="225dp"
-            android:layout_marginBottom="216dp"
             android:gravity="center_vertical"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

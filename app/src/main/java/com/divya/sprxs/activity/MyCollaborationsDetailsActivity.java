@@ -8,12 +8,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.divya.sprxs.R;
-import com.divya.sprxs.fragment.CollaboratorsFragment;
 import com.divya.sprxs.fragment.MilestonesRequestFragment;
 import com.divya.sprxs.fragment.MyCollaborationsDetailsFragment;
 import com.divya.sprxs.utils.BottomNavigationBehavior;
@@ -24,7 +21,6 @@ public class MyCollaborationsDetailsActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationViewMyCollaborations;
     private MyCollaborationsDetailsFragment myCollaborationsDetailsFragment;
     private MilestonesRequestFragment milestonesRequestFragment;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,5 +62,18 @@ public class MyCollaborationsDetailsActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(MyCollaborationsDetailsActivity.this, MyCollaborationsActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 }

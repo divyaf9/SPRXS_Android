@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.CreateMilestonesActivity">
+    tools:context=".activity.TransferEquityActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,14 +28,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/titleMilestone"
+            <TextView
+                android:id="@+id/titleEquityTransfer"
                 android:layout_width="350dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="55dp"
                 android:background="@drawable/text_view_shape"
+                android:gravity="center_vertical"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
+                android:text="Equity Transfer"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -55,10 +57,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/descMilestone"
+            <TextView
+                android:id="@+id/descEquityTransfer"
                 android:layout_width="350dp"
-                android:layout_height="100dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="145dp"
                 android:background="@drawable/text_view_shape"
                 android:gravity="start"
@@ -66,6 +68,7 @@
                 android:paddingTop="8dp"
                 android:paddingRight="8dp"
                 android:scrollbars="vertical"
+                android:text="This action will transfer the assigned equity to the collaborators and cannot be undone"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -76,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="260dp"
+                android:layout_marginTop="220dp"
                 android:layout_marginEnd="306dp"
                 android:text="Due date:"
                 android:textColor="#000000"
@@ -86,38 +89,37 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/dateMilestone"
-                android:layout_width="300dp"
+                android:id="@+id/dateEquityTransfer"
+                android:layout_width="350dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="295dp"
-                android:layout_marginEnd="81dp"
+                android:layout_marginTop="255dp"
                 android:background="@drawable/text_view_shape"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/datePickerImageButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="341dp"
-                android:layout_marginTop="295dp"
-                android:layout_marginEnd="30dp"
-                android:background="@null"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_icons8_calendar_12" />
+            <!--<ImageButton-->
+            <!--android:id="@+id/datePickerImageButton"-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_marginStart="341dp"-->
+            <!--android:layout_marginTop="295dp"-->
+            <!--android:layout_marginEnd="30dp"-->
+            <!--android:background="@null"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent"-->
+            <!--app:srcCompat="@drawable/ic_icons8_calendar_12" />-->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="355dp"
+                android:layout_marginTop="315dp"
                 android:text="Assign Tokens To Collaborator:"
                 android:textColor="#000000"
                 android:textSize="18sp"
@@ -128,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="395dp"
+                android:layout_marginTop="355dp"
                 android:layout_marginEnd="171dp"
                 android:text="Available Tokens To Offer:"
                 android:textColor="#000000"
@@ -138,11 +140,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/availableTokenMilestone"
+                android:id="@+id/availableTokenEquityTransfer"
                 android:layout_width="100dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="240dp"
-                android:layout_marginTop="395dp"
+                android:layout_marginTop="355dp"
                 android:layout_marginEnd="71dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="8dp"
@@ -156,7 +158,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="435dp"
+                android:layout_marginTop="395dp"
                 android:text="Token Amount:"
                 android:textColor="#000000"
                 android:textSize="18sp"
@@ -164,10 +166,10 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/coinsMilestone"
+                android:id="@+id/coinsEquityTransfer"
                 android:layout_width="100dp"
                 android:layout_height="24dp"
-                android:layout_marginTop="435dp"
+                android:layout_marginTop="395dp"
                 android:background="@drawable/text_view_shape"
                 android:gravity="center|center_vertical"
                 android:paddingLeft="8dp"
@@ -180,11 +182,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/increaseCoinMilestone"
+                android:id="@+id/increaseCoinEquityTransfer"
                 android:layout_width="50dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="282dp"
-                android:layout_marginTop="435dp"
+                android:layout_marginTop="395dp"
                 android:layout_marginEnd="80dp"
                 android:background="@drawable/text_view_shape"
                 android:text="+"
@@ -194,11 +196,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/decreaseCoinMilestone"
+                android:id="@+id/decreaseCoinEquityTransfer"
                 android:layout_width="50dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="331dp"
-                android:layout_marginTop="435dp"
+                android:layout_marginTop="395dp"
                 android:layout_marginEnd="30dp"
                 android:background="@drawable/text_view_shape"
                 android:gravity="center|center_vertical"
@@ -209,59 +211,72 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="435dp"
+                android:layout_marginEnd="278dp"
+                android:text="Collaborator:"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <Spinner
-                android:id="@+id/spinnerMilestone"
-                style="@style/Widget.AppCompat.Spinner.DropDown"
+
+            <TextView
+                android:id="@+id/collaboratorEquityTransfer"
                 android:layout_width="350dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="475dp"
-                android:background="@drawable/state_spinnertextview"
-                android:spinnerMode="dropdown"
-                android:state_window_focused="true"
+                android:background="@drawable/text_view_shape"
+                android:gravity="center_vertical"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-            <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="30dp"-->
-            <!--android:layout_marginTop="550dp"-->
-            <!--android:layout_marginEnd="223dp"-->
-            <!--android:text="Mark as completed:"-->
-            <!--android:textColor="#000000"-->
-            <!--android:textSize="18sp"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="parent" />-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="550dp"
+                android:layout_marginEnd="223dp"
+                android:text="Mark as completed:"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-            <!--<Switch-->
-            <!--android:id="@+id/completeMilestoneSwitch"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="342dp"-->
-            <!--android:layout_marginTop="550dp"-->
-            <!--android:layout_marginEnd="30dp"-->
-            <!--android:layout_marginBottom="196dp"-->
-            <!--android:checked="true"-->
-            <!--android:theme="@style/SwitchTheme"-->
-            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="parent" />-->
+            <Switch
+                android:id="@+id/completeEquityTransferSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="342dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="196dp"
+                android:checked="true"
+                android:theme="@style/SwitchTheme"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
 
             <Button
-                android:id="@+id/createMilestone"
+                android:id="@+id/transferEquity"
                 android:layout_width="350dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="545dp"
-                android:layout_marginBottom="94dp"
+                android:layout_marginTop="600dp"
+                android:layout_marginBottom="123dp"
                 android:background="@drawable/oval_shape"
-                android:text="CREATE"
+                android:text="TRANSFER"
                 android:textColor="@color/colorWhite"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -271,11 +286,11 @@
 
 
             <Button
-                android:id="@+id/cancelMilestone"
+                android:id="@+id/cancelEquityTransfer"
                 android:layout_width="350dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="615dp"
-                android:layout_marginBottom="27dp"
+                android:layout_marginTop="668dp"
+                android:layout_marginBottom="55dp"
                 android:background="@drawable/oval_shape_white"
                 android:text="CANCEL"
                 android:textColor="@color/colorPrimary"
@@ -291,3 +306,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

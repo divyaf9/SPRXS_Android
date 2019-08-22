@@ -79,21 +79,24 @@ public class DataAdapterMilestones extends RecyclerView.Adapter<DataAdapterMiles
             holder.editMilestoneImageView.setVisibility(View.INVISIBLE);
             holder.milestoneImageView.setBackgroundResource(R.drawable.circle_background_orange);
             holder.milestoneImageView.setImageResource(R.drawable.ic_icons8_person);
-            holder.collaboratorMilestone.setText(viewMilestonesResponseList.get(position).getFirstname() + " " + viewMilestonesResponseList.get(position).getSurname());
         }else if(viewMilestonesResponseList.get(position).getApproval()==3){
             holder.statusMilestone.setText("Active");
             holder.milestoneImageView.setImageResource(R.drawable.imgpsh_mobile_save);
-//            holder.collaboratorMilestone.setText(viewMilestonesResponseList.get(position).getFirstname() + " " + viewMilestonesResponseList.get(position).getSurname());
         }else if(viewMilestonesResponseList.get(position).getApproval()==4){
-            holder.statusMilestone.setText("In Progress");
-        }
+            holder.statusMilestone.setText("Cancel Request");
+            holder.milestoneImageView.setImageResource(R.drawable.ic_error_outline_black_24dp);
+            holder.deleteMilestoneImageView.setVisibility(View.INVISIBLE);
+            holder.editMilestoneImageView.setVisibility(View.INVISIBLE);
 
+        }
 
         holder.titleMilestone.setText(viewMilestonesResponseList.get(position).getMilestoneName());
         holder.createdMilestoneView.setText(viewMilestonesResponseList.get(position).getMilestoneDateCreated());
         holder.plannedMilestone.setText(viewMilestonesResponseList.get(position).getAgreedCompletionDate());
         holder.tokensMilestone.setText(String.valueOf(viewMilestonesResponseList.get(position).getOfferedTokens()));
         holder.descMilestoneView.setText(viewMilestonesResponseList.get(position).getMilestoneDescription());
+        holder.collaboratorMilestone.setText(viewMilestonesResponseList.get(position).getFirstname()+" "+viewMilestonesResponseList.get(position).getSurname());
+
         holder.deleteMilestoneImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,6 +114,8 @@ public class DataAdapterMilestones extends RecyclerView.Adapter<DataAdapterMiles
                 intent.putExtra("titleMilestoneAdapter",viewMilestonesResponseList.get(position).getMilestoneName());
                 intent.putExtra("DescMilestoneAdapter",viewMilestonesResponseList.get(position).getMilestoneDescription());
                 intent.putExtra("DateMilestoneAdapter",viewMilestonesResponseList.get(position).getAgreedCompletionDate());
+                intent.putExtra("TokensMilestoneAdapter",viewMilestonesResponseList.get(position).getOfferedTokens());
+                intent.putExtra("CollabMilestoneAdapter",viewMilestonesResponseList.get(position).getFirstname()+" "+viewMilestonesResponseList.get(position).getSurname());
                 context.startActivity(intent);            }
         });
 
@@ -137,7 +142,7 @@ public class DataAdapterMilestones extends RecyclerView.Adapter<DataAdapterMiles
                     dialog.setContentView(R.layout.success_dialog);
                     TextView textView;
                     textView = successDialogView.findViewById(R.id.dialogTextView);
-                    textView.setText("Milestone cancelled");
+                    textView.setText("Milestone successfully cancelled");
                     Button button;
                     button = successDialogView.findViewById(R.id.okButton);
                     button.setOnClickListener(new View.OnClickListener() {
