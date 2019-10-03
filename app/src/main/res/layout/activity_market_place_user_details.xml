@@ -19,6 +19,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <Button
+                android:id="@+id/inviteToCollaborateButton"
+                android:layout_width="364dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="205dp"
+                android:layout_marginBottom="582dp"
+                android:background="@drawable/oval_shape"
+                android:text="INVITE TO COLLABORATE"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ExpandableListView
+                android:id="@+id/expandableListView"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_marginTop="256dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></ExpandableListView>
+
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -31,43 +56,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/collab_avatar" />
-
-            <TextView
-                android:id="@+id/nameUserDetailsTextView"
-                android:layout_width="255dp"
-                android:layout_height="38dp"
-                android:layout_marginStart="114dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="42dp"
-                android:layout_marginBottom="759dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/roleUserDetailsTextView"
-                android:layout_width="237dp"
-                android:layout_height="33dp"
-                android:layout_marginStart="114dp"
-                android:layout_marginTop="68dp"
-                android:layout_marginEnd="60dp"
-                android:layout_marginBottom="726dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:textColor="#6F7179"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/descUserDetailsTextView"
@@ -86,18 +74,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/inviteToCollaborateButton"
-                android:layout_width="364dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="205dp"
-                android:layout_marginBottom="582dp"
-                android:background="@drawable/oval_shape"
-                android:text="INVITE TO COLLABORATE"
-                android:textColor="@color/colorWhite"
+            <TextView
+                android:id="@+id/nameUserDetailsTextView"
+                android:layout_width="255dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="114dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="42dp"
+                android:layout_marginBottom="759dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -177,17 +169,23 @@
             <!--app:layout_constraintStart_toStartOf="parent"-->
             <!--app:layout_constraintTop_toTopOf="parent" />-->
 
-            <ExpandableListView
-                android:id="@+id/expandableListView"
-                android:layout_width="match_parent"
-                android:layout_height="450dp"
-                android:layout_marginTop="263dp"
-                android:layout_marginBottom="114dp"
+            <TextView
+                android:id="@+id/roleUserDetailsTextView"
+                android:layout_width="237dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="114dp"
+                android:layout_marginTop="68dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginBottom="726dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#6F7179"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></ExpandableListView>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

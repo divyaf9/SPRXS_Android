@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    tools:context=".activity.ChatActivity">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_messages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_main"
+        android:layout_above="@id/bottomRecyclerViewChat"
+        android:divider="#fff"
+        android:scrollbars="vertical"/>
+
+
+  <RelativeLayout
+      android:id="@+id/bottomRecyclerViewChat"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="5dp"
+      android:backgroundTint="@color/colorWhite"
+      android:layout_alignParentBottom="true">
+
+
+        <EditText
+            android:id="@+id/chatEditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/text_view_shape"
+            android:backgroundTint="#FFFFFF"
+            android:hint="Type here"
+            android:paddingLeft="8dp"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/sendButton"/>
+
+
+      <ImageButton
+          android:id="@+id/attachFileChat"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:layout_alignParentStart="true"
+          android:layout_alignParentTop="true"
+          android:layout_marginStart="325dp"
+          android:layout_marginTop="4dp"
+          android:background="@drawable/ic_attach_file_black_24dp" />
+
+      <ImageButton
+            android:id="@+id/sendButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_send_black_24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

@@ -38,8 +38,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -191,6 +195,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                HashMap<String,Object> userCredentials = new HashMap<>();
+                                userCredentials.put("email", email_add);
+                                userCredentials.put("firstName", firstName);
+                                userCredentials.put("lastName", lastName);
+                                userCredentials.put("password", firebasePassword);
+                                userCredentials.put("profilePicLink", "");
+
+                                FirebaseDatabase FireDb = FirebaseDatabase.getInstance();
+                                DatabaseReference DbRef = FireDb.getReference();
+                                DbRef.child("users").child(user.getUid()).child("credentials").updateChildren(userCredentials);
+
                                 updateUI(user);
                                 if (user != null) {
                                     final SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();

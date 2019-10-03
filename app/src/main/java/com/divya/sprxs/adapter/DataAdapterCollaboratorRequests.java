@@ -3,6 +3,7 @@ package com.divya.sprxs.adapter;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +23,23 @@ import com.divya.sprxs.model.ApproveRejectCollaboratorRequestsRequest;
 import com.divya.sprxs.model.ApproveRejectCollaboratorRequestsResponse;
 import com.divya.sprxs.model.CollaboratorRequestsResponse;
 import com.divya.sprxs.model.RefreshTokenResponse;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -42,7 +56,10 @@ public class DataAdapterCollaboratorRequests extends RecyclerView.Adapter<DataAd
     private CardView cardViewCollaboratorRequests;
     private Context context;
     private Long profileId;
-    private String ideaId,reason,value,name;
+    private String ideaId,reason,value,name,collaboratorUid;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = mAuth.getCurrentUser();
+    String ownerFirebaseId = user.getUid();
 
     public DataAdapterCollaboratorRequests(FragmentActivity fragmentActivity, List<CollaboratorRequestsResponse> collaboratorRequestsResponseList, Context context) {
         this.collaboratorRequestsResponseList = collaboratorRequestsResponseList;
@@ -86,6 +103,7 @@ public class DataAdapterCollaboratorRequests extends RecyclerView.Adapter<DataAd
             } else if (collaboratorRequestsResponseList.get(position).getLkpWoiRole() == 9) {
                 holder.roleRequestTextView.setText("Other");
             }
+            collaboratorUid = collaboratorRequestsResponseList.get(position).getCollaboratorFirebaseUid();
 
             holder.acceptRequestButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -131,6 +149,89 @@ public class DataAdapterCollaboratorRequests extends RecyclerView.Adapter<DataAd
         }
     }
 
+    class Message {
+        public HashMap<String,Object> location;
+        private Message() {}
+        public Message(HashMap<String,Object> location) {
+            this.location = location;
+        }
+        public HashMap<String,Object> getLocation() {
+            return location;
+        }
+    }
+
+        public void sendNewMessage(final String senderFirebaseId, String receiverFirebaseId, String message){
+
+        try {
+
+            if (receiverFirebaseId != "") {
+                receiverFirebaseId = collaboratorUid;
+            }
+
+            long time = System.currentTimeMillis();
+
+            final HashMap<String,Object> sendNewMesaageMap = new HashMap<>();
+            sendNewMesaageMap.put("type", "text");
+            sendNewMesaageMap.put("content", message);
+            sendNewMesaageMap.put("fromID", ownerFirebaseId);
+            sendNewMesaageMap.put("toID", receiverFirebaseId);
+            sendNewMesaageMap.put("timestamp", time);
+            sendNewMesaageMap.put("isRead", false);
+
+            final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+            final DatabaseReference databaseReference = firebaseDatabase.getReference();
+            final String finalReceiverFirebaseId = receiverFirebaseId;
+            final String finalReceiverFirebaseId1 = receiverFirebaseId;
+            try{
+                databaseReference.child("users").child(ownerFirebaseId).child("conversations").child(receiverFirebaseId).addListenerForSingleValueEvent(new ValueEventListener() {  //Check Convo tree
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    if(dataSnapshot.getValue() != null){
+                        //Tree exists.
+                        HashMap<String,Object> oldLoc = new HashMap<String, Object>();
+                                oldLoc.put("Snapshot", dataSnapshot.getValue());
+                                oldLoc.put("newLoc", oldLoc.get("Snapshot").toString().replace("{location=", ""));
+                                String  finalLoc = oldLoc.get("newLoc").toString().replace("}", "");
+                        DatabaseReference oldTree = firebaseDatabase.getReference();
+                        oldTree.child("conversations").child(finalLoc).push().setValue(sendNewMesaageMap);
+                    }
+                    else{
+                        //Tree doesn't exist.
+                                DatabaseReference messLoc = firebaseDatabase.getReference();
+                                String messLocKey = messLoc.push().getKey();
+                                messLoc.child("conversations").child(messLocKey).push().setValue(sendNewMesaageMap);
+                                HashMap<String, Object> simpleDict = new HashMap<>();
+                                simpleDict.put("location", messLocKey);
+
+                                //double update:
+                                DatabaseReference firstCopy = firebaseDatabase.getReference();
+                                firstCopy.child("users").child(senderFirebaseId).child("conversations").child(finalReceiverFirebaseId1).updateChildren(simpleDict);
+
+                                DatabaseReference secondCopy = firebaseDatabase.getReference();
+                                secondCopy.child("users").child(finalReceiverFirebaseId1).child("conversations").child(senderFirebaseId).updateChildren(simpleDict);
+
+                    }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }catch (Exception ex){
+                Log.e("DBRef error", ex.getMessage());
+                System.out.println("DBREF:::::::::::::::::::::::::::::::::::::::::::::::::::::::"+databaseReference);
+            }
+
+        }catch (Exception ex){
+            Log.e("ExceptionChat",ex.getMessage());
+        }
+
+
+
+    }
+
     private void approveCollaborator() {
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         final SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
@@ -150,6 +251,9 @@ public class DataAdapterCollaboratorRequests extends RecyclerView.Adapter<DataAd
                     TextView textView;
                     textView = successDialogView.findViewById(R.id.dialogTextView);
                     textView.setText("You have accepted the collaborator request for "+ideaId+" from "+name);
+
+                    sendNewMessage(ownerFirebaseId,collaboratorUid,"Hi! I have accepted your request to collaborate. Lets make our idea into a reality.");
+
                     Button button;
                     button = successDialogView.findViewById(R.id.okButton);
                     button.setOnClickListener(new View.OnClickListener() {

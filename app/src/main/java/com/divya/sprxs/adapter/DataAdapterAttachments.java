@@ -61,6 +61,7 @@ public class DataAdapterAttachments extends RecyclerView.Adapter<DataAdapterAtta
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         holder.attachmentTextView.setText(ideaFilesResponseList.get(position).getFilename());
+
         holder.downloadAttachments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

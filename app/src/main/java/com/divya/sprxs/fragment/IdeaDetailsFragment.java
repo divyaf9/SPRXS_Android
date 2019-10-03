@@ -161,11 +161,11 @@ public class IdeaDetailsFragment extends Fragment  {
                                             coverPhotoImageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
                                         } else {
-                                            Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
+                                    Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
 
-                                    }
-                                });
+                            }
+                        });
                             }
 
                         }

@@ -3,19 +3,6 @@
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.divya.sprxs">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <dist:module dist:instant="true" />
-
-    <supports-screens
-        android:largeScreens="true"
-        android:normalScreens="true"
-        android:smallScreens="true"
-        android:xlargeScreens="true" />
-
     <application
         android:allowBackup="true"
         android:grantUriPermissions="true"
@@ -24,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.TransferEquityActivity"></activity>
+        <activity android:name=".activity.ChatActivity"></activity>
+        <activity android:name=".activity.TransferEquityActivity" />
         <activity android:name=".activity.EditMilestonesActivity" />
         <activity android:name=".activity.CreateMilestonesActivity" />
         <activity android:name=".activity.MyCollaborationsDetailsActivity" />
@@ -76,5 +64,18 @@
             </intent-filter>
         </activity>
     </application>
+    <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <dist:module dist:instant="true" />
 
 </manifest>

@@ -1,126 +1,188 @@
 package com.divya.sprxs.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.divya.sprxs.R;
+import com.divya.sprxs.adapter.DataAdapterChat;
+import com.divya.sprxs.model.ChatMessage;
+import com.divya.sprxs.model.ChatUserDetails;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ChatFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ChatFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChatFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private RecyclerView recyclerViewChat;
+    private DataAdapterChat dataAdapterChat;
+    private String  ownerFirebaseUID, chatLocation, name, message, collabFirebaseID;
+    private List<String> chatMessageList = new ArrayList<>();
+    private List<String> collabID = new ArrayList<>();
+    private List<String> collabFirebaseUID = new ArrayList<>();
 
-    private OnFragmentInteractionListener mListener;
+    private List<ChatUserDetails> chatUsersDetailsList = new ArrayList<>();
 
-    public ChatFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ChatFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ChatFragment newInstance(String param1, String param2) {
-        ChatFragment fragment = new ChatFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-//        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-//        actionBar.setDisplayShowCustomEnabled(true);
-//        actionBar.setDisplayShowTitleEnabled(false);
-//        LayoutInflater layoutInflater = LayoutInflater.from( getActivity() );
-//        View header = layoutInflater.inflate( R.layout.toolbar, null );
-//        TextView textView = header.findViewById(R.id.titleTextView);
-//        textView.setText("Chat");
-//        ImageView imageView = header.findViewById(R.id.menu);
-//        actionBar.setCustomView(header);
+        View v = inflater.inflate(R.layout.fragment_chat, container, false);
+
         getActivity().setTitle("Chat");
         getActivity().findViewById(R.id.helpImageView).setVisibility(View.INVISIBLE);
-        return inflater.inflate(R.layout.fragment_chat, container, false);
-    }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+        recyclerViewChat = v.findViewById(R.id.recycler_view_chat);
+
+        if (chatUsersDetailsList != null && chatUsersDetailsList.size() > 0) {
+            chatUsersDetailsList.clear();
+            dataAdapterChat.notifyDataSetChanged();
+
         }
+
+        displayUser(new FirebaseCallback() {
+            @Override
+            public void onCallBack(List<ChatUserDetails> chatUsersDetailsList) {
+                recyclerViewChat.setHasFixedSize(false);
+                recyclerViewChat.setNestedScrollingEnabled(false);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                recyclerViewChat.setLayoutManager(layoutManager);
+                dataAdapterChat = new DataAdapterChat(getActivity(), chatUsersDetailsList, getContext());
+                recyclerViewChat.setAdapter(dataAdapterChat);
+                dataAdapterChat.notifyDataSetChanged();
+                dataAdapterChat.notifyItemChanged(chatUsersDetailsList.size()-1);
+
+
+            }
+        });
+
+
+        return v;
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    private void displayUser(final FirebaseCallback firebaseCallback) {
+
+        ownerFirebaseUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        final DatabaseReference databaseReference = firebaseDatabase.getReference();
+
+        databaseReference.child("users").child(ownerFirebaseUID).child("conversations").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+                if (dataSnapshot.exists()) {
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                        for (DataSnapshot preSnapshpot : snapshot.getChildren()) {
+
+                            collabFirebaseUID .add(snapshot.getKey());
+
+                            chatLocation = snapshot.child("location").getValue().toString();
+
+                            databaseReference.child("conversations").child(chatLocation).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                    final ChatUserDetails chatUserDetails = new ChatUserDetails();
+
+
+                                    if (dataSnapshot.exists()) {
+
+                                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+
+                                            ChatMessage chatMessage = postSnapshot.getValue(ChatMessage.class);
+
+                                            message = chatMessage.getContent();
+
+                                            if (ownerFirebaseUID.equals(chatMessage.getFromID())) {
+                                                collabFirebaseID = chatMessage.getToID();
+
+                                            } else {
+                                                collabFirebaseID = chatMessage.getFromID();
+//                                                message = chatMessage.getContent();
+                                            }
+
+                                        }
+
+                                        collabID.add(collabFirebaseID);
+                                        chatMessageList.add(message);
+                                        chatUserDetails.setChatMessage(chatMessageList);
+                                        chatUserDetails.setCollabFirebaseUID(collabFirebaseID);
+
+                                        databaseReference.child("users").child(collabFirebaseID).child("credentials").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                        if (dataSnapshot.exists()) {
+
+                                                            name = dataSnapshot.child("firstName").getValue().toString() + " " + dataSnapshot.child("lastName").getValue().toString();
+                                                            chatUserDetails.setFullName(name);
+
+                                                            chatUsersDetailsList.add(chatUserDetails);
+                                                            firebaseCallback.onCallBack(chatUsersDetailsList);
+
+                                                        }
+                                                    }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                }
+                                            });
+                                        }
+                                    }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+                        }
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+
+    private interface FirebaseCallback {
+
+        void onCallBack(List<ChatUserDetails> chatUsersDetailsList);
     }
+
 }

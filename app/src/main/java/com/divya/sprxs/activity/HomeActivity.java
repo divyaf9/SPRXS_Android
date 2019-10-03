@@ -105,9 +105,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.Create_Ideas_icon:
                         setFragment(createIdeasFragment);
                         return true;
-//                    case R.id.Chat_icon:
-//                        setFragment(chatFragment);
-//                        return true;
+                    case R.id.Chat_icon:
+                        setFragment(chatFragment);
+                        return true;
                     case R.id.Inbox_icon:
                         setFragment(inboxFragment);
                         return true;
@@ -140,8 +140,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             setFragment(createIdeasFragment);
         } else if (id == R.id.nav_inbox) {
             setFragment(inboxFragment);
-//        } else if (id == R.id.nav_chat) {
-//            setFragment(chatFragment);
+        } else if (id == R.id.nav_chat) {
+            setFragment(chatFragment);
         } else if (id == R.id.nav_marketplace) {
             openMarketPlace();
         } else if (id == R.id.nav_search) {
@@ -152,8 +152,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             openMyCollaborations();
         } else if (id == R.id.nav_contact_us) {
             openContact();
-//        } else if (id == R.id.nav_logout) {
-//            openLogin();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
