@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
+    android:background="#000000"
     tools:context=".activity.RegisterActivity">
 
     <ScrollView
@@ -18,31 +18,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="200dp"
-                android:layout_height="117dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="780dp"
-                android:adjustViewBounds="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/orange_sprxs_logo" />
-
-            <TextView
-                android:layout_width="261dp"
-                android:layout_height="57dp"
-                android:layout_marginTop="133dp"
-                android:layout_marginBottom="723dp"
-                android:gravity="center"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:text="Sign up to SPRXS and start innovating..."
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
+            <Button
+                android:id="@+id/signupButton"
+                android:layout_width="308dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="820dp"
+                android:layout_marginBottom="42dp"
+                android:background="@color/colorLightBlue"
+                android:text="CONFIRM"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -61,6 +46,8 @@
                 android:inputType="textPersonName"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -79,12 +66,13 @@
                 android:inputType="textPersonName"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
+                android:textColorHint="@color/colorWhite"
+                android:textColor="@color/colorWhite"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
             <EditText
                 android:id="@+id/emailTextView"
@@ -98,6 +86,8 @@
                 android:inputType="textEmailAddress"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
+                android:textColorHint="@color/colorWhite"
+                android:textColor="@color/colorWhite"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -117,6 +107,8 @@
                 android:inputType="textEmailAddress"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
+                android:textColorHint="@color/colorWhite"
+                android:textColor="@color/colorWhite"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -136,6 +128,8 @@
                 android:inputType="textPassword"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
+                android:textColorHint="@color/colorWhite"
+                android:textColor="@color/colorWhite"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -155,6 +149,69 @@
                 android:inputType="textPassword"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
+                android:textColorHint="@color/colorWhite"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="270dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="780dp"
+                android:adjustViewBounds="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/orange_sprxs_logo" />
+
+            <Switch
+                android:id="@+id/competitionSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="342dp"
+                android:layout_marginTop="638dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="248dp"
+                android:checked="true"
+                android:theme="@style/SwitchTheme"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Switch
+                android:id="@+id/loopSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="342dp"
+                android:layout_marginTop="712dp"
+                android:layout_marginEnd="31dp"
+                android:layout_marginBottom="178dp"
+                android:checked="true"
+                android:theme="@style/SwitchTheme"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="156dp"
+                android:layout_marginBottom="756dp"
+                android:gravity="center"
+                android:text="SECURING YOUR INNOVATIVE IDEAS"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -171,22 +228,8 @@
                 android:layout_marginBottom="219dp"
                 android:gravity="start"
                 android:text="@string/linktocompetition"
+                android:textColor="@color/colorWhite"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Switch
-                android:id="@+id/competitionSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:theme="@style/SwitchTheme"
-                android:layout_marginStart="342dp"
-                android:layout_marginTop="638dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="248dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -202,26 +245,13 @@
                 android:layout_marginBottom="165dp"
                 android:gravity="start"
                 android:text="I want to stay in loop for information on SPRXS."
+                android:textColor="@color/colorWhite"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Switch
-                android:id="@+id/loopSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:theme="@style/SwitchTheme"
-                android:layout_marginStart="342dp"
-                android:layout_marginTop="712dp"
-                android:layout_marginEnd="31dp"
-                android:layout_marginBottom="178dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/termsTextView"
@@ -230,6 +260,7 @@
                 android:layout_marginTop="766dp"
                 android:layout_marginBottom="127dp"
                 android:text="@string/linktoprivacy"
+                android:textColor="@color/colorWhite"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -238,16 +269,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-            <Button
-                android:id="@+id/signupButton"
-                android:layout_width="308dp"
-                android:layout_height="55dp"
-                android:layout_marginTop="820dp"
-                android:layout_marginBottom="42dp"
-                android:background="@drawable/oval_shape"
-                android:text="SIGN UP"
-                android:textColor="@android:color/white"
-                android:textSize="24sp"
+            <TextView
+                android:id="@+id/signInView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="899dp"
+                android:layout_marginBottom="16dp"
+                android:text="Already have an account? SIGN IN"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

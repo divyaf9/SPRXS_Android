@@ -4,86 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
+    android:background="#000000"
     tools:context=".activity.MainActivity">
 
-    <ImageView
-        android:layout_width="259dp"
-        android:layout_height="190dp"
-        android:layout_marginTop="201dp"
-        android:layout_marginBottom="455dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/orange_sprxs_logo" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="308dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="348dp"
-        android:layout_marginBottom="348dp"
-        android:gravity="center"
-        android:text="MAKE THE MOST OF YOUR IDEAS"
-        android:textColor="@android:color/holo_orange_dark"
-        android:textSize="18sp"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/mainViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="800dp"
+        android:layout_marginBottom="45dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:targetApi="ice_cream_sandwich" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <!--<Button-->
-    <!--android:id="@+id/loginButton"-->
-    <!--android:layout_width="278dp"-->
-    <!--android:layout_height="55dp"-->
-    <!--android:layout_marginTop="438dp"-->
-    <!--android:layout_marginBottom="245dp"-->
-    <!--android:background="@drawable/oval_shape"-->
-    <!--android:text="LOGIN"-->
-    <!--android:textColor="@android:color/white"-->
-    <!--android:textSize="24sp"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintHorizontal_bias="0.5"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent"-->
-    <!--tools:targetApi="ice_cream_sandwich" />-->
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieAnimationView"
-        android:layout_width="220dp"
-        android:layout_height="178dp"
-        android:layout_marginTop="399dp"
-        android:layout_marginBottom="154dp"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="gear.json"
-        app:lottie_loop="true"
+    </androidx.viewpager.widget.ViewPager>
+
+    <LinearLayout
+        android:id="@+id/landingPageLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mainViewPager"
+        android:layout_marginBottom="40dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/landingPageLinearLayout"
+        android:textColor="@color/colorWhite"
+        android:background="@null"
+        android:text="GET STARTED"
+        android:visibility="invisible"
+        android:textSize="16sp"
+        android:layout_marginStart="280dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <!--<Button-->
-    <!--android:id="@+id/registerButton"-->
-    <!--android:layout_width="278dp"-->
-    <!--android:layout_height="55dp"-->
-    <!--android:layout_marginTop="514dp"-->
-    <!--android:layout_marginBottom="169dp"-->
-    <!--android:background="@drawable/oval_shape_white"-->
-    <!--android:text="SIGN UP"-->
-    <!--android:textColor="@color/colorPrimary"-->
-    <!--android:textSize="24sp"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintHorizontal_bias="0.5"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent"-->
-    <!--tools:targetApi="ice_cream_sandwich" />-->
-
+        app:srcCompat="@drawable/ic_long_arrow_pointing_to_the_right" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
