@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -17,8 +19,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,9 +49,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private FirebaseAuth mAuth;
     private Button loginButton;
+    private ImageButton playButton;
     private EditText emailTextView, passwordTextView;
     private TextView forgotPasswordTextView;
     private TextView signupTextView;
+    private VideoView loginVideo;
+    private MediaPlayer mediaPlayer;
     private ProgressBar progressBar;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
     public final String firebasePassword = "ljsdlgkj&fefsd$%SDFsdf123£";
@@ -71,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FD7E14"), PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.GONE);
 
-        String text = "Don't have an account? Sign Up";
+        String text = signupTextView.getText().toString();
         SpannableString spannableString = new SpannableString(text);
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
@@ -82,14 +89,37 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void updateDrawState(@NonNull TextPaint ds) {
                 super.updateDrawState(ds);
-                ds.setUnderlineText(false);
-                ds.setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                ds.setUnderlineText(true);
+                ds.setColor(ContextCompat.getColor(getApplicationContext(),R.color.colorLightBlue));
             }
         };
 
-        spannableString.setSpan(clickableSpan, 23, 30, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(clickableSpan, 27, 34, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         signupTextView.setText(spannableString);
         signupTextView.setMovementMethod(LinkMovementMethod.getInstance());
+
+        loginVideo = findViewById(R.id.loginVideo);
+//        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.login);
+//        loginVideo.setVideoURI(uri);
+//        loginVideo.start();
+
+
+
+
+        mediaPlayer = MediaPlayer.create(this,R.raw.test);
+
+        playButton = findViewById(R.id.playButton);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.test);
+//                Uri uri = Uri.parse("android.resource://".concat(getPackageName()).concat("/raw/").concat(R.raw.login);
+                loginVideo.setVideoURI(uri);
+                loginVideo.start();
+            }
+        });
+
+
 
 
     }
@@ -149,11 +179,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                     editor.commit();
                                                     editor.apply();
                                                     myHome();
-//                                                } else if (loginResponse.getProfile_type().contentEquals("2")) {
-//                                                    editor.putString("token", loginResponse.getToken());
-//                                                    editor.apply();
-//                                                    loggedIn();
-//                                                }
                                             } else {
                                                 try {
                                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
@@ -243,7 +268,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     public void myHome() {
-        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
         startActivity(intent);
         progressBar.setVisibility(View.GONE);
         finish();
@@ -252,12 +277,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void goToForgetPassword() {
         Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
         startActivity(intent);
-    }
-
-    public void loggedIn() {
-        Intent intent = new Intent(LoginActivity.this, LoggedIn.class);
-        startActivity(intent);
-        finish();
     }
 
     public void goToSignUp() {

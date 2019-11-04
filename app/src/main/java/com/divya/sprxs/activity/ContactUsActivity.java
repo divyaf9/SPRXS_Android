@@ -63,7 +63,7 @@ public class ContactUsActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(ContactUsActivity.this, HomeActivity.class);
+        Intent intent = new Intent(ContactUsActivity.this, HomeScreenActivity.class);
         startActivity(intent);
         finish();
     }

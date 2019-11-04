@@ -78,7 +78,7 @@ public class MarketPlaceActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(MarketPlaceActivity.this, HomeActivity.class);
+        Intent intent = new Intent(MarketPlaceActivity.this, HomeScreenActivity.class);
         startActivity(intent);
         finish();
     }

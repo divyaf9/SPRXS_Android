@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText confirmEmailTextView;
     private EditText passwordTextView;
     private EditText confirmPasswordTextView;
-    private TextView competitionTextView, loopTextView, termsTextView;
+    private TextView competitionTextView, loopTextView, termsTextView,signInView;
     private Switch competitionSwitch, loopSwitch;
     private Button signupButton;
     private ProgressBar progressBar;
@@ -84,6 +84,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         competitionTextView = findViewById(R.id.competitionTextView);
         loopTextView = findViewById(R.id.loopTextView);
         termsTextView = findViewById(R.id.termsTextView);
+        signInView = findViewById(R.id.signInView);
         competitionSwitch = findViewById(R.id.competitionSwitch);
         competitionSwitch.setOnCheckedChangeListener(this);
         loopSwitch = findViewById(R.id.loopSwitch);
@@ -133,6 +134,28 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         spannableString1.setSpan(clickableSpan1, 0, 39, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         termsTextView.setText(spannableString1);
         termsTextView.setMovementMethod(LinkMovementMethod.getInstance());
+
+        String text2 = signInView.getText().toString();
+        SpannableString spannableString2 = new SpannableString(text2);
+        ClickableSpan clickableSpan2 = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+
+                Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setUnderlineText(true);
+                ds.setColor(ContextCompat.getColor(getApplicationContext(),R.color.colorLightBlue));
+            }
+        };
+
+        spannableString2.setSpan(clickableSpan2, 25, 32, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        signInView.setText(spannableString2);
+        signInView.setMovementMethod(LinkMovementMethod.getInstance());
 
     }
 
@@ -214,7 +237,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     Call<CreateProfileResponse> call;
                                     progressBar.setVisibility(View.VISIBLE);
 
-                                    call = RetrofitClient.getInstance().getApi().userSignup(new CreateProfileRequest(1, firstName, lastName, 0, 0, "0", email_add_firebase, password, confirmPassword,competitionSwitch.isChecked() , loopSwitch.isChecked(), UserUid));
+                                    call = RetrofitClient.getInstance().getApi().userSignup(new CreateProfileRequest(false, firstName, lastName, 0, 0, "0", email_add_firebase, password, confirmPassword,competitionSwitch.isChecked() , loopSwitch.isChecked(), UserUid));
                                     call.enqueue(new Callback<CreateProfileResponse>() {
                                         @Override
                                         public void onResponse(Call<CreateProfileResponse> call, Response<CreateProfileResponse> response) {
@@ -337,7 +360,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private void openHome() {
 
-                Intent intent = new Intent(RegisterActivity.this, SplashActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, HomeScreenActivity.class);
                 startActivity(intent);
                 finish();
 

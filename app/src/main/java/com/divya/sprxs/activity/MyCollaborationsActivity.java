@@ -57,7 +57,7 @@ public class MyCollaborationsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(MyCollaborationsActivity.this, HomeActivity.class);
+        Intent intent = new Intent(MyCollaborationsActivity.this, HomeScreenActivity.class);
         startActivity(intent);
         finish();
     }

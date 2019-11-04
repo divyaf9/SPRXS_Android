@@ -46,6 +46,7 @@ public class InboxFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_inbox, container, false);
+
         getActivity().setTitle("Inbox");
         getActivity().findViewById(R.id.helpImageView).setVisibility(View.INVISIBLE);
         recyclerViewInbox = v.findViewById(R.id.recycler_view_inbox);

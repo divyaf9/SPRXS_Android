@@ -2,7 +2,7 @@ package com.divya.sprxs.model;
 
 public class CreateProfileRequest {
 
-    private int profileType;
+    private Boolean creating_idea;
     private String firstname;
     private String surname;
     private int lkp_country;
@@ -15,8 +15,8 @@ public class CreateProfileRequest {
     private Boolean opt_in_notif;
     private String firebase_uid;
 
-    public CreateProfileRequest(int profileType, String firstname, String surname, int lkp_country, int mobile_cc, String mobile_no, String email_add, String passwrd, String passwrd2, Boolean opt_in_comp, Boolean opt_in_notif, String firebase_uid) {
-        this.profileType = profileType;
+    public CreateProfileRequest(Boolean creating_idea, String firstname, String surname, int lkp_country, int mobile_cc, String mobile_no, String email_add, String passwrd, String passwrd2, Boolean opt_in_comp, Boolean opt_in_notif, String firebase_uid) {
+        this.creating_idea = creating_idea;
         this.firstname = firstname;
         this.surname = surname;
         this.lkp_country = lkp_country;
@@ -30,8 +30,8 @@ public class CreateProfileRequest {
         this.firebase_uid = firebase_uid;
     }
 
-    public int getProfileType() {
-        return profileType;
+    public Boolean getCreating_idea() {
+        return creating_idea;
     }
 
     public String getFirstname() {

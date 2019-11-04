@@ -28,6 +28,8 @@ import com.divya.sprxs.model.MyIdeasSummaryResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     private List<MyIdeasSummaryResponse> myIdeasSummaryResponse;
@@ -118,6 +120,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
                 Intent intent = new Intent(v.getContext(), IdeaDetailsActivity.class);
                 intent.putExtra("myList",IdeaId);
                 intent.putExtra("myListIdeaName",IdeaName);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
         });
@@ -130,6 +133,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
                 intent.putExtra("myList",IdeaId);
                 intent.putExtra("myListIdeaName",IdeaName);
                 intent.putExtra("myListIdeaDesc",IdeaDescription);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
 
             }
@@ -143,6 +147,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
                 intent.putExtra("myList",IdeaId);
                 intent.putExtra("myListIdeaName",IdeaName);
                 intent.putExtra("myListIdeaDesc",IdeaDescription);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
                 notifyDataSetChanged();
             }

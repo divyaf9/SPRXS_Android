@@ -1,7 +1,6 @@
 package com.divya.sprxs.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,7 @@ public class ChatFragment extends Fragment {
 
     private RecyclerView recyclerViewChat;
     private DataAdapterChat dataAdapterChat;
-    private String  ownerFirebaseUID, chatLocation, name, message, collabFirebaseID;
+    private String ownerFirebaseUID, chatLocation, name, message, collabFirebaseID;
     private List<String> chatMessageList = new ArrayList<>();
     private List<String> collabID = new ArrayList<>();
     private List<String> collabFirebaseUID = new ArrayList<>();
@@ -70,7 +69,7 @@ public class ChatFragment extends Fragment {
                 dataAdapterChat = new DataAdapterChat(getActivity(), chatUsersDetailsList, getContext());
                 recyclerViewChat.setAdapter(dataAdapterChat);
                 dataAdapterChat.notifyDataSetChanged();
-                dataAdapterChat.notifyItemChanged(chatUsersDetailsList.size()-1);
+                dataAdapterChat.notifyItemChanged(chatUsersDetailsList.size() - 1);
 
 
             }
@@ -99,7 +98,7 @@ public class ChatFragment extends Fragment {
 
                         for (DataSnapshot preSnapshpot : snapshot.getChildren()) {
 
-                            collabFirebaseUID .add(snapshot.getKey());
+                            collabFirebaseUID.add(snapshot.getKey());
 
                             chatLocation = snapshot.child("location").getValue().toString();
 
@@ -136,27 +135,27 @@ public class ChatFragment extends Fragment {
                                         chatUserDetails.setCollabFirebaseUID(collabFirebaseID);
 
                                         databaseReference.child("users").child(collabFirebaseID).child("credentials").addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                                        if (dataSnapshot.exists()) {
+                                                if (dataSnapshot.exists()) {
 
-                                                            name = dataSnapshot.child("firstName").getValue().toString() + " " + dataSnapshot.child("lastName").getValue().toString();
-                                                            chatUserDetails.setFullName(name);
+                                                    name = dataSnapshot.child("firstName").getValue().toString() + " " + dataSnapshot.child("lastName").getValue().toString();
+                                                    chatUserDetails.setFullName(name);
 
-                                                            chatUsersDetailsList.add(chatUserDetails);
-                                                            firebaseCallback.onCallBack(chatUsersDetailsList);
-
-                                                        }
-                                                    }
-
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                    chatUsersDetailsList.add(chatUserDetails);
+                                                    firebaseCallback.onCallBack(chatUsersDetailsList);
 
                                                 }
-                                            });
-                                        }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
                                     }
+                                }
 
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError databaseError) {

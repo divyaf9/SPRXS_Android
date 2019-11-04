@@ -54,6 +54,7 @@ public class DataAdapterChat extends RecyclerView.Adapter<DataAdapterChat.ViewHo
                 Intent intent = new Intent(v.getContext(), ChatActivity.class);
                 intent.putExtra("chatName", chatUserDetails.get(position).getFullName());
                 intent.putExtra("collabFirebaseUID", chatUserDetails.get(position).getCollabFirebaseUID());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
         });

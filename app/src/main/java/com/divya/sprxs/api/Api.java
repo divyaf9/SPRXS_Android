@@ -68,7 +68,7 @@ public interface Api {
             @Header("Authorization") String token
     );
 
-    @POST("/createProfile")
+    @POST("/createProfile_v2")
     Call<CreateProfileResponse> userSignup(
             @Body CreateProfileRequest createProfileRequest
     );

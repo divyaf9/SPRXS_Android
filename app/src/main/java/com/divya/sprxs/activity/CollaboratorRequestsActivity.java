@@ -65,7 +65,7 @@ public class CollaboratorRequestsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(CollaboratorRequestsActivity.this, HomeActivity.class);
+        Intent intent = new Intent(CollaboratorRequestsActivity.this, HomeScreenActivity.class);
         startActivity(intent);
         finish();
     }
